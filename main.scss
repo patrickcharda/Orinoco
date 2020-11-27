@@ -1,25 +1,44 @@
 
+* {
+    box-sizing: border-box;
+}
+.titres {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: rgb(36, 31, 31);
+}
 #divMeubles {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .divMeuble {
-        background-color: black;
-        color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
 }
 .divImgMeuble {
-        position: relative;
-        border: 2px solid white;
+    position: relative;
+    border: 2px solid white;
 }
 .lienImg {
-        position: absolute;
-        height: 100%;
-        width: 100%;
+    position: absolute;
+    height: 100%;
+    width: 100%;
 }
 .fitImg {
-        width: 300px;
-        height: 300px;
-        object-fit: cover;  
+    width: 300px;
+    height: 300px;
+    object-fit: cover;  
 }
 

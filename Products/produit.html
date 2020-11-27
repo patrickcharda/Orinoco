@@ -4,17 +4,22 @@
 	  <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="./../style.css">
-    <title>Orinoco Oak - Vente de meubles en chêne haut de gamme </title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Shrikhand&display=swap" rel="stylesheet"> 
+    <!--<link rel='shortcut icon' href='logos/favicon.ico'>-->
+    <script src="https://kit.fontawesome.com/8c9711250f.js" crossorigin="anonymous"></script>
+    <title>Orinoco Oak - Description meuble en chêne </title>
   </head>
   <body>  
     
     <div id="divDetailMeuble"></div>
     
-    <script type="text/javascript" src="./ajax.js"></script>
-    <script type="text/javascript" src="./display.js"></script>
+    <script type="text/javascript" src="./../ajax.js"></script>
+    <script type="text/javascript" src="./../display.js"></script>
     <script>
       let display = new Display();
-      display.displayMeuble();
+      let params = (new URL(document.location)).searchParams;
+      let furnitureId = params.get('id');
+      display.displayMeuble(furnitureId);
     </script>
   </body>
 </html>

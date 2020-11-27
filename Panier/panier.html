@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+	  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Shrikhand&display=swap" rel="stylesheet"> 
+    <!--<link rel='shortcut icon' href='logos/favicon.ico'>-->
+    <script src="https://kit.fontawesome.com/8c9711250f.js" crossorigin="anonymous"></script>
+    <title>Orinoco Oak - Panier </title>
+  </head>
+  <body>
+    <div id="panier">
+
+    </div>
+    <div id="order">
+        <form>
+            <label for="firstName">Prénom</label>
+            <input type="text" id="firstName" placehoder="Prénom">
+
+            <label for="lastName">Nom</label>
+            <input type="text" id="lastName" placehoder="Nom">
+
+            <label for="address">Adresse</label>
+            <input type="text" id="address" placehoder="98, rue des chênes">
+
+            <label for="city">Ville</label>
+            <input type="text" id="city" placehoder="Vannes">
+
+            <label for="email">Adresse de messagerie</label>
+            <input type="email" id="email" placehoder="clairedubois@orange.fr">
+
+            <label for="commander">Commander</label>
+            <input type="submit" id="commander" value="Commander">
+        </form>
+    </div>
+
+    <div id="divOrder"></div>
+
+    <script type="text/javascript" src="./../ajax.js"></script>
+    <script type="text/javascript" src="./../display.js"></script>
+    <script>
+      let display = new Display();
+      //let params = (new URL(document.location)).searchParams;
+      //let furnitureId = params.get('id');
+      //display.displayMeuble(furnitureId);
+      var contact = {
+          firstName: 'Paul',
+          lastName: 'Bert',
+          address: '16 rue Victor Hugo',
+          city: 'Rouen',
+          email: 'paulbert@free.fr'
+      }
+      var products = ["5beaae361c9d440000a57d99","5beab2061c9d440000a57d9b"];
+      const btnOrder = document.getElementById("commander");
+      btnOrder.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log(JSON.stringify(contact));
+        console.log(JSON.stringify(products));
+        display.displayOrder(contact,products);
+        });
+    </script>
+  </body>
+</html>
+  
