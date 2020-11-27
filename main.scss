@@ -1,5 +1,25 @@
-.fitImage {
+
+#divMeubles {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+}
+.divMeuble {
+        background-color: black;
+        color: white;
+}
+.divImgMeuble {
+        position: relative;
+        border: 2px solid white;
+}
+.lienImg {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+}
+.fitImg {
         width: 300px;
         height: 300px;
         object-fit: cover;  
 }
+
