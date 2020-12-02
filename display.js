@@ -47,20 +47,38 @@ class Display {
     }
 
     static ajouterProduit(id) {
-        
         //sessionStorage.setItem("product",id);
         //alert("test");
+        
         console.log(id);
-        Display.arrayPanierProducts.push(id);
+        //Display.arrayPanierProducts.push(id);
         if (Display.objetPanierProducts[`${id}`] == null) {
-            console.log('res : ' + `${id}`);
             Display.objetPanierProducts[`${id}`]=1;
+            sessionStorage.setItem([`${id}`],1);
+            const spanQte = document.getElementById('spanQte');
+            let quantite = parseInt(spanQte.textContent);
+            quantite ++;
+            alert(quantite);
+            console.log('id : ' + `${id}`);
+            console.log('storage : ' + sessionStorage.getItem(`${id}`));
+            spanQte.textContent = quantite;
         
         } else {
             Display.objetPanierProducts[`${id}`]+=1;
+            let qteInStorage = sessionStorage.getItem(`${id}`);
+            qteInStorage++;
+            sessionStorage.setItem(`${id}`,qteInStorage);
+            const spanQte = document.getElementById('spanQte');
+            let quantite = parseInt(spanQte.textContent);
+            quantite ++;
+            alert(quantite);
+            console.log('id : ' + `${id}`);
+            console.log('storage : ' + sessionStorage.getItem(`${id}`));
+            spanQte.textContent = quantite;
+
         }
         console.log('panier :' + Display.objetPanierProducts[id]);
-        console.log('panier :' + Display.arrayPanierProducts);
+        //console.log('panier :' + Display.arrayPanierProducts);
         //afficher nombre d'éléments de l'objet 
         var longueur =0;
         for(let key in Display.objetPanierProducts) {
@@ -70,8 +88,52 @@ class Display {
         //afficher l'object sous forme de tableau
         const tab = Object.entries(Display.objetPanierProducts);
         console.log(tab);
+    }
 
+    static retirerProduit(id) {
+        //sessionStorage.setItem("product",id);
+        //alert("test");
+        console.log(id);
+
+        if (Display.objetPanierProducts[`${id}`] == null) {
+            // on met à jour la span
+            const spanQte = document.getElementById('spanQte');
+            let quantite = parseInt(spanQte.textContent);
+            alert(quantite);
+            //console.log('res : ' + `${id}`);
+            spanQte.textContent = quantite;
         
+        } else if (Display.objetPanierProducts[`${id}`] == 1) {
+            //on remet à null cette clé;
+            Display.objetPanierProducts = [];
+            const spanQte = document.getElementById('spanQte');
+            let quantite = parseInt(spanQte.textContent);
+            if (quantite > 0) {
+                quantite --;
+            }
+            alert(quantite);
+            spanQte.textContent = quantite;
+        } else {
+            Display.objetPanierProducts[`${id}`] --;
+            const spanQte = document.getElementById('spanQte');
+            let quantite = parseInt(spanQte.textContent);
+            if (quantite > 0) {
+                quantite --;
+            }
+            alert(quantite);
+            spanQte.textContent = quantite;
+        }
+        console.log('panier :' + Display.objetPanierProducts[id]);
+        //console.log('panier :' + Display.arrayPanierProducts);
+        //afficher nombre d'éléments de l'objet 
+        var longueur =0;
+        for(let key in Display.objetPanierProducts) {
+            longueur+=1;
+        }
+        console.log(longueur);
+        //afficher l'object sous forme de tableau
+        const tab = Object.entries(Display.objetPanierProducts);
+        console.log(tab);
     }
 
     async displayMeuble(id) {
@@ -119,8 +181,31 @@ class Display {
             Display.ajouterProduit(detailMeuble._id);
         })
         this.divDetailMeuble.appendChild(btnAjout);
-    }
 
+        const spanPlus = document.createElement("span");
+        spanPlus.setAttribute("id","spanPlus");
+        spanPlus.textContent='+';
+        spanPlus.addEventListener('click', function(event) {
+            event.preventDefault();
+            Display.ajouterProduit(detailMeuble._id);
+        })
+        this.divDetailMeuble.appendChild(spanPlus);
+
+        const spanQte = document.createElement("span");
+        spanQte.setAttribute("id","spanQte");
+        spanQte.textContent=0;
+        this.divDetailMeuble.appendChild(spanQte);
+
+        const spanMoins = document.createElement("span");
+        spanMoins.setAttribute("id","spanMoins");
+        spanMoins.textContent = '-';
+        spanMoins.addEventListener('click',function(ev) {
+            ev.preventDefault();
+            Display.retirerProduit(detailMeuble._id);
+        })
+        this.divDetailMeuble.appendChild(spanMoins);
+        
+    }
 
     async getMeuble(id) {
         let detailMeuble = await Ajax.get("http://localhost:3000/api/furniture/"+id);

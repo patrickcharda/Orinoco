@@ -77,4 +77,17 @@ body {
   size: fit-cover;
 }
 
+#spanPlus, #spanMoins {
+  font-size: large;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#spanQte::before {
+  content: " ";
+}
+#spanQte::after {
+  content: " ";
+}
+
 /*# sourceMappingURL=style.css.map */
