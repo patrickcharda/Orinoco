@@ -10,7 +10,8 @@
     <title>Orinoco Oak - Panier </title>
   </head>
   <body>
-    <div id="panier">
+    <h1> Orinoco Oak - Vente de meubles en chêne </h1>
+    <div id="divPanierContent">
 
     </div>
     <div id="order">
@@ -44,21 +45,76 @@
       //let params = (new URL(document.location)).searchParams;
       //let furnitureId = params.get('id');
       //display.displayMeuble(furnitureId);
+
+      /*var product = display.returnAFurnitureObject("5beaae361c9d440000a57d99");
+      console.log(product);*/
+
+
       var contact = {
-          firstName: 'Paul',
-          lastName: 'Bert',
-          address: '16 rue Victor Hugo',
-          city: 'Rouen',
-          email: 'paulbert@free.fr'
+          "firstName": 'Paul',
+          "lastName": 'Bert',
+          "address": '16 rue Victor Hugo',
+          "city": 'Rouen',
+          "email": 'paulbert@free.fr'
       }
+      console.log(JSON.stringify(contact));
+
+      /*var getProduct = async() => {
+        var data = display.getMeuble("5beab2061c9d440000a57d9b");
+        return data;
+      } 
+      var product;
+      var products= []
+      getProduct().then(data => console.log(data));
+      product = getProduct().then(function(data) {
+          products.push(product);
+          console.log(products);
+      });*/
+
       var products = ["5beaae361c9d440000a57d99","5beab2061c9d440000a57d9b"];
+      
+      
+      //console.log(products);
+      var contactJSON = (JSON.stringify(contact));
+      var productsJSON = (JSON.stringify(products));
+      //var products = [product];
+      console.log(contactJSON);
+      console.log(productsJSON);
       const btnOrder = document.getElementById("commander");
-      btnOrder.addEventListener('click', function(e) {
+
+      var order = {"contact": {"firstName":"Paul","lastName":"Bert","address":"16 rue Victor Hugo","city":"Rouen","email":"paulbert@free.fr"
+        },"products":["5be9cc611c9d440000c1421e"]};
+        
+    
+      console.log(JSON.stringify(order));
+      
+      function afficheCommande(order) {
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+            if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+                var response = JSON.parse(this.responseText);
+                 //alert('echo');
+                console.log(response);
+                //resolve(response);        
+            } /*else {
+                console.log(this.status);
+                console.log('psschittt');
+            }*/
+        };
+        //console.log(params[0] + ' param0');
+        request.open("POST", "http://localhost:3000/api/furniture/order");
+        request.setRequestHeader("Content-Type", "application/json");
+        //request.setRequestHeader("Accept-Language", "*");
+        request.send(order);
+      }
+
+        btnOrder.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        console.log(JSON.stringify(contact));
-        console.log(JSON.stringify(products));
-        display.displayOrder(contact,products);
+        //console.log(JSON.stringify(contact));
+        //alert('toto');
+        afficheCommande(order);
+        //display.displayOrder(contactJSON, productsJSON);
         });
     </script>
   </body>
