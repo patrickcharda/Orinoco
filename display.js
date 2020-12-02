@@ -7,12 +7,8 @@ class Display {
     }
     
     // Static properties shared by all instances
-    static arrayPanierProducts =[];
-    static objetPanierProducts = {};
-
-    /*static staticMethod() {
-    console.log(this.staticPanierProducts);
-    }*/
+    static arrayPanierTousMeubles =[];
+    static objetPanierMeubles = {};
   
     async displayMeubles() {
         let listeMeubles = await Ajax.get("http://localhost:3000/api/furniture/");
@@ -21,6 +17,17 @@ class Display {
         //items.setAttribute("id", "divListeMeubles");
 
         for (let meuble of listeMeubles) {
+
+            if (sessionStorage.getItem(meuble._id) == undefined) {
+                //console.log('echo');
+                sessionStorage.setItem(meuble._id,0);
+                
+                if (sessionStorage.getItem(meuble._id) == 0) {
+                    console.log(`sessionStorage du meuble ${meuble.name} initialisée`);
+                }
+            }
+
+
     
             const item = document.createElement("div");
             item.setAttribute("class", "divMeuble");
@@ -46,56 +53,68 @@ class Display {
         };
     }
 
-    static ajouterProduit(id) {
+    static ajouterMeuble(id) {
         //sessionStorage.setItem("product",id);
         //alert("test");
         
         console.log(id);
         //Display.arrayPanierProducts.push(id);
-        if (Display.objetPanierProducts[`${id}`] == null) {
-            Display.objetPanierProducts[`${id}`]=1;
+        if (Display.objetPanierMeubles[`${id}`] == null) {
+            Display.objetPanierMeubles[`${id}`]= 1;
+            const divMeubleOptions = document.getElementById("meubleOptions");
+            Display.objetPanierMeubles['varnishes']= [];
+            Display.objetPanierMeubles['varnishes'].push(divMeubleOptions.options[divMeubleOptions.selectedIndex].value);
             sessionStorage.setItem([`${id}`],1);
+            sessionStorage.setItem(`${divMeubleOptions.options[divMeubleOptions.selectedIndex].value}`, 1);
             const spanQte = document.getElementById('spanQte');
             let quantite = parseInt(spanQte.textContent);
             quantite ++;
             alert(quantite);
             console.log('id : ' + `${id}`);
-            console.log('storage : ' + sessionStorage.getItem(`${id}`));
+            console.log('storage : ' + sessionStorage.getItem(`${id}`) + ' ' + sessionStorage.getItem(`${divMeubleOptions.options[divMeubleOptions.selectedIndex].value}`));
             spanQte.textContent = quantite;
+            console.log(Display.objetPanierMeubles);
         
         } else {
-            Display.objetPanierProducts[`${id}`]+=1;
+            Display.objetPanierMeubles[`${id}`]+=1;
+            const divMeubleOptions = document.getElementById("meubleOptions");
+            Display.objetPanierMeubles['varnishes'].push([divMeubleOptions.options[divMeubleOptions.selectedIndex].value]);
             let qteInStorage = sessionStorage.getItem(`${id}`);
             qteInStorage++;
             sessionStorage.setItem(`${id}`,qteInStorage);
+            let qteSpecificVarnishInStorage = sessionStorage.getItem(`${divMeubleOptions.options[divMeubleOptions.selectedIndex].value}`);
+            qteSpecificVarnishInStorage++;
+            sessionStorage.setItem(`${divMeubleOptions.options[divMeubleOptions.selectedIndex].value}`,qteSpecificVarnishInStorage);
             const spanQte = document.getElementById('spanQte');
             let quantite = parseInt(spanQte.textContent);
             quantite ++;
             alert(quantite);
             console.log('id : ' + `${id}`);
-            console.log('storage : ' + sessionStorage.getItem(`${id}`));
+            console.log('qte ce pdt ds le panier : ' + sessionStorage.getItem(`${id}`));
+            console.log('qte ce vernis : ' + sessionStorage.getItem(`${divMeubleOptions.options[divMeubleOptions.selectedIndex].value}`));
             spanQte.textContent = quantite;
+            //console.log(Display.objetPanierMeubles);
 
         }
-        console.log('panier :' + Display.objetPanierProducts[id]);
+        console.log('panier :' + Display.objetPanierMeubles[id]);
         //console.log('panier :' + Display.arrayPanierProducts);
         //afficher nombre d'éléments de l'objet 
         var longueur =0;
-        for(let key in Display.objetPanierProducts) {
+        for(let key in Display.objetPanierMeubles) {
             longueur+=1;
         }
         console.log(longueur);
         //afficher l'object sous forme de tableau
-        const tab = Object.entries(Display.objetPanierProducts);
+        const tab = Object.entries(Display.objetPanierMeubles);
         console.log(tab);
     }
 
-    static retirerProduit(id) {
+    static retirerMeuble(id) {
         //sessionStorage.setItem("product",id);
         //alert("test");
         console.log(id);
 
-        if (Display.objetPanierProducts[`${id}`] == null) {
+        if (Display.objetPanierMeubles[`${id}`] == null) {
             // on met à jour la span
             const spanQte = document.getElementById('spanQte');
             let quantite = parseInt(spanQte.textContent);
@@ -103,9 +122,12 @@ class Display {
             //console.log('res : ' + `${id}`);
             spanQte.textContent = quantite;
         
-        } else if (Display.objetPanierProducts[`${id}`] == 1) {
+        } else if (Display.objetPanierMeubles[`${id}`] == 1) {
+            // nettoyer les storages
+            sessionStorage.getItem(`${id}`);
+            alert(Display.objetPanierMeubles[`${id}`]);
             //on remet à null cette clé;
-            Display.objetPanierProducts = [];
+            Display.objetPanierMeubles = [];
             const spanQte = document.getElementById('spanQte');
             let quantite = parseInt(spanQte.textContent);
             if (quantite > 0) {
@@ -114,7 +136,8 @@ class Display {
             alert(quantite);
             spanQte.textContent = quantite;
         } else {
-            Display.objetPanierProducts[`${id}`] --;
+            Display.objetPanierMeubles[`${id}`] --;
+            Display.objetPanierMeubles['varnishes'].pop();
             const spanQte = document.getElementById('spanQte');
             let quantite = parseInt(spanQte.textContent);
             if (quantite > 0) {
@@ -123,17 +146,25 @@ class Display {
             alert(quantite);
             spanQte.textContent = quantite;
         }
-        console.log('panier :' + Display.objetPanierProducts[id]);
+        console.log('panier :' + Display.objetPanierMeubles[id]);
         //console.log('panier :' + Display.arrayPanierProducts);
         //afficher nombre d'éléments de l'objet 
         var longueur =0;
-        for(let key in Display.objetPanierProducts) {
+        for(let key in Display.objetPanierMeubles) {
             longueur+=1;
         }
         console.log(longueur);
         //afficher l'object sous forme de tableau
-        const tab = Object.entries(Display.objetPanierProducts);
+        const tab = Object.entries(Display.objetPanierMeubles);
         console.log(tab);
+    }
+
+    static majTableauDuPanier(id) {
+        for (let i in Display.arrayPanierTousMeubles) {
+            if (Display.arrayPanierTousMeubles[i] == id) {
+                //faire qqchose
+            }
+        }
     }
 
     async displayMeuble(id) {
@@ -163,22 +194,28 @@ class Display {
         this.divDetailMeuble.appendChild(item);
 
         if (detailMeuble.varnish.length > 0) {
-            const divProductOptions = document.createElement("select");
-            divProductOptions.setAttribute("class","productOptions");
-            divProductOptions.setAttribute("name","productOptions");
+            const divMeubleOptions = document.createElement("select");
+            divMeubleOptions.setAttribute("id","meubleOptions");
+            divMeubleOptions.setAttribute("name","meubleOptions");
             var option='';
             for (let i=0;i<detailMeuble.varnish.length;i++) {
-                option += '<option>' + detailMeuble.varnish[i];
+                if (i == 0) {
+                    option += '<option selected>' + detailMeuble.varnish[i];
+                }
+                else {
+                    option += '<option>' + detailMeuble.varnish[i];
+                };
             }
-            divProductOptions.innerHTML = option;
-            this.divDetailMeuble.appendChild(divProductOptions);        
+            divMeubleOptions.innerHTML = option;
+            console.log(divMeubleOptions.options[divMeubleOptions.selectedIndex].value);
+            this.divDetailMeuble.appendChild(divMeubleOptions);        
         }
 
         const btnAjout = document.createElement("button");
         btnAjout.innerHTML = 'Ajouter au panier';
         btnAjout.addEventListener('click', function(event) {
             event.preventDefault();
-            Display.ajouterProduit(detailMeuble._id);
+            Display.ajouterMeuble(detailMeuble._id);
         })
         this.divDetailMeuble.appendChild(btnAjout);
 
@@ -187,7 +224,7 @@ class Display {
         spanPlus.textContent='+';
         spanPlus.addEventListener('click', function(event) {
             event.preventDefault();
-            Display.ajouterProduit(detailMeuble._id);
+            Display.ajouterMeuble(detailMeuble._id);
         })
         this.divDetailMeuble.appendChild(spanPlus);
 
@@ -201,9 +238,11 @@ class Display {
         spanMoins.textContent = '-';
         spanMoins.addEventListener('click',function(ev) {
             ev.preventDefault();
-            Display.retirerProduit(detailMeuble._id);
+            Display.retirerMeuble(detailMeuble._id);
         })
         this.divDetailMeuble.appendChild(spanMoins);
+
+        Display.majTableauDuPanier(detailMeuble._id);
         
     }
 
