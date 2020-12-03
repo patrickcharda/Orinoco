@@ -9,26 +9,16 @@ class Display {
     // Static properties shared by all instances
     static arrayPanierTousMeubles =[];
     static objetPanierMeubles = {};
+    static arrayPannierMeubles = [];
   
     async displayMeubles() {
         let listeMeubles = await Ajax.get("http://localhost:3000/api/furniture/");
-        console.log(listeMeubles);
+        //console.log(listeMeubles);
         //const items = document.createElement("div");
         //items.setAttribute("id", "divListeMeubles");
 
         for (let meuble of listeMeubles) {
 
-            if (sessionStorage.getItem(meuble._id) == undefined) {
-                //console.log('echo');
-                sessionStorage.setItem(meuble._id,0);
-                
-                if (sessionStorage.getItem(meuble._id) == 0) {
-                    console.log(`sessionStorage du meuble ${meuble.name} initialisée`);
-                }
-            }
-
-
-    
             const item = document.createElement("div");
             item.setAttribute("class", "divMeuble");
             item.innerHTML = meuble._id + ' , ' + meuble.name + ' , ' + meuble.price + '<br>' + meuble.description + '<br><br>';
@@ -54,65 +44,85 @@ class Display {
     }
 
     static ajouterMeuble(id) {
-        //sessionStorage.setItem("product",id);
-        //alert("test");
         
-        console.log(id);
-        //Display.arrayPanierProducts.push(id);
+        const divMeubleOptions = document.getElementById("meubleOptions");
+        let furniture = {id:`${id}`,varnish: divMeubleOptions.options[divMeubleOptions.selectedIndex].value};
+        console.log(furniture);
+        Display.arrayPannierMeubles.push(furniture);
+        console.log(Display.arrayPannierMeubles);
+        
+        //console.log(id);
         if (Display.objetPanierMeubles[`${id}`] == null) {
+
             Display.objetPanierMeubles[`${id}`]= 1;
-            const divMeubleOptions = document.getElementById("meubleOptions");
-            Display.objetPanierMeubles['varnishes']= [];
-            Display.objetPanierMeubles['varnishes'].push(divMeubleOptions.options[divMeubleOptions.selectedIndex].value);
-            sessionStorage.setItem([`${id}`],1);
-            sessionStorage.setItem(`${divMeubleOptions.options[divMeubleOptions.selectedIndex].value}`, 1);
+            /*const divMeubleOptions = document.getElementById("meubleOptions");
+            Display.objetPanierMeubles.varnishes =[];
+            Display.objetPanierMeubles.varnishes.push(divMeubleOptions.options[divMeubleOptions.selectedIndex].value);*/
+
+            /*let furniture = {id:`${id}`,varnish: divMeubleOptions.options[divMeubleOptions.selectedIndex].value};
+            console.log(furniture);
+            Display.arrayPannierMeubles.push(furniture);
+            console.log(Display.arrayPannierMeubles);*/
+
+            /*sessionStorage.setItem([`${id}`],1);
+            sessionStorage.setItem(`${divMeubleOptions.options[divMeubleOptions.selectedIndex].value}`, 1);*/
             const spanQte = document.getElementById('spanQte');
             let quantite = parseInt(spanQte.textContent);
             quantite ++;
             alert(quantite);
-            console.log('id : ' + `${id}`);
-            console.log('storage : ' + sessionStorage.getItem(`${id}`) + ' ' + sessionStorage.getItem(`${divMeubleOptions.options[divMeubleOptions.selectedIndex].value}`));
+            //console.log('id : ' + `${id}`);
+            //console.log('storage : ' + sessionStorage.getItem(`${id}`) + ' ' + sessionStorage.getItem(`${divMeubleOptions.options[divMeubleOptions.selectedIndex].value}`));
             spanQte.textContent = quantite;
             console.log(Display.objetPanierMeubles);
         
         } else {
             Display.objetPanierMeubles[`${id}`]+=1;
-            const divMeubleOptions = document.getElementById("meubleOptions");
-            Display.objetPanierMeubles['varnishes'].push([divMeubleOptions.options[divMeubleOptions.selectedIndex].value]);
-            let qteInStorage = sessionStorage.getItem(`${id}`);
-            qteInStorage++;
-            sessionStorage.setItem(`${id}`,qteInStorage);
+            /*const divMeubleOptions = document.getElementById("meubleOptions");
+            Display.objetPanierMeubles['varnishes'].push([divMeubleOptions.options[divMeubleOptions.selectedIndex].value]);*/
+            /*let qteInStorage = sessionStorage.getItem(`${id}`);
+            qteInStorage++;*/
+
+            /*let furniture = {id:`${id}`,varnish: divMeubleOptions.options[divMeubleOptions.selectedIndex].value};
+            console.log(furniture);
+            Display.arrayPannierMeubles.push(furniture);
+            console.log(Display.arrayPannierMeubles);*/
+
+            /*sessionStorage.setItem(`${id}`,qteInStorage);
             let qteSpecificVarnishInStorage = sessionStorage.getItem(`${divMeubleOptions.options[divMeubleOptions.selectedIndex].value}`);
             qteSpecificVarnishInStorage++;
-            sessionStorage.setItem(`${divMeubleOptions.options[divMeubleOptions.selectedIndex].value}`,qteSpecificVarnishInStorage);
+            sessionStorage.setItem(`${divMeubleOptions.options[divMeubleOptions.selectedIndex].value}`,qteSpecificVarnishInStorage);*/
+
             const spanQte = document.getElementById('spanQte');
             let quantite = parseInt(spanQte.textContent);
             quantite ++;
             alert(quantite);
-            console.log('id : ' + `${id}`);
-            console.log('qte ce pdt ds le panier : ' + sessionStorage.getItem(`${id}`));
-            console.log('qte ce vernis : ' + sessionStorage.getItem(`${divMeubleOptions.options[divMeubleOptions.selectedIndex].value}`));
+            //console.log('id : ' + `${id}`);
+            /*console.log('qte ce pdt ds le panier : ' + sessionStorage.getItem(`${id}`));
+            console.log('qte ce vernis : ' + sessionStorage.getItem(`${divMeubleOptions.options[divMeubleOptions.selectedIndex].value}`));*/
             spanQte.textContent = quantite;
-            //console.log(Display.objetPanierMeubles);
+            console.log(Display.objetPanierMeubles);
 
         }
-        console.log('panier :' + Display.objetPanierMeubles[id]);
+        //console.log('panier :' + Display.objetPanierMeubles[id]);
         //console.log('panier :' + Display.arrayPanierProducts);
         //afficher nombre d'éléments de l'objet 
-        var longueur =0;
+        /*var longueur =0;
         for(let key in Display.objetPanierMeubles) {
             longueur+=1;
         }
         console.log(longueur);
         //afficher l'object sous forme de tableau
         const tab = Object.entries(Display.objetPanierMeubles);
-        console.log(tab);
+        console.log(tab);*/
     }
 
     static retirerMeuble(id) {
         //sessionStorage.setItem("product",id);
         //alert("test");
-        console.log(id);
+        if (Display.arrayPannierMeubles.length > 0) {
+            Display.arrayPannierMeubles.pop();
+            console.log(Display.arrayPannierMeubles);
+        }
 
         if (Display.objetPanierMeubles[`${id}`] == null) {
             // on met à jour la span
@@ -124,8 +134,9 @@ class Display {
         
         } else if (Display.objetPanierMeubles[`${id}`] == 1) {
             // nettoyer les storages
-            sessionStorage.getItem(`${id}`);
-            alert(Display.objetPanierMeubles[`${id}`]);
+            /*sessionStorage.getItem(`${id}`);
+            alert(Display.objetPanierMeubles[`${id}`]);*/
+
             //on remet à null cette clé;
             Display.objetPanierMeubles = [];
             const spanQte = document.getElementById('spanQte');
@@ -137,7 +148,7 @@ class Display {
             spanQte.textContent = quantite;
         } else {
             Display.objetPanierMeubles[`${id}`] --;
-            Display.objetPanierMeubles['varnishes'].pop();
+            //Display.objetPanierMeubles['varnishes'].pop();
             const spanQte = document.getElementById('spanQte');
             let quantite = parseInt(spanQte.textContent);
             if (quantite > 0) {
@@ -145,8 +156,9 @@ class Display {
             }
             alert(quantite);
             spanQte.textContent = quantite;
+            console.log(Display.objetPanierMeubles);
         }
-        console.log('panier :' + Display.objetPanierMeubles[id]);
+        /*console.log('panier :' + Display.objetPanierMeubles[id]);
         //console.log('panier :' + Display.arrayPanierProducts);
         //afficher nombre d'éléments de l'objet 
         var longueur =0;
@@ -156,7 +168,7 @@ class Display {
         console.log(longueur);
         //afficher l'object sous forme de tableau
         const tab = Object.entries(Display.objetPanierMeubles);
-        console.log(tab);
+        console.log(tab);*/
     }
 
     static majTableauDuPanier(id) {
@@ -193,6 +205,7 @@ class Display {
         item.appendChild(divImgMeuble);
         this.divDetailMeuble.appendChild(item);
 
+        // aficher les vernis
         if (detailMeuble.varnish.length > 0) {
             const divMeubleOptions = document.createElement("select");
             divMeubleOptions.setAttribute("id","meubleOptions");
