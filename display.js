@@ -4,19 +4,18 @@ class Display {
         this.divDetailMeuble = document.getElementById("divDetailMeuble");
         this.divOrder = document.getElementById("divOrder");
         this.divPanier = document.getElementById("divPanier");
-        this.arrayPanierTousMeubles =[];
         this.objetPanierMeubles = {};
-        this.arrayPannierMeubles = [];
+        this.arrayPanierMeubles = [];
+        this.panier = new Panier();
+        this.panier.createFurnituresArray();
     }
-    
-    // Static properties shared by all instances
-    
   
     async displayMeubles() {
         let listeMeubles = await Ajax.get("http://localhost:3000/api/furniture/");
         //console.log(listeMeubles);
         //const items = document.createElement("div");
         //items.setAttribute("id", "divListeMeubles");
+        console.log(this.panier.arrayFurnitures);
 
         for (let meuble of listeMeubles) {
 
@@ -49,83 +48,45 @@ class Display {
         const divMeubleOptions = document.getElementById("meubleOptions");
         let furniture = {id:`${id}`,varnish: divMeubleOptions.options[divMeubleOptions.selectedIndex].value};
         console.log(furniture);
-        this.arrayPannierMeubles.push(furniture);
-        console.log(this.arrayPannierMeubles);
-        let jsonPanier = JSON.stringify(this.arrayPannierMeubles);
+        this.arrayPanierMeubles.push(furniture);
+
+        this.panier.appendFurniture(furniture);
+        console.log(this.panier.arrayFurnitures);
+
+        console.log(this.arrayPanierMeubles);
+        let jsonPanier = JSON.stringify(this.arrayPanierMeubles);
         console.log(jsonPanier);
         sessionStorage.setItem("panier", jsonPanier);
         
         //console.log(id);
         if (this.objetPanierMeubles[`${id}`] == null) {
-
             this.objetPanierMeubles[`${id}`]= 1;
-            /*const divMeubleOptions = document.getElementById("meubleOptions");
-            Display.objetPanierMeubles.varnishes =[];
-            Display.objetPanierMeubles.varnishes.push(divMeubleOptions.options[divMeubleOptions.selectedIndex].value);*/
-
-            /*let furniture = {id:`${id}`,varnish: divMeubleOptions.options[divMeubleOptions.selectedIndex].value};
-            console.log(furniture);
-            Display.arrayPannierMeubles.push(furniture);
-            console.log(Display.arrayPannierMeubles);*/
-
-            /*sessionStorage.setItem([`${id}`],1);
-            sessionStorage.setItem(`${divMeubleOptions.options[divMeubleOptions.selectedIndex].value}`, 1);*/
             const spanQte = document.getElementById('spanQte');
             let quantite = parseInt(spanQte.textContent);
             quantite ++;
-            alert(quantite);
-            //console.log('id : ' + `${id}`);
-            //console.log('storage : ' + sessionStorage.getItem(`${id}`) + ' ' + sessionStorage.getItem(`${divMeubleOptions.options[divMeubleOptions.selectedIndex].value}`));
+            //alert(quantite);
             spanQte.textContent = quantite;
             console.log(this.objetPanierMeubles);
         
         } else {
             this.objetPanierMeubles[`${id}`]+=1;
-            /*const divMeubleOptions = document.getElementById("meubleOptions");
-            Display.objetPanierMeubles['varnishes'].push([divMeubleOptions.options[divMeubleOptions.selectedIndex].value]);*/
-            /*let qteInStorage = sessionStorage.getItem(`${id}`);
-            qteInStorage++;*/
-
-            /*let furniture = {id:`${id}`,varnish: divMeubleOptions.options[divMeubleOptions.selectedIndex].value};
-            console.log(furniture);
-            Display.arrayPannierMeubles.push(furniture);
-            console.log(Display.arrayPannierMeubles);*/
-
-            /*sessionStorage.setItem(`${id}`,qteInStorage);
-            let qteSpecificVarnishInStorage = sessionStorage.getItem(`${divMeubleOptions.options[divMeubleOptions.selectedIndex].value}`);
-            qteSpecificVarnishInStorage++;
-            sessionStorage.setItem(`${divMeubleOptions.options[divMeubleOptions.selectedIndex].value}`,qteSpecificVarnishInStorage);*/
-
             const spanQte = document.getElementById('spanQte');
             let quantite = parseInt(spanQte.textContent);
             quantite ++;
-            alert(quantite);
-            //console.log('id : ' + `${id}`);
-            /*console.log('qte ce pdt ds le panier : ' + sessionStorage.getItem(`${id}`));
-            console.log('qte ce vernis : ' + sessionStorage.getItem(`${divMeubleOptions.options[divMeubleOptions.selectedIndex].value}`));*/
+            //alert(quantite);
+
             spanQte.textContent = quantite;
             console.log(this.objetPanierMeubles);
 
         }
-        //console.log('panier :' + Display.objetPanierMeubles[id]);
-        //console.log('panier :' + Display.arrayPanierProducts);
-        //afficher nombre d'éléments de l'objet 
-        /*var longueur =0;
-        for(let key in Display.objetPanierMeubles) {
-            longueur+=1;
-        }
-        console.log(longueur);
-        //afficher l'object sous forme de tableau
-        const tab = Object.entries(Display.objetPanierMeubles);
-        console.log(tab);*/
     }
 
     retirerMeuble(id) {
         //sessionStorage.setItem("product",id);
         //alert("test");
-        if (this.arrayPannierMeubles.length > 0) {
-            this.arrayPannierMeubles.pop();
-            console.log(this.arrayPannierMeubles);
+        if (this.arrayPanierMeubles.length > 0) {
+            this.arrayPanierMeubles.pop();
+            console.log(this.arrayPanierMeubles);
         }
 
         if (this.objetPanierMeubles[`${id}`] == null) {
@@ -162,26 +123,17 @@ class Display {
             spanQte.textContent = quantite;
             console.log(this.objetPanierMeubles);
         }
-        /*console.log('panier :' + Display.objetPanierMeubles[id]);
-        //console.log('panier :' + Display.arrayPanierProducts);
-        //afficher nombre d'éléments de l'objet 
-        var longueur =0;
-        for(let key in Display.objetPanierMeubles) {
-            longueur+=1;
-        }
-        console.log(longueur);
-        //afficher l'object sous forme de tableau
-        const tab = Object.entries(Display.objetPanierMeubles);
-        console.log(tab);*/
+
     }
-
-
 
     async displayMeuble(id) {
 
+
+        console.log(this.panier.arrayFurnitures);
+
         let detailMeuble = await Ajax.get("http://localhost:3000/api/furniture/"+id);
+
         console.log(detailMeuble);
-        //this.divDetailMeuble.textContent = detailMeuble;
         const item = document.createElement("div");
         item.setAttribute("class", "divMeuble");
         item.innerHTML = detailMeuble._id + ' , ' + detailMeuble.name + ' , ' + detailMeuble.price + '<br>' + detailMeuble.description + '<br><br>';
@@ -230,6 +182,15 @@ class Display {
         }.bind(this))
         this.divDetailMeuble.appendChild(btnAjout);
 
+         //si ce meuble est déjà au panier on affiche combien d'article sont présents au panier
+         let qteInCart = this.panier.quantiteOfAFurniture(detailMeuble._id);
+         if (qteInCart > 0) {
+             const divQteInCart = document.createElement("div");
+             divQteInCart.textContent = `${qteInCart} unités de ce meuble déjà au panier`;
+             btnAjout.insertAdjacentElement('afterend',divQteInCart);
+         }
+         
+
         const spanPlus = document.createElement("span");
         spanPlus.setAttribute("id","spanPlus");
         spanPlus.textContent='+';
@@ -252,38 +213,14 @@ class Display {
             this.retirerMeuble(detailMeuble._id);
         }.bind(this))
         this.divDetailMeuble.appendChild(spanMoins);
-
-        //majTableauDuPanier(detailMeuble._id);
         
     }
 
-    async getMeuble(id) {
-        let detailMeuble = await Ajax.get("http://localhost:3000/api/furniture/"+id);
-        console.log(detailMeuble);
-        var meuble = {
-            "varnish": ["Dark Oak","Mahogany"],
-            "_id": detailMeuble._id,
-            "name": detailMeuble.name,
-            "price": detailMeuble.price,
-            "description": detailMeuble.description,
-            "imageURL": detailMeuble.imageUrl
-        };
-        console.log(meuble);
-        return meuble;
-    }
-
-
-    async displayOrder(contact, products) {
+    /*async displayOrder(contact, products) {
         const params=[contact, products];
         console.log(params);
         var detailOrder = await Ajax.post("http://localhost:3000/api/furniture/order", contact, products);
         console.log(detailOrder);
-    }
-
-    /*async returnAFurnitureObject(id) {
-        let detailMeuble = await Ajax.get("http://localhost:3000/api/furniture/"+id);
-        //console.log(detailMeuble);
-        return detailMeuble.description;
     }*/
 
   }

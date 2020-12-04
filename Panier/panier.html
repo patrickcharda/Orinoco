@@ -35,11 +35,15 @@
             <input type="submit" id="commander" value="Commander">
         </form>
     </div>
+   
+    <a href="./../index.html">accueil</a>
 
     <div id="divOrder"></div>
 
     <script type="text/javascript" src="./../ajax.js"></script>
     <script type="text/javascript" src="./../display.js"></script>
+    <script type="text/javascript" src="./../panier.js"></script>
+
     <script>
       let display = new Display();
       //let params = (new URL(document.location)).searchParams;
@@ -49,7 +53,7 @@
       /*var product = display.returnAFurnitureObject("5beaae361c9d440000a57d99");
       console.log(product);*/
 
-
+      /*
       var contact = {
           "firstName": 'Paul',
           "lastName": 'Bert',
@@ -71,15 +75,15 @@
           console.log(products);
       });*/
 
-      var products = ["5beaae361c9d440000a57d99","5beab2061c9d440000a57d9b"];
-      
+      /*var products = ["5beaae361c9d440000a57d99","5beab2061c9d440000a57d9b"];
+      */
       
       //console.log(products);
-      var contactJSON = (JSON.stringify(contact));
+      /*var contactJSON = (JSON.stringify(contact));
       var productsJSON = (JSON.stringify(products));
       //var products = [product];
       console.log(contactJSON);
-      console.log(productsJSON);
+      console.log(productsJSON);*/
       const btnOrder = document.getElementById("commander");
 
       var order = {"contact": {"firstName":"Paul","lastName":"Bert","address":"16 rue Victor Hugo","city":"Rouen","email":"paulbert@free.fr"
