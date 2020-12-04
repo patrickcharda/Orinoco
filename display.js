@@ -4,12 +4,13 @@ class Display {
         this.divDetailMeuble = document.getElementById("divDetailMeuble");
         this.divOrder = document.getElementById("divOrder");
         this.divPanier = document.getElementById("divPanier");
+        this.arrayPanierTousMeubles =[];
+        this.objetPanierMeubles = {};
+        this.arrayPannierMeubles = [];
     }
     
     // Static properties shared by all instances
-    static arrayPanierTousMeubles =[];
-    static objetPanierMeubles = {};
-    static arrayPannierMeubles = [];
+    
   
     async displayMeubles() {
         let listeMeubles = await Ajax.get("http://localhost:3000/api/furniture/");
@@ -43,18 +44,21 @@ class Display {
         };
     }
 
-    static ajouterMeuble(id) {
+    ajouterMeuble(id) {
         
         const divMeubleOptions = document.getElementById("meubleOptions");
         let furniture = {id:`${id}`,varnish: divMeubleOptions.options[divMeubleOptions.selectedIndex].value};
         console.log(furniture);
-        Display.arrayPannierMeubles.push(furniture);
-        console.log(Display.arrayPannierMeubles);
+        this.arrayPannierMeubles.push(furniture);
+        console.log(this.arrayPannierMeubles);
+        let jsonPanier = JSON.stringify(this.arrayPannierMeubles);
+        console.log(jsonPanier);
+        sessionStorage.setItem("panier", jsonPanier);
         
         //console.log(id);
-        if (Display.objetPanierMeubles[`${id}`] == null) {
+        if (this.objetPanierMeubles[`${id}`] == null) {
 
-            Display.objetPanierMeubles[`${id}`]= 1;
+            this.objetPanierMeubles[`${id}`]= 1;
             /*const divMeubleOptions = document.getElementById("meubleOptions");
             Display.objetPanierMeubles.varnishes =[];
             Display.objetPanierMeubles.varnishes.push(divMeubleOptions.options[divMeubleOptions.selectedIndex].value);*/
@@ -73,10 +77,10 @@ class Display {
             //console.log('id : ' + `${id}`);
             //console.log('storage : ' + sessionStorage.getItem(`${id}`) + ' ' + sessionStorage.getItem(`${divMeubleOptions.options[divMeubleOptions.selectedIndex].value}`));
             spanQte.textContent = quantite;
-            console.log(Display.objetPanierMeubles);
+            console.log(this.objetPanierMeubles);
         
         } else {
-            Display.objetPanierMeubles[`${id}`]+=1;
+            this.objetPanierMeubles[`${id}`]+=1;
             /*const divMeubleOptions = document.getElementById("meubleOptions");
             Display.objetPanierMeubles['varnishes'].push([divMeubleOptions.options[divMeubleOptions.selectedIndex].value]);*/
             /*let qteInStorage = sessionStorage.getItem(`${id}`);
@@ -100,7 +104,7 @@ class Display {
             /*console.log('qte ce pdt ds le panier : ' + sessionStorage.getItem(`${id}`));
             console.log('qte ce vernis : ' + sessionStorage.getItem(`${divMeubleOptions.options[divMeubleOptions.selectedIndex].value}`));*/
             spanQte.textContent = quantite;
-            console.log(Display.objetPanierMeubles);
+            console.log(this.objetPanierMeubles);
 
         }
         //console.log('panier :' + Display.objetPanierMeubles[id]);
@@ -116,15 +120,15 @@ class Display {
         console.log(tab);*/
     }
 
-    static retirerMeuble(id) {
+    retirerMeuble(id) {
         //sessionStorage.setItem("product",id);
         //alert("test");
-        if (Display.arrayPannierMeubles.length > 0) {
-            Display.arrayPannierMeubles.pop();
-            console.log(Display.arrayPannierMeubles);
+        if (this.arrayPannierMeubles.length > 0) {
+            this.arrayPannierMeubles.pop();
+            console.log(this.arrayPannierMeubles);
         }
 
-        if (Display.objetPanierMeubles[`${id}`] == null) {
+        if (this.objetPanierMeubles[`${id}`] == null) {
             // on met à jour la span
             const spanQte = document.getElementById('spanQte');
             let quantite = parseInt(spanQte.textContent);
@@ -132,13 +136,13 @@ class Display {
             //console.log('res : ' + `${id}`);
             spanQte.textContent = quantite;
         
-        } else if (Display.objetPanierMeubles[`${id}`] == 1) {
+        } else if (this.objetPanierMeubles[`${id}`] == 1) {
             // nettoyer les storages
             /*sessionStorage.getItem(`${id}`);
             alert(Display.objetPanierMeubles[`${id}`]);*/
 
             //on remet à null cette clé;
-            Display.objetPanierMeubles = [];
+            this.objetPanierMeubles = [];
             const spanQte = document.getElementById('spanQte');
             let quantite = parseInt(spanQte.textContent);
             if (quantite > 0) {
@@ -147,7 +151,7 @@ class Display {
             alert(quantite);
             spanQte.textContent = quantite;
         } else {
-            Display.objetPanierMeubles[`${id}`] --;
+            this.objetPanierMeubles[`${id}`] --;
             //Display.objetPanierMeubles['varnishes'].pop();
             const spanQte = document.getElementById('spanQte');
             let quantite = parseInt(spanQte.textContent);
@@ -156,7 +160,7 @@ class Display {
             }
             alert(quantite);
             spanQte.textContent = quantite;
-            console.log(Display.objetPanierMeubles);
+            console.log(this.objetPanierMeubles);
         }
         /*console.log('panier :' + Display.objetPanierMeubles[id]);
         //console.log('panier :' + Display.arrayPanierProducts);
@@ -171,13 +175,7 @@ class Display {
         console.log(tab);*/
     }
 
-    static majTableauDuPanier(id) {
-        for (let i in Display.arrayPanierTousMeubles) {
-            if (Display.arrayPanierTousMeubles[i] == id) {
-                //faire qqchose
-            }
-        }
-    }
+
 
     async displayMeuble(id) {
 
@@ -228,8 +226,8 @@ class Display {
         btnAjout.innerHTML = 'Ajouter au panier';
         btnAjout.addEventListener('click', function(event) {
             event.preventDefault();
-            Display.ajouterMeuble(detailMeuble._id);
-        })
+            this.ajouterMeuble(detailMeuble._id);
+        }.bind(this))
         this.divDetailMeuble.appendChild(btnAjout);
 
         const spanPlus = document.createElement("span");
@@ -237,8 +235,8 @@ class Display {
         spanPlus.textContent='+';
         spanPlus.addEventListener('click', function(event) {
             event.preventDefault();
-            Display.ajouterMeuble(detailMeuble._id);
-        })
+            this.ajouterMeuble(detailMeuble._id);
+        }.bind(this))
         this.divDetailMeuble.appendChild(spanPlus);
 
         const spanQte = document.createElement("span");
@@ -251,11 +249,11 @@ class Display {
         spanMoins.textContent = '-';
         spanMoins.addEventListener('click',function(ev) {
             ev.preventDefault();
-            Display.retirerMeuble(detailMeuble._id);
-        })
+            this.retirerMeuble(detailMeuble._id);
+        }.bind(this))
         this.divDetailMeuble.appendChild(spanMoins);
 
-        Display.majTableauDuPanier(detailMeuble._id);
+        //majTableauDuPanier(detailMeuble._id);
         
     }
 
