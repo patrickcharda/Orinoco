@@ -4,10 +4,12 @@ class Display {
         this.divDetailMeuble = document.getElementById("divDetailMeuble");
         this.divOrder = document.getElementById("divOrder");
         this.divPanier = document.getElementById("divPanier");
+        this.divMiniPanier = document.getElementById("divMiniPanier");
         this.objetPanierMeubles = {};
         this.arrayPanierMeubles = [];
         this.panier = new Panier();
         this.panier.createFurnituresArray();
+        
     }
   
     async displayMeubles() {
@@ -43,7 +45,7 @@ class Display {
         };
     }
 
-    ajouterMeuble(id) {
+    ajouterMeuble(id, meuble) {
         
 
         const divMeubleOptions = document.getElementById("meubleOptions");
@@ -55,13 +57,16 @@ class Display {
         this.panier.appendFurniture(furniture);
         console.log(this.panier.arrayFurnitures);
 
+        this.afficherQteInCart(id);
+        this.divMiniPanier.innerHTML='';
+        this.afficheMiniPanier(id, meuble);
         /* tests 
         console.log(this.arrayPanierMeubles);
         let jsonPanier = JSON.stringify(this.arrayPanierMeubles);
         console.log(jsonPanier);
         localStorage.setItem("panier", jsonPanier);*/
         
-        
+        /*
         if (this.objetPanierMeubles[`${id}`] == null) {
             this.objetPanierMeubles[`${id}`]= 1;
             const spanQte = document.getElementById('spanQte');
@@ -82,15 +87,20 @@ class Display {
             console.log(this.objetPanierMeubles);
 
         }
+        */
     }
 
-    retirerMeuble(id) {
+    retirerMeuble(id, meuble) {
         //localStorage.setItem("product",id);
         //alert("test");
         console.log(this.panier.arrayFurnitures.length);
         this.panier.removeFurniture(id);
         console.log(this.panier.arrayFurnitures.length);
+        this.afficherQteInCart(id);
+        this.divMiniPanier.innerHTML='';
+        this.afficheMiniPanier(id, meuble);
 
+        /*
         if (this.arrayPanierMeubles.length > 0) {
             this.arrayPanierMeubles.pop();
             console.log(this.arrayPanierMeubles);
@@ -106,8 +116,8 @@ class Display {
         
         } else if (this.objetPanierMeubles[`${id}`] == 1) {
             // nettoyer les storages
-            /*localStorage.getItem(`${id}`);
-            alert(Display.objetPanierMeubles[`${id}`]);*/
+            ///*localStorage.getItem(`${id}`);
+            //alert(Display.objetPanierMeubles[`${id}`]);
 
             //on remet à null cette clé;
             this.objetPanierMeubles = [];
@@ -130,11 +140,24 @@ class Display {
             spanQte.textContent = quantite;
             console.log(this.objetPanierMeubles);
         }
+        */
 
     }
 
-    async displayMeuble(id) {
+    afficherQteInCart(id) {
+        let qteInCart = this.panier.quantiteOfAFurniture(id);
+        if (qteInCart.qte > 0) {
+            //const divQteInCart = document.createElement("div");
+            //divQteInCart.textContent = (qteInCart.qte == 1) ? `${qteInCart.qte} unité de ce meuble déjà au panier` : `${qteInCart.qte} unités de ce meuble au panier`;
+            //btnAjout.insertAdjacentElement('afterend',divQteInCart);
+            spanQte.textContent = qteInCart.qte;
+        }
+        else {
+            spanQte.textContent = 0;
+        }
+    }
 
+    async displayMeuble(id) {
 
         console.log(this.panier.arrayFurnitures);
 
@@ -162,7 +185,7 @@ class Display {
         item.appendChild(divImgMeuble);
         this.divDetailMeuble.appendChild(item);
 
-        // aficher les vernis
+        // afficher les vernis
         if (detailMeuble.varnish.length > 0) {
             const divMeubleOptions = document.createElement("select");
             divMeubleOptions.setAttribute("id","meubleOptions");
@@ -185,44 +208,91 @@ class Display {
         btnAjout.innerHTML = 'Ajouter au panier';
         btnAjout.addEventListener('click', function(event) {
             event.preventDefault();
-            this.ajouterMeuble(detailMeuble._id);
+            this.ajouterMeuble(detailMeuble._id, detailMeuble);
         }.bind(this))
         this.divDetailMeuble.appendChild(btnAjout);
 
-         //si ce meuble est déjà au panier on affiche combien d'article sont présents au panier
-         let qteInCart = this.panier.quantiteOfAFurniture(detailMeuble._id);
-         if (qteInCart > 0) {
-             const divQteInCart = document.createElement("div");
-             divQteInCart.textContent = `${qteInCart} unités de ce meuble déjà au panier`;
-             btnAjout.insertAdjacentElement('afterend',divQteInCart);
-         }
+        //si ce meuble est déjà au panier on affiche combien d'article sont présents au panier
+        /*let qteInCart = this.panier.quantiteOfAFurniture(detailMeuble._id);
+        if (qteInCart.qte > 0) {
+            const divQteInCart = document.createElement("div");
+            divQteInCart.textContent = (qteInCart.qte == 1) ? `${qteInCart.qte} unité de ce meuble déjà au panier` : `${qteInCart.qte} unités de ce meuble au panier`;
+            btnAjout.insertAdjacentElement('afterend',divQteInCart);
+        }*/
          
-
         const spanPlus = document.createElement("span");
         spanPlus.setAttribute("id","spanPlus");
         spanPlus.textContent='+';
         spanPlus.addEventListener('click', function(event) {
             event.preventDefault();
-            this.ajouterMeuble(detailMeuble._id);
+            this.ajouterMeuble(detailMeuble._id, detailMeuble);
         }.bind(this))
         this.divDetailMeuble.appendChild(spanPlus);
 
         const spanQte = document.createElement("span");
         spanQte.setAttribute("id","spanQte");
-        spanQte.textContent=0;
+        //spanQte.textContent=0;
         this.divDetailMeuble.appendChild(spanQte);
+
+        //si ce meuble est déjà au panier on affiche combien d'article sont présents au panier
+        let qteInCart = this.panier.quantiteOfAFurniture(detailMeuble._id);
+        if (qteInCart.qte > 0) {
+            /*const divQteInCart = document.createElement("div");
+            divQteInCart.textContent = (qteInCart.qte == 1) ? `${qteInCart.qte} unité de ce meuble déjà au panier` : `${qteInCart.qte} unités de ce meuble au panier`;
+            btnAjout.insertAdjacentElement('afterend',divQteInCart);*/
+            spanQte.textContent = qteInCart.qte;
+        }
+        else {
+            spanQte.textContent = 0;
+        }
 
         const spanMoins = document.createElement("span");
         spanMoins.setAttribute("id","spanMoins");
         spanMoins.textContent = '-';
         spanMoins.addEventListener('click',function(ev) {
             ev.preventDefault();
-            this.retirerMeuble(detailMeuble._id);
+            this.retirerMeuble(detailMeuble._id, detailMeuble);
         }.bind(this))
         this.divDetailMeuble.appendChild(spanMoins);
         
+        this.afficheMiniPanier(id,detailMeuble);
+        
     }
 
+    afficheMiniPanier(id, meuble) {
+        let ceMeuble = meuble;
+        const furnitureToDisplay = this.panier.furnitureList(id);
+        //console.log(furnitureToDisplay);
+        const divTmp = document.createElement("div");
+        divTmp.textContent = JSON.stringify(furnitureToDisplay);
+        this.divMiniPanier.appendChild(divTmp);
+        /*this.divMiniPanier.innerHTML = '<span>' + JSON.stringify(furnitureToDisplay) +
+        '</span><br>';*/
+        //var content = this.divMiniPanier.innerHTML;
+        for (let item of furnitureToDisplay) {
+            let content = ceMeuble.name +
+             ' ' + item.varnish + ', ' + ceMeuble.price +' € ';
+            console.log(content);
+            const divSuppr = document.createElement("div");
+            divSuppr.innerHTML= content;
+            const btnSuppr = document.createElement("button");
+            btnSuppr.textContent = 'supprimer';
+            btnSuppr.addEventListener('click', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                this.panier.rmFurniture(item);
+                //this.divMiniPanier.innerHTML = '';
+                //this.afficheMiniPanier(id, ceMeuble);
+            }.bind(this));
+            divSuppr.appendChild(btnSuppr);
+            this.divMiniPanier.appendChild(divSuppr);
+            
+            /*content = content + meuble.name +
+             ' ' + item.varnish + ', ' + meuble.price +' € <br>';*/
+        }
+        //this.divMiniPanier.innerHTML = content;
+    }
+    //onclick=`this.panier.rmFurniture(${meuble})`
     /*async displayOrder(contact, products) {
         const params=[contact, products];
         console.log(params);

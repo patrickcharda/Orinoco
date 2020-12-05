@@ -55,7 +55,26 @@ class Panier {
        console.log('ok');
        console.log(localStorage.getItem('furnitures'));
        console.log(this.arrayFurnitures);
-        
+    }
+
+    rmFurniture(meuble){
+        console.log(meuble);
+        if (this.arrayFurnitures.length > 0) {
+            console.log('ça passe là');
+            /*this.arrayFurnitures.pop();
+            localStorage.removeItem('furnitures');
+            localStorage.setItem('furnitures', JSON.stringify(this.arrayFurnitures));
+            console.log('ok');*/
+            
+            const meubleIndex = this.arrayFurnitures.findIndex(furniture => 
+            furniture.id == meuble.id && furniture.varnish == meuble.varnish);
+            console.log(`meubleIndex : ${meubleIndex}`);
+            console.log(this.arrayFurnitures[meubleIndex]);
+            let deleted = this.arrayFurnitures.splice(meubleIndex,1);
+            console.log(deleted);
+            localStorage.removeItem('furnitures');
+            localStorage.setItem('furnitures', JSON.stringify(this.arrayFurnitures));    
+        }
     }
 
     viderPanier() {
@@ -68,7 +87,7 @@ class Panier {
         console.log('ok');
     }
 
-    quantiteOfAFurniture(id) {
+    inPanier(id) {
         let qte= 0;
         for (let furniture of this.arrayFurnitures) {
             console.log(furniture.id);
@@ -76,6 +95,37 @@ class Panier {
                 qte ++;
             }
         }
-        return qte;
+        if (qte > 0) {
+            return true;
+        }
+    }
+
+    furnitureList(id) {
+        if (this.inPanier(id)) {
+            const furnitureArrayList =[];
+            for (let furniture of this.arrayFurnitures) {
+                if (furniture.id == id) {
+                    furnitureArrayList.push(furniture);
+                }
+            }
+            return furnitureArrayList;
+        }
+    }
+
+    quantiteOfAFurniture(id) {
+        let qte= 0;
+        const foundInCart = [];
+        for (let furniture of this.arrayFurnitures) {
+            console.log(furniture.id);
+            if (furniture.id == id) {
+                qte ++;
+                foundInCart.push(furniture);
+            }
+        }
+        const furnitureInCart = {
+            'qte': qte,
+            'foundInCart': foundInCart
+        }
+        return furnitureInCart;
     }
 }
