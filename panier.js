@@ -4,21 +4,21 @@ class Panier {
         this.arrayCameras = [];
         this.arrayTeddies = [];
         //this.arrayProducts = [];
-        //sessionStorage.removeItem('furnitures');
+        //localStorage.removeItem('furnitures');
     }
 
     createFurnituresArray() {
-        var furnitures = sessionStorage.getItem("furnitures");
+        var furnitures = localStorage.getItem("furnitures");
         console.log(furnitures);
         if (furnitures === null) {
-            //sessionStorage.setItem('furnitures',JSON.stringify(this.arrayFurnitures));
-            //console.log(JSON.parse(sessionStorage.getItem('furnitures')));
+            //localStorage.setItem('furnitures',JSON.stringify(this.arrayFurnitures));
+            //console.log(JSON.parse(localStorage.getItem('furnitures')));
             console.log('panier vide');
         } else {
             console.log(furnitures);
-            //sessionStorage.setItem('furnitures','police');
+            //localStorage.setItem('furnitures','police');
             this.arrayFurnitures = JSON.parse(furnitures);
-            //this.arrayFurnitures.push(sessionStorage.getItem("furnitures"));
+            //this.arrayFurnitures.push(localStorage.getItem("furnitures"));
             console.log(this.arrayFurnitures);
         } 
     } 
@@ -26,10 +26,46 @@ class Panier {
     appendFurniture(furniture) {
         this.arrayFurnitures.push(furniture);
         console.log(this.arrayFurnitures);
-        sessionStorage.removeItem('furnitures');
-        sessionStorage.setItem('furnitures', JSON.stringify(this.arrayFurnitures));
+        localStorage.removeItem('furnitures');
+        localStorage.setItem('furnitures', JSON.stringify(this.arrayFurnitures));
         console.log(`meubles : ${this.arrayFurnitures}`);
-        console.log(JSON.parse(sessionStorage.getItem('furnitures')));
+        console.log(JSON.parse(localStorage.getItem('furnitures')));
+    }
+
+    removeFurniture(id) {
+        //var idf = id;
+        console.log(id);
+        //console.log(idf);
+        //rechercher le meuble dans le panier
+       if (this.arrayFurnitures.length > 0) {
+           /*this.arrayFurnitures.pop();
+           localStorage.removeItem('furnitures');
+           localStorage.setItem('furnitures', JSON.stringify(this.arrayFurnitures));
+           console.log('ok');*/
+           
+           const meubleIndex = this.arrayFurnitures.findIndex(meuble => meuble.id == id);
+           console.log(`meubleIndex : ${meubleIndex}`);
+           console.log(this.arrayFurnitures[meubleIndex]);
+           let deleted = this.arrayFurnitures.splice(meubleIndex,1);
+           console.log(deleted);
+           localStorage.removeItem('furnitures');
+           localStorage.setItem('furnitures', JSON.stringify(this.arrayFurnitures));
+           
+       }
+       console.log('ok');
+       console.log(localStorage.getItem('furnitures'));
+       console.log(this.arrayFurnitures);
+        
+    }
+
+    viderPanier() {
+        this.arrayFurnitures = [];
+        localStorage.removeItem('furnitures');
+        this.arrayCameras = [];
+        localStorage.removeItem('cameras');
+        this.arrayTeddies = [];
+        localStorage.removeItem('teddies');
+        console.log('ok');
     }
 
     quantiteOfAFurniture(id) {
@@ -42,9 +78,4 @@ class Panier {
         }
         return qte;
     }
-
-    removeFurniture(furniture) {
-        //
-    }
-
 }

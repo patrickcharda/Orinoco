@@ -45,20 +45,23 @@ class Display {
 
     ajouterMeuble(id) {
         
+
         const divMeubleOptions = document.getElementById("meubleOptions");
         let furniture = {id:`${id}`,varnish: divMeubleOptions.options[divMeubleOptions.selectedIndex].value};
         console.log(furniture);
         this.arrayPanierMeubles.push(furniture);
 
+        
         this.panier.appendFurniture(furniture);
         console.log(this.panier.arrayFurnitures);
 
+        /* tests 
         console.log(this.arrayPanierMeubles);
         let jsonPanier = JSON.stringify(this.arrayPanierMeubles);
         console.log(jsonPanier);
-        sessionStorage.setItem("panier", jsonPanier);
+        localStorage.setItem("panier", jsonPanier);*/
         
-        //console.log(id);
+        
         if (this.objetPanierMeubles[`${id}`] == null) {
             this.objetPanierMeubles[`${id}`]= 1;
             const spanQte = document.getElementById('spanQte');
@@ -82,8 +85,12 @@ class Display {
     }
 
     retirerMeuble(id) {
-        //sessionStorage.setItem("product",id);
+        //localStorage.setItem("product",id);
         //alert("test");
+        console.log(this.panier.arrayFurnitures.length);
+        this.panier.removeFurniture(id);
+        console.log(this.panier.arrayFurnitures.length);
+
         if (this.arrayPanierMeubles.length > 0) {
             this.arrayPanierMeubles.pop();
             console.log(this.arrayPanierMeubles);
@@ -93,13 +100,13 @@ class Display {
             // on met à jour la span
             const spanQte = document.getElementById('spanQte');
             let quantite = parseInt(spanQte.textContent);
-            alert(quantite);
+            //alert(quantite);
             //console.log('res : ' + `${id}`);
             spanQte.textContent = quantite;
         
         } else if (this.objetPanierMeubles[`${id}`] == 1) {
             // nettoyer les storages
-            /*sessionStorage.getItem(`${id}`);
+            /*localStorage.getItem(`${id}`);
             alert(Display.objetPanierMeubles[`${id}`]);*/
 
             //on remet à null cette clé;
@@ -109,7 +116,7 @@ class Display {
             if (quantite > 0) {
                 quantite --;
             }
-            alert(quantite);
+            //alert(quantite);
             spanQte.textContent = quantite;
         } else {
             this.objetPanierMeubles[`${id}`] --;
@@ -119,7 +126,7 @@ class Display {
             if (quantite > 0) {
                 quantite --;
             }
-            alert(quantite);
+            //alert(quantite);
             spanQte.textContent = quantite;
             console.log(this.objetPanierMeubles);
         }
