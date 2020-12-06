@@ -4,13 +4,19 @@ class Display {
         this.divDetailMeuble = document.getElementById("divDetailMeuble");
         this.divOrder = document.getElementById("divOrder");
         this.divPanier = document.getElementById("divPanier");
-        this.divMiniPanier = document.getElementById("divMiniPanier");
+        //this.divSelectionMeuble = document.getElementById('divSelectionMeuble');
+        //this.divPanier.appendChild(this.divSelectionMeuble);
+        //this.divSelectionMeuble = document.createElement("div");
+        //this.divSelectionMeuble.setAttribute('id','divSelectionMeuble');
+
+        this.divMiniPanier = document.getElementById('divMiniPanier');
+        //this.divMiniPanier.appendChild(this.divSelectionMeuble);
         this.objetPanierMeubles = {};
         this.arrayPanierMeubles = [];
         this.panier = new Panier();
-        this.panier.createFurnituresArray();
-        
+        this.panier.createFurnituresArray();   
     }
+    static chaine = 'new';
   
     async displayMeubles() {
         let listeMeubles = await Ajax.get("http://localhost:3000/api/furniture/");
@@ -58,7 +64,7 @@ class Display {
         console.log(this.panier.arrayFurnitures);
 
         this.afficherQteInCart(id);
-        this.divMiniPanier.innerHTML='';
+        this.divMiniPanier.innerHTML= '';
         this.afficheMiniPanier(id, meuble);
         /* tests 
         console.log(this.arrayPanierMeubles);
@@ -94,10 +100,12 @@ class Display {
         //localStorage.setItem("product",id);
         //alert("test");
         console.log(this.panier.arrayFurnitures.length);
-        this.panier.removeFurniture(id);
+        //this.panier.removeFurniture(id);
+        this.panier.rmFurniture(meuble);
         console.log(this.panier.arrayFurnitures.length);
         this.afficherQteInCart(id);
-        this.divMiniPanier.innerHTML='';
+        //setTimeout(function(){this.afficheMiniPanier(id, meuble)}.bind(this),2000);
+        this.divMiniPanier.innerHTML ='';
         this.afficheMiniPanier(id, meuble);
 
         /*
@@ -259,39 +267,88 @@ class Display {
         
     }
 
+    /*async removeAllChildNodes(parent) {
+        return new Promise (function(resolve, reject){
+            parent.innerHTML="";
+            while (parent.firstChild) {
+                alert('test');
+                console.log(parent.firstChild);
+                parent.removeChild(parent.firstChild);
+                console.log(parent.firstChild);
+                console.log(parent);
+            }
+            //document.body.removeChild(parent);
+            //document.body.appendChild(parent);
+            parent.innerHTML ='';
+            parent.outerHTML = '';
+            parent.textContent = '';
+            console.log(parent);
+            resolve(parent);
+        });
+    }*/
+    /*const container = document.querySelector('#container');
+    removeAllChildNodes(container);*/
+
     afficheMiniPanier(id, meuble) {
+        //let promise = await this.removeAllChildNodes(this.divMiniPanier);
+        //console.log(promise);
+        //this.removeAllChildNodes(this.divMiniPanier);
+        //this.divMiniPanier.innerHTML=Display.chaine;
+        //this.divMiniPanier = null;
+        //this.divMiniPanier = document.createElement('div');
+
         let ceMeuble = meuble;
         const furnitureToDisplay = this.panier.furnitureList(id);
-        //console.log(furnitureToDisplay);
+        console.log(furnitureToDisplay);
         const divTmp = document.createElement("div");
-        divTmp.textContent = JSON.stringify(furnitureToDisplay);
+        divTmp.setAttribute("id", 'divTmp');
+        divTmp.textContent = JSON.stringify(furnitureToDisplay); 
         this.divMiniPanier.appendChild(divTmp);
+        
+        //const divTmp = document.getElementById("divTmp");
+        //divTmp.textContent = JSON.stringify(furnitureToDisplay);
         /*this.divMiniPanier.innerHTML = '<span>' + JSON.stringify(furnitureToDisplay) +
         '</span><br>';*/
         //var content = this.divMiniPanier.innerHTML;
-        for (let item of furnitureToDisplay) {
-            let content = ceMeuble.name +
-             ' ' + item.varnish + ', ' + ceMeuble.price +' € ';
-            console.log(content);
-            const divSuppr = document.createElement("div");
-            divSuppr.innerHTML= content;
-            const btnSuppr = document.createElement("button");
-            btnSuppr.textContent = 'supprimer';
-            btnSuppr.addEventListener('click', function(event) {
-                event.preventDefault();
-                event.stopPropagation();
-                this.panier.rmFurniture(item);
-                //this.divMiniPanier.innerHTML = '';
-                //this.afficheMiniPanier(id, ceMeuble);
-            }.bind(this));
-            divSuppr.appendChild(btnSuppr);
-            this.divMiniPanier.appendChild(divSuppr);
-            
-            /*content = content + meuble.name +
-             ' ' + item.varnish + ', ' + meuble.price +' € <br>';*/
-        }
+        if (furnitureToDisplay !== false) {
+            //alert('aie');
+            for (let item of furnitureToDisplay) {
+                let content = ceMeuble.name +
+                ' ' + item.varnish + ', ' + ceMeuble.price +' € ';
+                console.log(content);
+                const divSuppr = document.createElement("div");
+                divSuppr.innerHTML= content;
+                const btnSuppr = document.createElement("button");
+                btnSuppr.textContent = 'supprimer';
+                btnSuppr.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    this.panier.rmFurniture(item);
+                    //this.divMiniPanier.innerHTML = '';
+                    //this.afficheMiniPanier(id, ceMeuble);
+                }.bind(this));
+                divSuppr.appendChild(btnSuppr);
+                this.divMiniPanier.appendChild(divSuppr);
+                document.body.append(this.divMiniPanier);
+                
+                /*content = content + meuble.name +
+                ' ' + item.varnish + ', ' + meuble.price +' € <br>';*/
+            }
         //this.divMiniPanier.innerHTML = content;
+        }      
     }
+
+    displayPanier() {
+        const furnituresToDisplay = this.panier.furnituresList();
+        const divOrder = document.createElement("div");
+        var content =''
+        for (let item of furnituresToDisplay) {
+            content += item.id + ' ' + item.varnish + '<br>';
+        }
+        divOrder.innerHTML = content;
+        document.body.append(divOrder);
+    }
+
     //onclick=`this.panier.rmFurniture(${meuble})`
     /*async displayOrder(contact, products) {
         const params=[contact, products];

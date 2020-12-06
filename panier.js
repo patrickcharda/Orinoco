@@ -70,7 +70,8 @@ class Panier {
             furniture.id == meuble.id && furniture.varnish == meuble.varnish);
             console.log(`meubleIndex : ${meubleIndex}`);
             console.log(this.arrayFurnitures[meubleIndex]);
-            let deleted = this.arrayFurnitures.splice(meubleIndex,1);
+            
+            let deleted = this.arrayFurnitures.splice(meubleIndex,1); //supprime le 1er de la liste
             console.log(deleted);
             localStorage.removeItem('furnitures');
             localStorage.setItem('furnitures', JSON.stringify(this.arrayFurnitures));    
@@ -98,6 +99,7 @@ class Panier {
         if (qte > 0) {
             return true;
         }
+        return false;
     }
 
     furnitureList(id) {
@@ -109,7 +111,12 @@ class Panier {
                 }
             }
             return furnitureArrayList;
-        }
+        } else { return false;}
+    }
+
+    furnituresList() {
+        console.log(this.arrayFurnitures);
+        return this.arrayFurnitures;
     }
 
     quantiteOfAFurniture(id) {

@@ -90,4 +90,8 @@ body {
   content: " ";
 }
 
+#divMiniPanier {
+  transform: translateZ(0);
+}
+
 /*# sourceMappingURL=style.css.map */
