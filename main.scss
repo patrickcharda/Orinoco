@@ -13,6 +13,9 @@ body {
     font-weight: 400;
     color: rgb(36, 31, 31);
 }
+header{
+    background: #f3e9f1;
+}
 #divMeubles {
     display: flex;
     flex-direction: column;
@@ -45,6 +48,7 @@ body {
     background-color: lightgreen;
 }
 
+/*
 #wrapPanier {
     position: relative;
 }
@@ -67,7 +71,7 @@ body {
     width: 40px;
     height: 40px;
     size: fit-cover;
-}
+}*/
 
 #spanPlus, #spanMoins {
     font-size: large;
@@ -84,7 +88,17 @@ body {
     }
 }
 
-#divMiniPanier {
-    transform: translateZ(0);
+
+.col-6 {
+    background: yellow;
 }
+.col-md-4 {
+    background: chartreuse;
+}
+.col-md-8 {
+    background: green;
+}
+
+
+
 
