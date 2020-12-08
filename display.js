@@ -33,6 +33,7 @@ class Display {
         
             const divImgMeuble = document.createElement("div");
             divImgMeuble.setAttribute("class","divImgMeuble");
+            //divImgMeuble.setAttribute("class","card");
         
             const lienImg = document.createElement("a");
             lienImg.setAttribute("href", "./products/produit.html?id="+meuble._id);

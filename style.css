@@ -79,6 +79,18 @@ header {
     height: 40px;
     size: fit-cover;
 }*/
+#containerSite {
+  position: relative;
+}
+
+#panierSite {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  right: 20px;
+  top: 35px;
+}
+
 #spanPlus, #spanMoins {
   font-size: large;
   font-weight: 700;
@@ -92,12 +104,16 @@ header {
   content: " ";
 }
 
+.jumbotron {
+  background: #fff;
+}
+
 .col-6 {
   background: yellow;
 }
 
 .col-md-4 {
-  background: chartreuse;
+  background: #bfe29b;
 }
 
 .col-md-8 {
