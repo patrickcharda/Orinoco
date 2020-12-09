@@ -349,11 +349,40 @@ class Display {
 
     displayPanier() {
         const furnituresToDisplay = this.panier.furnituresList();
-        const divOrder = document.createElement("div");
-        var content =''
+        const furnituresToDisplayOptions = this.panier.furnituresList();
+        var distinctFurnitures = new Set();
+        var montantTotal = 0;
+        var content = '';
+
         for (let item of furnituresToDisplay) {
-            content += item.id + ' ' + item.varnish + '<br>';
+            if (!distinctFurnitures.has(item.id)) {
+                distinctFurnitures.add(item.id);
+            }
         }
+
+        //var arrayDistinctFurnitures = Array.from(distinctFurnitures);
+
+        for (let item of furnituresToDisplay) {
+            let qte = 0;
+            if (distinctFurnitures.has(item.id)) {
+                let result= this.panier.quantiteOfAFurniture(item.id);
+                qte = result.qte;
+                content += `<img src='${item.imageUrl}' width='60px' height='70px'> ${item.name}
+                Qté : ${qte} prix unitaire : ${item.price}€ total : ` + qte*item.price +'<br>';
+                montantTotal += qte*item.price;
+                // affichage détaillé
+                for (let unite of furnituresToDisplayOptions) {
+                    if (unite.id === item.id) {
+                        content += `1 ${unite.name}, vernis ${unite.varnish} <br>`;
+                    }
+                }
+                distinctFurnitures.delete(item.id);
+            }
+        }
+        content += 'Montant à régler : ' + montantTotal;
+
+        console.log(furnituresToDisplay);
+        const divOrder = document.createElement("div");
         divOrder.innerHTML = content;
         document.body.append(divOrder);
     }

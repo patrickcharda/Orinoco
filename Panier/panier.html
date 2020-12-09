@@ -91,51 +91,19 @@
     <script>
       let display = new Display();
       display.displayPanier();
-      //let params = (new URL(document.location)).searchParams;
-      //let furnitureId = params.get('id');
-      //display.displayMeuble(furnitureId);
-
-      /*var product = display.returnAFurnitureObject("5beaae361c9d440000a57d99");
-      console.log(product);*/
-
-      /*
-      var contact = {
-          "firstName": 'Paul',
-          "lastName": 'Bert',
-          "address": '16 rue Victor Hugo',
-          "city": 'Rouen',
-          "email": 'paulbert@free.fr'
-      }
-      console.log(JSON.stringify(contact));
-
-      /*var getProduct = async() => {
-        var data = display.getMeuble("5beab2061c9d440000a57d9b");
-        return data;
-      } 
-      var product;
-      var products= []
-      getProduct().then(data => console.log(data));
-      product = getProduct().then(function(data) {
-          products.push(product);
-          console.log(products);
-      });*/
-
-      /*var products = ["5beaae361c9d440000a57d99","5beab2061c9d440000a57d9b"];
-      */
-      
-      //console.log(products);
-      /*var contactJSON = (JSON.stringify(contact));
-      var productsJSON = (JSON.stringify(products));
-      //var products = [product];
-      console.log(contactJSON);
-      console.log(productsJSON);*/
       const btnOrder = document.getElementById("commander");
-
+      btnOrder.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      //    afficheCommande(order);
+      display.order();
+      });
+      /* variable de test 
       var order = {"contact": {"firstName":"Paul","lastName":"Bert","address":"16 rue Victor Hugo","city":"Rouen","email":"paulbert@free.fr"
         },"products":["5be9cc611c9d440000c1421e","5beaae361c9d440000a57d99"]};
       console.log(order);
+      */
         
-    
       //console.log(JSON.stringify(order));
       
       /*function afficheCommande(order) {
@@ -160,16 +128,6 @@
         request.send(JSON.stringify(order));
 
       }*/
-
-      btnOrder.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-        //console.log(JSON.stringify(contact));
-        //alert('toto');
-        //    afficheCommande(order);
-      display.order();
-        //display.displayOrder(contactJSON, productsJSON);
-      });
     </script>
   </body>
 </html>
