@@ -2,10 +2,13 @@
   "name": "orinoco",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "js/index.js",
   "scripts": {
-    "test": "sass --watch main.scss style.css"
+    "test": "sass --watch scss:css"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.5.3"
+  }
 }

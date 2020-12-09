@@ -135,4 +135,13 @@ class Panier {
         }
         return furnitureInCart;
     }
+
+    prepareFurnituresOrder() {
+        const listOfFurnituresIds = [];
+        for (let furniture of this.arrayFurnitures) {
+            console.log(furniture.id);
+            listOfFurnituresIds.push(furniture.id);
+        }
+        return listOfFurnituresIds;
+    }
 }

@@ -14,7 +14,8 @@ class Display {
         this.objetPanierMeubles = {};
         this.arrayPanierMeubles = [];
         this.panier = new Panier();
-        this.panier.createFurnituresArray();   
+        this.panier.createFurnituresArray();
+        this.contact = new Contact();   
     }
     static chaine = 'new';
   
@@ -56,7 +57,14 @@ class Display {
         
 
         const divMeubleOptions = document.getElementById("meubleOptions");
-        let furniture = {id:`${id}`,varnish: divMeubleOptions.options[divMeubleOptions.selectedIndex].value};
+        let furniture = {
+            id:`${id}`,
+            varnish: divMeubleOptions.options[divMeubleOptions.selectedIndex].value,
+            name: `${meuble.name}`,
+            price: `${meuble.price}`,
+            description: `${meuble.description}`,
+            imageUrl: `${meuble.imageUrl}`
+        };
         console.log(furniture);
         this.arrayPanierMeubles.push(furniture);
 
@@ -348,6 +356,34 @@ class Display {
         }
         divOrder.innerHTML = content;
         document.body.append(divOrder);
+    }
+
+    order() {
+        let client = this.contact.verifyContact();
+        var products = [];
+        var objContact = {};
+        if (client) {
+            objContact = this.contact.formatContact();
+            console.log(objContact);
+        }
+        console.log(client);
+        console.log(objContact);
+        if (client) {
+        products = this.panier.prepareFurnituresOrder();
+        console.log(products);
+        }
+        
+        let order = {
+            "contact": objContact,
+            "products": products
+        }
+        console.log(order);
+        this.displayOrder(order);
+    }
+
+    async displayOrder(order) {
+        let ordered = await Ajax.post("http://localhost:3000/api/furniture/order", order);
+        console.log(ordered);
     }
 
     //onclick=`this.panier.rmFurniture(${meuble})`
