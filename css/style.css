@@ -9928,7 +9928,7 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: black;
+  background-color: #847;
   color: white;
 }
 
@@ -10016,6 +10016,11 @@ header {
 
 .col-md-8 {
   background: green;
+}
+
+.h4 {
+  color: #3A242E;
+  filter: saturate(0.2);
 }
 
 /*# sourceMappingURL=style.css.map */

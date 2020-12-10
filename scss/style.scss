@@ -1,4 +1,3 @@
-
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
 * {
@@ -28,7 +27,7 @@ header{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: black;
+    background-color: #847;
     color: white;
 }
 .divImgMeuble {
@@ -111,6 +110,10 @@ header{
 }
 .col-md-8 {
     background: green;
+}
+.h4 {
+    color: #3A242E;
+    filter: saturate(.2);
 }
 
 
