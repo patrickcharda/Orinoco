@@ -12,9 +12,15 @@ body {
     font-size: 1.1rem;
     font-weight: 400;
     color: rgb(36, 31, 31);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 header{
     background: #f3e9f1;
+}
+main {
+    flex: 1;
 }
 #divMeubles {
     display: flex;

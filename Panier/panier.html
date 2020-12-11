@@ -30,53 +30,57 @@
       </div>
     </header>
     <div id="divPanierContent"></div>
+
+    <main>
   
-    <div id="contact" class="container mx-auto">
-        <form>
-          <div class="form-group">
-            <label for="firstName">Prénom</label>
-            <input type="text" class="form-control" id="firstName" placehoder="Prénom" required>
+      <div id="contact" class="container mx-auto">
+          <form>
+            <div class="form-group">
+              <label for="firstName">Prénom</label>
+              <input type="text" class="form-control" id="firstName" placehoder="Prénom" required>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Nom</label>
+              <input type="text" class="form-control" id="lastName" placehoder="Nom" required>
           </div>
           <div class="form-group">
-            <label for="lastName">Nom</label>
-            <input type="text" class="form-control" id="lastName" placehoder="Nom" required>
-        </div>
-        <div class="form-group">
-            <label for="address">Adresse</label>
-            <input type="text" class="form-control" id="address" placehoder="98, rue des chênes" required>
-        </div>
-        <div class="form-group">
-            <label for="city">Ville</label>
-            <input type="text" class="form-control" id="city" placehoder="Vannes" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Adresse de messagerie</label>
-            <input type="email" class="form-control" id="email" placehoder="clairedubois@orange.fr" required>
-        </div>
-            <input class="col-12 form-control bg-light" type="submit" id="commander" value="Commander">
-        </form>
-    </div>
-   
- 
-    <!--<button onclick="display.panier.viderPanier()">Vider le panier</button>-->
+              <label for="address">Adresse</label>
+              <input type="text" class="form-control" id="address" placehoder="98, rue des chênes" required>
+          </div>
+          <div class="form-group">
+              <label for="city">Ville</label>
+              <input type="text" class="form-control" id="city" placehoder="Vannes" required>
+          </div>
+          <div class="form-group">
+              <label for="email">Adresse de messagerie</label>
+              <input type="email" class="form-control" id="email" placehoder="clairedubois@orange.fr" required>
+          </div>
+              <input class="col-12 form-control bg-light" type="submit" id="commander" value="Commander">
+          </form>
+      </div>
+    
+  
+      <!--<button onclick="display.panier.viderPanier()">Vider le panier</button>-->
 
-    <div id="divOrder"></div>
-
+      <div id="divOrder"></div>
+    </main>
+    <footer>
     <div class="bg-light">
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <ul class="list-inline text-center my-4">
-              <li class="list-inline-item"><a href="#">À propos</a></li>
-              <li class="list-inline-item">&middot;</li>
-              <li class="list-inline-item"><a href="#">Vie privée</a></li>
-              <li class="list-inline-item">&middot;</li>
-              <li class="list-inline-item"><a href="#">Conditions d'utilisations</a></li>
-            </ul>
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <ul class="list-inline text-center my-4">
+                <li class="list-inline-item"><a href="#">À propos</a></li>
+                <li class="list-inline-item">&middot;</li>
+                <li class="list-inline-item"><a href="#">Vie privée</a></li>
+                <li class="list-inline-item">&middot;</li>
+                <li class="list-inline-item"><a href="#">Conditions d'utilisations</a></li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </footer>
 
     <script src="https://kit.fontawesome.com/8c9711250f.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

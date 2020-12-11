@@ -8,6 +8,10 @@ class Ajax {
                     var response = JSON.parse(this.responseText);
                     //console.log(response);
                     resolve(response);
+                } else if (this.readyState == XMLHttpRequest.DONE && this.status == 0) {
+                    //console.log(this.status);
+                    //console.log('requete order hs');
+                    reject('KO');
                 }
             };
             request.open("GET", url);
@@ -27,9 +31,10 @@ class Ajax {
                     //alert('echo');
                     console.log(response);
                     resolve(response);
-                } else {
-                    console.log(this.status);
-                    console.log('requete order hs');
+                } else if (this.readyState == XMLHttpRequest.DONE && this.status == 0) {
+                    //console.log(this.status);
+                    //console.log('requete order hs');
+                    reject('KO');
                 }
             };
             //console.log(params[0] + ' param0');

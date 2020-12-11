@@ -17,10 +17,19 @@ class Display {
         this.panier.createFurnituresArray();
         this.contact = new Contact();   
     }
-    static chaine = 'new';
   
     async displayMeubles() {
-        let listeMeubles = await Ajax.get("http://localhost:3000/api/furniture/");
+        //let listeMeubles = await Ajax.get("http://localhost:3000/api/furniture/");
+
+        try {
+            var listeMeubles = await Ajax.get("http://localhost:3000/api/furniture/");
+        }
+        catch(e) {
+            console.log('dans display : ' +e);
+            //this.divDetailMeuble.innerHTML = alert('Le site rencontre un problème. Veuillez nous excuser de la gène occasionnée');
+            window.location.href = '../warning.html';
+            return;
+        }
         //console.log(listeMeubles);
         //const items = document.createElement("div");
         //items.setAttribute("id", "divListeMeubles");
@@ -104,8 +113,32 @@ class Display {
     async displayMeuble(id) {
 
         console.log(this.panier.arrayFurnitures);
+        //let detailMeuble = await Ajax.get("http://localhost:3000/api/furniture/"+id);
 
-        let detailMeuble = await Ajax.get("http://localhost:3000/api/furniture/"+id);
+        try {
+            var detailMeuble = await Ajax.get("http://localhost:3000/api/furniture/"+id);
+        }
+        catch(e) {
+            console.log('dans display : ' +e);
+            //this.divDetailMeuble.innerHTML = alert('Le site rencontre un problème. Veuillez nous excuser de la gène occasionnée');
+            window.location.href = '../warning.html';
+            return;
+        }
+        
+        /* code qui marche :
+        let detailMeuble = await Ajax.get("http://localhost:3000/api/furniture/"+id).catch(
+            (e) => console.log('dans display : ' +e)
+        );
+        */
+
+        /*let detailMeuble = await Ajax.get("http://localhost:3000/api/furniture/"+id);
+
+        detailMeuble.then(
+            response => alert('ok'),
+            error => alert(`Èrror : ${error.message}`)
+        );*/
+
+
 
         console.log(detailMeuble);
         const item = document.createElement("div");
@@ -247,12 +280,15 @@ class Display {
         '</span><br>';*/
         //var content = this.divMiniPanier.innerHTML;
         if (furnitureToDisplay !== false) {
-            //alert('aie');
+            let i=0;
             for (let item of furnitureToDisplay) {
+                i++;
                 let content = ceMeuble.name +
                 ' ' + item.varnish + ', ' + ceMeuble.price +' € ';
                 console.log(content);
                 const divSuppr = document.createElement("div");
+                let currentDivId = 'divSuppr_'+i;
+                divSuppr.setAttribute('id',currentDivId);
                 divSuppr.innerHTML= content;
                 const btnSuppr = document.createElement("button");
                 btnSuppr.textContent = 'supprimer';
@@ -260,12 +296,15 @@ class Display {
                     event.preventDefault();
                     event.stopPropagation();
                     this.panier.rmFurniture(item);
+                    let currentDivSuppr = document.getElementById(currentDivId);
+                    console.log(currentDivSuppr);
+                    this.divMiniPanier.removeChild(currentDivSuppr);
                     //this.divMiniPanier.innerHTML = '';
                     //this.afficheMiniPanier(id, ceMeuble);
                 }.bind(this));
                 divSuppr.appendChild(btnSuppr);
                 this.divMiniPanier.appendChild(divSuppr);
-                document.body.append(this.divMiniPanier);
+                //document.body.append(this.divMiniPanier);
                 
                 /*content = content + meuble.name +
                 ' ' + item.varnish + ', ' + meuble.price +' € <br>';*/
@@ -312,8 +351,9 @@ class Display {
         }
 
         console.log(furnituresToDisplay);
-        const divOrder = document.createElement("div");
-        divOrder.innerHTML = content;
+        //const divOrder = document.createElement("div");
+        
+        this.divOrder.innerHTML = content;
         document.body.append(divOrder);
     }
 
@@ -341,7 +381,15 @@ class Display {
     }
 
     async displayOrder(order) {
-        let ordered = await Ajax.post("http://localhost:3000/api/furniture/order", order);
+        try {
+        var ordered = await Ajax.post("http://localhost:3000/api/furniture/order", order);
+        }  
+        catch(e) {
+            console.log('dans display : ' +e);
+            //this.divDetailMeuble.innerHTML = alert('Le site rencontre un problème. Veuillez nous excuser de la gène occasionnée');
+            window.location.href = '../warning.html';
+            return;
+        }
         console.log(ordered);
         //ajouter la date avant d'enregistrer la commande
         let today = new Date();
@@ -405,7 +453,7 @@ class Display {
         console.log(lastOrder);
         const divConfirmation = document.getElementById("divConfirmation");
 
-        let enTete = `Commande n°: ${lastOrder.orderId}<br>`;
+        let enTete = `<br>Confirmation de la commande n°: ${lastOrder.orderId}<br><br>`;
         enTete += `${lastOrder.contact.firstName}`;
         enTete += ` ${lastOrder.contact.lastName} <br>`;
         enTete += ` ${lastOrder.contact.address} <br>`;
