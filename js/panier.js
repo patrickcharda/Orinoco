@@ -144,4 +144,15 @@ class Panier {
         }
         return listOfFurnituresIds;
     }
+
+    calculMontantTotal() {
+        let montantTotal = 0;
+        const arrayItemsInPanier = this.furnituresList();
+        for (let item of arrayItemsInPanier) {
+            console.log(item.price);
+            montantTotal += parseInt(item.price);
+        }
+        console.log(montantTotal);
+        return montantTotal;
+    }
 }

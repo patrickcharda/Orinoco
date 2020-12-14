@@ -4,6 +4,7 @@ class Display {
         this.divDetailMeuble = document.getElementById("divDetailMeuble");
         this.divOrder = document.getElementById("divOrder");
         this.divPanier = document.getElementById("divPanier");
+        this.divTotalPanier = document.getElementById("divTotalPanier");
         //this.divSelectionMeuble = document.getElementById('divSelectionMeuble');
         //this.divPanier.appendChild(this.divSelectionMeuble);
         //this.divSelectionMeuble = document.createElement("div");
@@ -330,6 +331,8 @@ class Display {
                 distinctFurnitures.add(item.id);
             }
         }
+
+
         var j = 0 //compteur pour les lignes du panier calculées (divPartDeCeProduitAuPanier)
         var i = 0; //compteur pour les lignes du panier supprimables (divSuppr)
         for (let item of furnituresToDisplay) {
@@ -339,12 +342,19 @@ class Display {
                 let divPartDeCeProduitAuPanier = document.createElement("div");
                 let currentDivPart='product_'+j;
                 divPartDeCeProduitAuPanier.setAttribute('id',currentDivPart);
+
+                //this.displayTotalProduit(divPartDeCeProduitAuPanier, item.id, j);
+
                 let result= this.panier.quantiteOfAFurniture(item.id);
                 qte = result.qte;
-                content += `<img src='${item.imageUrl}' width='60px' height='70px'> ${item.name}
+                let divResult = document.createElement("div");
+                let currentResult='result_'+j;
+                divResult.setAttribute('id', currentResult);
+                content = `<img src='${item.imageUrl}' width='60px' height='70px'> ${item.name}
                 Qté : ${qte} prix unitaire : ${item.price}€ total : ` + qte*item.price +'<br>';
                 montantTotal += qte*item.price;
-                divPartDeCeProduitAuPanier.innerHTML = content;
+                divResult.innerHTML = content;
+                divPartDeCeProduitAuPanier.appendChild(divResult);
                 // affichage détaillé
                 for (let unite of furnituresToDisplayOptions) {
                     i++;
@@ -354,7 +364,7 @@ class Display {
                     if (unite.id === item.id) {
 
                         //content += `1 ${unite.name}, vernis ${unite.varnish} <br>`;
-                        content = `1 ${unite.name}, vernis ${unite.varnish} <br>`;
+                        content = `1 ${unite.name}, vernis ${unite.varnish}`;
                         divSuppr.innerHTML = content;
     
                         const btnSuppr = document.createElement("button");
@@ -362,11 +372,23 @@ class Display {
                         btnSuppr.addEventListener('click', function(event) {
                         event.preventDefault();
                         event.stopPropagation();
+                        montantTotal -= item.price;
                         this.panier.rmFurniture(unite);
                         let currentDivSuppr = document.getElementById(currentDivId);
                         console.log(currentDivSuppr);
                         divPartDeCeProduitAuPanier.removeChild(currentDivSuppr);
+                        if (divPartDeCeProduitAuPanier.childNodes.length > 1) {
+                            //mettre à jour 
+                            console.log(divPartDeCeProduitAuPanier.childNodes);
+                            let content = this.createResult(item);
+                            divPartDeCeProduitAuPanier.firstChild.innerHTML = content;
+
+                        } else {
+                            divPartDeCeProduitAuPanier.parentNode.removeChild(divPartDeCeProduitAuPanier);
+                        }
+                        this.displayMontantTotal();
                         }.bind(this));
+                        
                         divSuppr.appendChild(btnSuppr);
                         divPartDeCeProduitAuPanier.appendChild(divSuppr);
                         this.divOrder.appendChild(divPartDeCeProduitAuPanier);
@@ -376,21 +398,35 @@ class Display {
                 
             }
         }
+        console.log(j);
+        this.displayMontantTotal();
+        console.log(furnituresToDisplay);
+
+    }
+
+    createResult(item) {
+        let result = this.panier.quantiteOfAFurniture(item.id);
+        let qte = result.qte;
+        let content = `<img src='${item.imageUrl}' width='60px' height='70px'> ${item.name}
+                Qté : ${qte} prix unitaire : ${item.price}€ total : ` + qte*item.price +'<br>';
+        return content;
+    }
+
+    displayMontantTotal() {
+        let montantTotal = this.panier.calculMontantTotal();
+        
         if (montantTotal !== 0) {
-            let divTotalPanier = document.createElement("div");
-            divTotalPanier.setAttribute('id','divTotalPanier');
-            divTotalPanier.innerHTML = 
-            'Montant à régler : ' + montantTotal + ' €<br>' +
+        this.divTotalPanier.innerHTML = 
+            '<span>Montant à régler : ' + montantTotal + ' € </span><br>' +
             '<button onclick="display.viderPanier()">Vider le panier</button>';
-            this.divOrder.appendChild(divTotalPanier);
+        }
+        else {
+            this.divTotalPanier.innerHTML = '';
         }
 
-        console.log(furnituresToDisplay);
-        //const divOrder = document.createElement("div");
-        
-        //this.divOrder.innerHTML = content;
-        //document.body.append(divOrder);
     }
+
+
 
     viderPanier() {
         this.panier.viderPanier();
