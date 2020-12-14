@@ -102,6 +102,7 @@ class Display {
 
     afficherQteInCart(id) {
         let qteInCart = this.panier.quantiteOfAFurniture(id);
+        let spanQte = document.getElementById("spanQte");
         if (qteInCart.qte > 0) {
             spanQte.textContent = qteInCart.qte;
         }
@@ -288,6 +289,7 @@ class Display {
                 console.log(content);
                 const divSuppr = document.createElement("div");
                 let currentDivId = 'divSuppr_'+i;
+                let spanSte = document.getElementById('spanQte');
                 divSuppr.setAttribute('id',currentDivId);
                 divSuppr.innerHTML= content;
                 const btnSuppr = document.createElement("button");
@@ -299,6 +301,7 @@ class Display {
                     let currentDivSuppr = document.getElementById(currentDivId);
                     console.log(currentDivSuppr);
                     this.divMiniPanier.removeChild(currentDivSuppr);
+                    spanQte.textContent -= 1;
                     //this.divMiniPanier.innerHTML = '';
                     //this.afficheMiniPanier(id, ceMeuble);
                 }.bind(this));
@@ -314,47 +317,84 @@ class Display {
     }
 
     displayPanier() {
+        this.divOrder.innerHTML='';
         const furnituresToDisplay = this.panier.furnituresList();
         const furnituresToDisplayOptions = this.panier.furnituresList();
         var distinctFurnitures = new Set();
         var montantTotal = 0;
         var content = '';
 
+        // création de l'ensemble d'Ids des produits distincts présents au panier
         for (let item of furnituresToDisplay) {
             if (!distinctFurnitures.has(item.id)) {
                 distinctFurnitures.add(item.id);
             }
         }
-
-        //var arrayDistinctFurnitures = Array.from(distinctFurnitures);
-
+        var j = 0 //compteur pour les lignes du panier calculées (divPartDeCeProduitAuPanier)
+        var i = 0; //compteur pour les lignes du panier supprimables (divSuppr)
         for (let item of furnituresToDisplay) {
             let qte = 0;
             if (distinctFurnitures.has(item.id)) {
+                j++;
+                let divPartDeCeProduitAuPanier = document.createElement("div");
+                let currentDivPart='product_'+j;
+                divPartDeCeProduitAuPanier.setAttribute('id',currentDivPart);
                 let result= this.panier.quantiteOfAFurniture(item.id);
                 qte = result.qte;
                 content += `<img src='${item.imageUrl}' width='60px' height='70px'> ${item.name}
                 Qté : ${qte} prix unitaire : ${item.price}€ total : ` + qte*item.price +'<br>';
                 montantTotal += qte*item.price;
+                divPartDeCeProduitAuPanier.innerHTML = content;
                 // affichage détaillé
                 for (let unite of furnituresToDisplayOptions) {
+                    i++;
+                    const divSuppr = document.createElement("div");
+                    let currentDivId = 'divSuppr_'+i;
+                    divSuppr.setAttribute('id', currentDivId);
                     if (unite.id === item.id) {
-                        content += `1 ${unite.name}, vernis ${unite.varnish} <br>`;
+
+                        //content += `1 ${unite.name}, vernis ${unite.varnish} <br>`;
+                        content = `1 ${unite.name}, vernis ${unite.varnish} <br>`;
+                        divSuppr.innerHTML = content;
+    
+                        const btnSuppr = document.createElement("button");
+                        btnSuppr.textContent = 'supprimer';
+                        btnSuppr.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        this.panier.rmFurniture(unite);
+                        let currentDivSuppr = document.getElementById(currentDivId);
+                        console.log(currentDivSuppr);
+                        divPartDeCeProduitAuPanier.removeChild(currentDivSuppr);
+                        }.bind(this));
+                        divSuppr.appendChild(btnSuppr);
+                        divPartDeCeProduitAuPanier.appendChild(divSuppr);
+                        this.divOrder.appendChild(divPartDeCeProduitAuPanier);
                     }
                 }
-                distinctFurnitures.delete(item.id);
+                distinctFurnitures.delete(item.id); // on supprime ce produit affiché de l'ensemble
+                
             }
         }
-        if (content !== '') {
-            content += 'Montant à régler : ' + montantTotal + '<br>';
-            content += '<button onclick="display.panier.viderPanier()">Vider le panier</button>';
+        if (montantTotal !== 0) {
+            let divTotalPanier = document.createElement("div");
+            divTotalPanier.setAttribute('id','divTotalPanier');
+            divTotalPanier.innerHTML = 
+            'Montant à régler : ' + montantTotal + ' €<br>' +
+            '<button onclick="display.viderPanier()">Vider le panier</button>';
+            this.divOrder.appendChild(divTotalPanier);
         }
 
         console.log(furnituresToDisplay);
         //const divOrder = document.createElement("div");
         
-        this.divOrder.innerHTML = content;
-        document.body.append(divOrder);
+        //this.divOrder.innerHTML = content;
+        //document.body.append(divOrder);
+    }
+
+    viderPanier() {
+        this.panier.viderPanier();
+        this.displayPanier();
     }
 
     order() {
