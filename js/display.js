@@ -386,7 +386,9 @@ class Display {
                         } else {
                             divPartDeCeProduitAuPanier.parentNode.removeChild(divPartDeCeProduitAuPanier);
                         }
+                        
                         this.displayMontantTotal();
+                        this.hideContactForm();
                         }.bind(this));
                         
                         divSuppr.appendChild(btnSuppr);
@@ -401,7 +403,16 @@ class Display {
         console.log(j);
         this.displayMontantTotal();
         console.log(furnituresToDisplay);
+        this.hideContactForm();
+    }
 
+    hideContactForm() {
+        if (this.divOrder.textContent === '') {
+            let divContact = document.getElementById('contact');
+            while (divContact.hasChildNodes) {
+                divContact.removeChild(divContact.lastChild);
+            }
+        }
     }
 
     createResult(item) {
@@ -425,8 +436,6 @@ class Display {
         }
 
     }
-
-
 
     viderPanier() {
         this.panier.viderPanier();
