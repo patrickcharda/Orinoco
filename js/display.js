@@ -410,9 +410,9 @@ class Display {
     hideContactForm() {
         let divForm = document.querySelector("#contact > form");
         console.log(divForm);
-        if (this.panier.arrayFurnitures.length === 0) {
+        if (this.panier.arrayFurnitures.length === 0 && divForm !== null) {
             divForm.setAttribute('id','frmContactNone');
-        } else {
+        } else if (divForm !== null) {
             divForm.setAttribute('id','frmContact');
         }
     
