@@ -5,8 +5,6 @@ class Contact {
 
     firstNameOk() {
         let prenom = document.getElementById("firstName");
-        console.log(prenom.textContent);
-        //let firstNameRegex = 
         return true;
     }
     lastNameOk() {

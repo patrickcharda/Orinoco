@@ -320,6 +320,7 @@ class Display {
     displayPanier() {
         this.divOrder.innerHTML='';
         const furnituresToDisplay = this.panier.furnituresList();
+        console.log(furnituresToDisplay);
         const furnituresToDisplayOptions = this.panier.furnituresList();
         var distinctFurnitures = new Set();
         var montantTotal = 0;
@@ -407,12 +408,21 @@ class Display {
     }
 
     hideContactForm() {
-        if (this.divOrder.textContent === '') {
-            let divContact = document.getElementById('contact');
-            while (divContact.hasChildNodes) {
-                divContact.removeChild(divContact.lastChild);
-            }
+        let divForm = document.querySelector("#contact > form");
+        console.log(divForm);
+        if (this.panier.arrayFurnitures.length === 0) {
+            divForm.setAttribute('id','frmContactNone');
+        } else {
+            divForm.setAttribute('id','frmContact');
         }
+    
+        /*if (this.divOrder.textContent === '') {
+            let divContact = document.getElementById('contact');
+            console.log(divContact.firstChild.nextSibling);
+            let divForm = document.querySelector("#contact > form");
+            console.log(divForm);
+            divContact.removeChild(divForm);
+        }*/
     }
 
     createResult(item) {
@@ -538,7 +548,7 @@ class Display {
         console.log(lastOrder);
         const divConfirmation = document.getElementById("divConfirmation");
 
-        let enTete = `<br>Confirmation de la commande n°: ${lastOrder.orderId}<br><br>`;
+        let enTete = `<br>Confirmation de la commande n°: ${lastOrder.orderId} du ${lastOrder.date.substr(0,11)}<br><br>`;
         enTete += `${lastOrder.contact.firstName}`;
         enTete += ` ${lastOrder.contact.lastName} <br>`;
         enTete += ` ${lastOrder.contact.address} <br>`;
@@ -550,6 +560,8 @@ class Display {
         let content = `${lastOrder.resume}`;
 
         divResume.innerHTML = content;
+        this.viderPanier();
+
     }
 
     //onclick=`this.panier.rmFurniture(${meuble})`

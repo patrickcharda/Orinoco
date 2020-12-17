@@ -10006,4 +10006,12 @@ main {
   filter: saturate(0.2);
 }
 
+#frmContact {
+  display: contents;
+}
+
+#frmContactNone {
+  display: none;
+}
+
 /*# sourceMappingURL=style.css.map */
