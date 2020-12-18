@@ -124,19 +124,10 @@ class Display {
         );
         */
 
-        /*let detailMeuble = await Ajax.get("http://localhost:3000/api/furniture/"+id);
-
-        detailMeuble.then(
-            response => alert('ok'),
-            error => alert(`Èrror : ${error.message}`)
-        );*/
-
-
-
         console.log(detailMeuble);
         const item = document.createElement("div");
         item.setAttribute("class", "divMeuble");
-        item.innerHTML = detailMeuble._id + ' , ' + detailMeuble.name + ' , ' + detailMeuble.price + '<br>' + detailMeuble.description + '<br><br>';
+        item.innerHTML = detailMeuble._id + ' , ' + detailMeuble.name + ' , ' + this.convertToEuros(detailMeuble.price) + '<br>' + detailMeuble.description + '<br><br>';
         
         const divImgMeuble = document.createElement("div");
         divImgMeuble.setAttribute("class","divImgMeuble");
@@ -244,7 +235,7 @@ class Display {
             for (let item of furnitureToDisplay) {
                 i++;
                 let content = ceMeuble.name +
-                ' ' + item.varnish + ', ' + ceMeuble.price +' € ';
+                ' ' + item.varnish + ', ' + this.convertToEuros(ceMeuble.price);
                 console.log(content);
                 const divSuppr = document.createElement("div");
                 let currentDivId = 'divSuppr_'+i;
@@ -310,7 +301,7 @@ class Display {
                 let currentResult='result_'+j;
                 divResult.setAttribute('id', currentResult);
                 content = `<img src='${item.imageUrl}' width='60px' height='70px'> ${item.name}
-                Qté : ${qte} prix unitaire : ${item.price}€ total : ` + qte*item.price +'<br>';
+                Qté : ${qte} prix unitaire : `+ this.convertToEuros(item.price) + ` total : ` + this.convertToEuros(qte*item.price) +'<br>';
                 montantTotal += qte*item.price;
                 divResult.innerHTML = content;
                 divPartDeCeProduitAuPanier.appendChild(divResult);
@@ -394,7 +385,7 @@ class Display {
         let result = this.panier.quantiteOfAFurniture(item.id);
         let qte = result.qte;
         let content = `<img src='${item.imageUrl}' width='60px' height='70px'> ${item.name}
-                Qté : ${qte} prix unitaire : ${item.price}€ total : ` + qte*item.price +'<br>';
+                Qté : ${qte} prix unitaire : ` + this.convertToEuros(item.price) + ` total : ` + this.convertToEuros(qte*item.price) +'<br>';
         return content;
     }
 
@@ -403,7 +394,7 @@ class Display {
         
         if (montantTotal !== 0) {
         this.divTotalPanier.innerHTML = 
-            '<span>Montant à régler : ' + montantTotal + ' € </span><br>' +
+            '<span>Montant à régler : ' + this.convertToEuros(montantTotal) + ' € </span><br>' +
             '<button onclick="display.viderPanier()">Vider le panier</button>';
         }
         else {
@@ -488,7 +479,7 @@ class Display {
                 let result= this.panier.quantiteOfAFurniture(item.id);
                 qte = result.qte;
                 content += `<img src='${item.imageUrl}' width='60px' height='70px'> ${item.name}
-                Qté : ${qte} prix unitaire : ${item.price}€ total : ` + qte*item.price +'<br>';
+                Qté : ${qte} prix unitaire : ` + this.convertToEuros(item.price) +` total : ` + this.convertToEuros(qte*item.price) +'<br>';
                 montantTotal += qte*item.price;
                 // affichage détaillé
                 for (let unite of furnituresToDisplayOptions) {
@@ -500,7 +491,7 @@ class Display {
             }
         }
         if (content !== '') {
-            content += 'Montant à régler : ' + montantTotal + '<br>';
+            content += 'Montant à régler : ' + this.convertToEuros(montantTotal) + '<br>';
         }
 
         return content;
