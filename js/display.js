@@ -5,13 +5,7 @@ class Display {
         this.divOrder = document.getElementById("divOrder");
         this.divPanier = document.getElementById("divPanier");
         this.divTotalPanier = document.getElementById("divTotalPanier");
-        //this.divSelectionMeuble = document.getElementById('divSelectionMeuble');
-        //this.divPanier.appendChild(this.divSelectionMeuble);
-        //this.divSelectionMeuble = document.createElement("div");
-        //this.divSelectionMeuble.setAttribute('id','divSelectionMeuble');
-
         this.divMiniPanier = document.getElementById('divMiniPanier');
-        //this.divMiniPanier.appendChild(this.divSelectionMeuble);
         this.objetPanierMeubles = {};
         this.arrayPanierMeubles = [];
         this.panier = new Panier();
@@ -40,7 +34,7 @@ class Display {
 
             const item = document.createElement("div");
             item.setAttribute("class", "divMeuble");
-            item.innerHTML = meuble._id + ' , ' + meuble.name + ' , ' + meuble.price + '<br>' + meuble.description + '<br><br>';
+            item.innerHTML = meuble._id + ' , ' + meuble.name + ' , ' + this.convertToEuros(meuble.price) + '<br>' + meuble.description + '<br><br>';
         
             const divImgMeuble = document.createElement("div");
             divImgMeuble.setAttribute("class","divImgMeuble");
@@ -64,8 +58,6 @@ class Display {
     }
 
     ajouterMeuble(id, meuble) {
-        
-
         const divMeubleOptions = document.getElementById("meubleOptions");
         let furniture = {
             id:`${id}`,
@@ -77,7 +69,6 @@ class Display {
         };
         console.log(furniture);
         this.arrayPanierMeubles.push(furniture);
-
         
         this.panier.appendFurniture(furniture);
         console.log(this.panier.arrayFurnitures);
@@ -238,35 +229,7 @@ class Display {
         
     }
 
-    /*async removeAllChildNodes(parent) {
-        return new Promise (function(resolve, reject){
-            parent.innerHTML="";
-            while (parent.firstChild) {
-                alert('test');
-                console.log(parent.firstChild);
-                parent.removeChild(parent.firstChild);
-                console.log(parent.firstChild);
-                console.log(parent);
-            }
-            //document.body.removeChild(parent);
-            //document.body.appendChild(parent);
-            parent.innerHTML ='';
-            parent.outerHTML = '';
-            parent.textContent = '';
-            console.log(parent);
-            resolve(parent);
-        });
-    }*/
-    /*const container = document.querySelector('#container');
-    removeAllChildNodes(container);*/
-
     afficheMiniPanier(id, meuble) {
-        //let promise = await this.removeAllChildNodes(this.divMiniPanier);
-        //console.log(promise);
-        //this.removeAllChildNodes(this.divMiniPanier);
-        //this.divMiniPanier.innerHTML=Display.chaine;
-        //this.divMiniPanier = null;
-        //this.divMiniPanier = document.createElement('div');
 
         let ceMeuble = meuble;
         const furnitureToDisplay = this.panier.furnitureList(id);
@@ -276,11 +239,6 @@ class Display {
         divTmp.textContent = JSON.stringify(furnitureToDisplay); 
         this.divMiniPanier.appendChild(divTmp);
         
-        //const divTmp = document.getElementById("divTmp");
-        //divTmp.textContent = JSON.stringify(furnitureToDisplay);
-        /*this.divMiniPanier.innerHTML = '<span>' + JSON.stringify(furnitureToDisplay) +
-        '</span><br>';*/
-        //var content = this.divMiniPanier.innerHTML;
         if (furnitureToDisplay !== false) {
             let i=0;
             for (let item of furnitureToDisplay) {
@@ -416,6 +374,13 @@ class Display {
             divForm.setAttribute('id','frmContact');
         }
     
+        // afficher message panier vide
+        if (divForm.getAttribute('id') === 'frmContactNone') {
+            let divMessage = document.getElementById('divTotalPanier');
+            divMessage.textContent= 'Le panier est vide';
+        }
+
+
         /*if (this.divOrder.textContent === '') {
             let divContact = document.getElementById('contact');
             console.log(divContact.firstChild.nextSibling);
@@ -564,12 +529,12 @@ class Display {
 
     }
 
-    //onclick=`this.panier.rmFurniture(${meuble})`
-    /*async displayOrder(contact, products) {
-        const params=[contact, products];
-        console.log(params);
-        var detailOrder = await Ajax.post("http://localhost:3000/api/furniture/order", contact, products);
-        console.log(detailOrder);
-    }*/
+    convertToEuros(centimes) {
+        //console.log(centimes/100.00);
+        //return (centimes/100.00);
+        return(new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(centimes/100));
+    }
 
   }
+
+ 
