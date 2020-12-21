@@ -25,24 +25,58 @@ class Display {
             window.location.href = '../warning.html';
             return;
         }
-        //console.log(listeMeubles);
-        //const items = document.createElement("div");
-        //items.setAttribute("id", "divListeMeubles");
+
         console.log(this.panier.arrayFurnitures);
 
-        for (let meuble of listeMeubles) {
-
-            const item = document.createElement("div");
-            item.setAttribute("class", "divMeuble");
-            item.innerHTML = meuble._id + ' , ' + meuble.name + ' , ' + this.convertToEuros(meuble.price) + '<br>' + meuble.description + '<br><br>';
+        var moduloZeroOuUn = 0;
+        if (listeMeubles.length % 2 === 1) {
+            moduloZeroOuUn = 1;
+        }
+        console.log('zeroOuUn : '+moduloZeroOuUn)
         
+        // créer les div de rows : 1 row pour 2 cols (= 2 cards, = 2 meubles)
+        var nombreDeDivsRow = 0;
+        for (let rowsCount = listeMeubles.length; rowsCount > 0; rowsCount--) {
+            if (rowsCount % 2 === moduloZeroOuUn) {
+                let divRow = document.createElement("div");
+                divRow.setAttribute('id', 'divRow'+rowsCount);
+                divRow.setAttribute('class', 'row');
+                this.divMeubles.appendChild(divRow);
+                nombreDeDivsRow ++;
+            }
+        }
+
+        console.log(nombreDeDivsRow);
+
+        var rowsCount = listeMeubles.length;
+        console.log(rowsCount);
+
+        var row = this.divMeubles.querySelector('#divRow'+rowsCount);
+        
+
+        for (let meuble of listeMeubles) {
+            
+            if (rowsCount % 2 === moduloZeroOuUn) {
+                row = this.divMeubles.querySelector('#divRow'+rowsCount);
+            }
+            console.log(row);
+            const item = document.createElement("div");
+            item.setAttribute("class", "divMeuble col-12 col-md-6");
+
+            const divDescMeuble = document.createElement("div");
+            divDescMeuble.setAttribute("class", "card-body");
+            divDescMeuble.innerHTML = meuble._id + ' , ' + meuble.name + ' , ' + this.convertToEuros(meuble.price) + '<br>' + meuble.description + '<br><br>';
+        
+            //item.innerHTML = meuble._id + ' , ' + meuble.name + ' , ' + this.convertToEuros(meuble.price) + '<br>' + meuble.description + '<br><br>';
+
+
             const divImgMeuble = document.createElement("div");
-            divImgMeuble.setAttribute("class","divImgMeuble");
+            divImgMeuble.setAttribute("class","divImgMeuble card-img-top");
             //divImgMeuble.setAttribute("class","card");
         
             const lienImg = document.createElement("a");
             lienImg.setAttribute("href", "./products/produit.html?id="+meuble._id);
-            lienImg.setAttribute("class","lienImg");
+            lienImg.setAttribute("class","lienImg mx-auto");
             lienImg.setAttribute("draggable","true");
     
             const fitImg = document.createElement("img");
@@ -53,7 +87,12 @@ class Display {
             divImgMeuble.appendChild(fitImg);
         
             item.appendChild(divImgMeuble);
-            this.divMeubles.appendChild(item);
+            item.appendChild(divDescMeuble);
+
+            row.appendChild(item);
+            rowsCount --;
+            //this.divMeubles.appendChild(item);
+
         };
     }
 

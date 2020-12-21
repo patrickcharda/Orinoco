@@ -9931,10 +9931,6 @@ main {
 }
 
 .divMeuble {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   background-color: #847;
   color: white;
 }
@@ -9969,7 +9965,7 @@ main {
   width: 50px;
   height: 50px;
   right: 20px;
-  top: 35px;
+  top: 15px;
 }
 
 #spanPlus, #spanMoins {
@@ -9990,7 +9986,7 @@ main {
 }
 
 .col-6 {
-  background: yellow;
+  background: #2e2e05;
 }
 
 .col-md-4 {
@@ -10002,7 +9998,8 @@ main {
 }
 
 .h4 {
-  color: #3A242E;
+  font-family: "Cinzel Decorative", cursive;
+  color: white;
   filter: saturate(0.2);
 }
 
@@ -10012,6 +10009,10 @@ main {
 
 #frmContactNone {
   display: none;
+}
+
+.bg-bandeau {
+  background: #3A242E;
 }
 
 /*# sourceMappingURL=style.css.map */
