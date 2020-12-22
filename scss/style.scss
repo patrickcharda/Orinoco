@@ -9,33 +9,20 @@
     font-weight: 700;
 }
 body {
-    font-family: "Roboto", sans-serif;
+    font-family: 'Playfair Display', sans-serif;
+    //font-family: 'Raleway', sans-serif;
+    //font-family: "Roboto", sans-serif;
     font-size: 1.1rem;
     font-weight: 400;
     color: rgb(36, 31, 31);
-    display: flex;
-    flex-direction: column;
     min-height: 100vh;
 }
 header{
     background: #f3e9f1;
 }
-main {
-    flex: 1;
-}
-#divMeubles {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+
 .divMeuble {
-    //display: flex;
-    //flex-direction: column;
-    //justify-content: center;
-    //align-items: center;
-    background-color: #847;
-    color: white;
+    color: #1d1116;
 }
 .divImgMeuble {
     position: relative;
@@ -47,9 +34,11 @@ main {
     width: 100%;
 }
 .fitImg {
-    width: 300px;
+    margin-top : .4rem;
+    width: 275px;
     height: 300px;
     object-fit: cover;  
+    border: #cea9ba 1px solid;
 }
 #meubleOptions {
     background-color: lightgreen;
@@ -58,7 +47,6 @@ main {
 #containerSite {
     position: relative;
 }
-
 
 #panierSite {
         position: absolute;
@@ -86,9 +74,6 @@ main {
     background: #fff;
 }
 
-.col-6 {
-    background: rgb(46, 46, 5);
-}
 .col-md-4 {
     background: rgb(191, 226, 155);
 }
@@ -110,6 +95,32 @@ main {
 .bg-bandeau {
     background: #3A242E;
 }
+
+.card {
+    width : 300px;
+    margin-bottom: 1rem;
+    border: #3A242E solid 4px;
+}
+
+@media screen and (min-width: 576px) {
+    .card {
+        //width: 300px;
+        //left: 25%;
+    }
+}
+
+.divRow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.card-text + strong {
+    background-color: rgb(235, 233, 233);
+    color:rgb(36, 31, 31);
+}
+
 
 
 

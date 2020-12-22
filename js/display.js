@@ -40,7 +40,7 @@ class Display {
             if (rowsCount % 2 === moduloZeroOuUn) {
                 let divRow = document.createElement("div");
                 divRow.setAttribute('id', 'divRow'+rowsCount);
-                divRow.setAttribute('class', 'row');
+                divRow.setAttribute('class', 'divRow text-center mb-md-5');
                 this.divMeubles.appendChild(divRow);
                 nombreDeDivsRow ++;
             }
@@ -63,9 +63,13 @@ class Display {
             const item = document.createElement("div");
             item.setAttribute("class", "divMeuble col-12 col-md-6");
 
+            const card = document.createElement("div");
+            card.setAttribute('class','card mx-auto');
+            item.appendChild(card);
+
             const divDescMeuble = document.createElement("div");
             divDescMeuble.setAttribute("class", "card-body");
-            divDescMeuble.innerHTML = meuble._id + ' , ' + meuble.name + ' , ' + this.convertToEuros(meuble.price) + '<br>' + meuble.description + '<br><br>';
+            divDescMeuble.innerHTML = "<h3 class='card-title'>" + meuble.name + ' </h3><p class="card-text"> ' + meuble.description + '</p><strong>'  + this.convertToEuros(meuble.price) + '</strong>';
         
             //item.innerHTML = meuble._id + ' , ' + meuble.name + ' , ' + this.convertToEuros(meuble.price) + '<br>' + meuble.description + '<br><br>';
 
@@ -86,8 +90,8 @@ class Display {
             divImgMeuble.appendChild(lienImg);
             divImgMeuble.appendChild(fitImg);
         
-            item.appendChild(divImgMeuble);
-            item.appendChild(divDescMeuble);
+            card.appendChild(divImgMeuble);
+            card.appendChild(divDescMeuble);
 
             row.appendChild(item);
             rowsCount --;

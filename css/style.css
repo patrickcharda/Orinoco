@@ -9906,12 +9906,10 @@ h3 {
 }
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: "Playfair Display", sans-serif;
   font-size: 1.1rem;
   font-weight: 400;
   color: #241f1f;
-  display: flex;
-  flex-direction: column;
   min-height: 100vh;
 }
 
@@ -9919,20 +9917,8 @@ header {
   background: #f3e9f1;
 }
 
-main {
-  flex: 1;
-}
-
-#divMeubles {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .divMeuble {
-  background-color: #847;
-  color: white;
+  color: #1d1116;
 }
 
 .divImgMeuble {
@@ -9947,9 +9933,11 @@ main {
 }
 
 .fitImg {
-  width: 300px;
+  margin-top: 0.4rem;
+  width: 275px;
   height: 300px;
   object-fit: cover;
+  border: #cea9ba 1px solid;
 }
 
 #meubleOptions {
@@ -9985,10 +9973,6 @@ main {
   background: #fff;
 }
 
-.col-6 {
-  background: #2e2e05;
-}
-
 .col-md-4 {
   background: #bfe29b;
 }
@@ -10013,6 +9997,24 @@ main {
 
 .bg-bandeau {
   background: #3A242E;
+}
+
+.card {
+  width: 300px;
+  margin-bottom: 1rem;
+  border: #3A242E solid 4px;
+}
+
+.divRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.card-text + strong {
+  background-color: #ebe9e9;
+  color: #241f1f;
 }
 
 /*# sourceMappingURL=style.css.map */
