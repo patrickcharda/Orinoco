@@ -23,10 +23,18 @@ header{
 
 .divMeuble {
     color: #1d1116;
+    justify-content: center;
 }
-.divImgMeuble {
+.divImgMeuble, .divImgMeuble2 {
     position: relative;
     border: 2px solid white;
+}
+.divImgMeuble2 {
+    margin-bottom: 1.5rem;
+}
+
+.divTxtMeuble {
+    max-width : 270px;
 }
 .lienImg {
     position: absolute;
@@ -40,8 +48,18 @@ header{
     object-fit: cover;  
     border: #cea9ba 1px solid;
 }
+
 #meubleOptions {
-    background-color: lightgreen;
+    background-color: rgb(54, 47, 47);
+    color: white;
+}
+.divOptions {
+    max-width: 160px;
+}
+
+#btnAjout {
+    width: 160px;
+    background-color: rgb(250, 244, 244);
 }
 
 #containerSite {
@@ -56,12 +74,13 @@ header{
         top: 15px;
 }
 #spanPlus, #spanMoins {
-    font-size: large;
+    font-size: 1.5rem;
     font-weight: 700;
     cursor: pointer;
 }
 
 #spanQte {
+    font-size: 2rem;
     &::before {
         content:' ';
     }
@@ -74,8 +93,9 @@ header{
     background: #fff;
 }
 
+
 .col-md-4 {
-    background: rgb(191, 226, 155);
+    //background: rgb(191, 226, 155);
 }
 .col-md-8 {
     background: green;
@@ -99,14 +119,8 @@ header{
 .card {
     width : 300px;
     margin-bottom: 1rem;
-    border: #3A242E solid 4px;
-}
-
-@media screen and (min-width: 576px) {
-    .card {
-        //width: 300px;
-        //left: 25%;
-    }
+    border: #3A242E solid 2px;
+    background-color: rgb(250, 244, 244);
 }
 
 .divRow {
@@ -119,6 +133,25 @@ header{
 .card-text + strong {
     background-color: rgb(235, 233, 233);
     color:rgb(36, 31, 31);
+}
+
+.list-inline-item > a {
+    color: purple;
+}
+
+h3 + strong {
+    background-color: #ebe9e9;
+    color: #241f1f;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+#divMiniPanier.row {
+    justify-content: stretch;
+    flex-basis: 45%;
+    border: red 2px solid;
 }
 
 

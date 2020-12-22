@@ -9919,11 +9919,20 @@ header {
 
 .divMeuble {
   color: #1d1116;
+  justify-content: center;
 }
 
-.divImgMeuble {
+.divImgMeuble, .divImgMeuble2 {
   position: relative;
   border: 2px solid white;
+}
+
+.divImgMeuble2 {
+  margin-bottom: 1.5rem;
+}
+
+.divTxtMeuble {
+  max-width: 270px;
 }
 
 .lienImg {
@@ -9941,7 +9950,17 @@ header {
 }
 
 #meubleOptions {
-  background-color: lightgreen;
+  background-color: #362f2f;
+  color: white;
+}
+
+.divOptions {
+  max-width: 160px;
+}
+
+#btnAjout {
+  width: 160px;
+  background-color: #faf4f4;
 }
 
 #containerSite {
@@ -9957,11 +9976,14 @@ header {
 }
 
 #spanPlus, #spanMoins {
-  font-size: large;
+  font-size: 1.5rem;
   font-weight: 700;
   cursor: pointer;
 }
 
+#spanQte {
+  font-size: 2rem;
+}
 #spanQte::before {
   content: " ";
 }
@@ -9971,10 +9993,6 @@ header {
 
 .jumbotron {
   background: #fff;
-}
-
-.col-md-4 {
-  background: #bfe29b;
 }
 
 .col-md-8 {
@@ -10002,7 +10020,8 @@ header {
 .card {
   width: 300px;
   margin-bottom: 1rem;
-  border: #3A242E solid 4px;
+  border: #3A242E solid 2px;
+  background-color: #faf4f4;
 }
 
 .divRow {
@@ -10015,6 +10034,25 @@ header {
 .card-text + strong {
   background-color: #ebe9e9;
   color: #241f1f;
+}
+
+.list-inline-item > a {
+  color: purple;
+}
+
+h3 + strong {
+  background-color: #ebe9e9;
+  color: #241f1f;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+#divMiniPanier.row {
+  justify-content: stretch;
+  flex-basis: 45%;
+  border: red 2px solid;
 }
 
 /*# sourceMappingURL=style.css.map */

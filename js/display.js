@@ -161,19 +161,23 @@ class Display {
             return;
         }
         
-        /* code qui marche :
+        /* code exemple ok :
         let detailMeuble = await Ajax.get("http://localhost:3000/api/furniture/"+id).catch(
             (e) => console.log('dans display : ' +e)
         );
         */
 
         console.log(detailMeuble);
-        const item = document.createElement("div");
-        item.setAttribute("class", "divMeuble");
-        item.innerHTML = detailMeuble._id + ' , ' + detailMeuble.name + ' , ' + this.convertToEuros(detailMeuble.price) + '<br>' + detailMeuble.description + '<br><br>';
+        var item = document.createElement("div");
+        item.setAttribute("class", "divMeuble row");
+
+        const divTxtMeuble = document.createElement('div');
+        divTxtMeuble.setAttribute('class', "divTxtMeuble text-center col-12");
+
+        divTxtMeuble.innerHTML = '<h3 class="card-title text-center col-12">' +detailMeuble.name + '</h3><strong>' + this.convertToEuros(detailMeuble.price) + '</strong><br><br><p class="card-text mb-3">' + detailMeuble.description + '</p>';
         
         const divImgMeuble = document.createElement("div");
-        divImgMeuble.setAttribute("class","divImgMeuble");
+        divImgMeuble.setAttribute("class","divImgMeuble2 text-center col-12");
         
         const lienImg = document.createElement("a");
         lienImg.setAttribute("href", "./produit.html?id="+detailMeuble._id);
@@ -187,13 +191,18 @@ class Display {
         divImgMeuble.appendChild(fitImg);
         
         item.appendChild(divImgMeuble);
-        this.divDetailMeuble.appendChild(item);
+        item.appendChild(divTxtMeuble);
+        //this.divDetailMeuble.appendChild(item);
 
         // afficher les vernis
         if (detailMeuble.varnish.length > 0) {
+            var divOptions = document.createElement('div');
+            divOptions.setAttribute('class', 'text-center col-12');
+            
             const divMeubleOptions = document.createElement("select");
             divMeubleOptions.setAttribute("id","meubleOptions");
             divMeubleOptions.setAttribute("name","meubleOptions");
+            divMeubleOptions.setAttribute("class","divOptions text-center col-12");
             var option='';
             for (let i=0;i<detailMeuble.varnish.length;i++) {
                 if (i == 0) {
@@ -205,16 +214,33 @@ class Display {
             }
             divMeubleOptions.innerHTML = option;
             console.log(divMeubleOptions.options[divMeubleOptions.selectedIndex].value);
-            this.divDetailMeuble.appendChild(divMeubleOptions);        
+            //this.divDetailMeuble.appendChild(divMeubleOptions);  
+            divOptions.appendChild(divMeubleOptions);
+            item.appendChild(divOptions);
         }
+        /*const br = document.createElement('div');
+        br.innerHTML='<p></p>';
+        item.appendChild(br);*/
+        this.divDetailMeuble.appendChild(item);
+
+        var divAjout = document.createElement('div');
+        divAjout.setAttribute('class', 'divMeuble row mt-5');
+
+        const divAdd = document.createElement('div');
+        divAdd.setAttribute('class', 'text-center col-12');
+
+        divAjout.appendChild(divAdd);
 
         const btnAjout = document.createElement("button");
+        btnAjout.setAttribute('id', 'btnAjout');
         btnAjout.innerHTML = 'Ajouter au panier';
         btnAjout.addEventListener('click', function(event) {
             event.preventDefault();
             this.ajouterMeuble(detailMeuble._id, detailMeuble);
         }.bind(this))
-        this.divDetailMeuble.appendChild(btnAjout);
+        divAdd.appendChild(btnAjout);
+        const divBr = document.createElement('div');
+        divAdd.appendChild(divBr);
 
         //si ce meuble est déjà au panier on affiche combien d'article sont présents au panier
         /*let qteInCart = this.panier.quantiteOfAFurniture(detailMeuble._id);
@@ -226,17 +252,17 @@ class Display {
          
         const spanPlus = document.createElement("span");
         spanPlus.setAttribute("id","spanPlus");
-        spanPlus.textContent='+';
+        spanPlus.textContent=' +';
         spanPlus.addEventListener('click', function(event) {
             event.preventDefault();
             this.ajouterMeuble(detailMeuble._id, detailMeuble);
         }.bind(this))
-        this.divDetailMeuble.appendChild(spanPlus);
+        divAdd.appendChild(spanPlus);
 
         const spanQte = document.createElement("span");
         spanQte.setAttribute("id","spanQte");
         //spanQte.textContent=0;
-        this.divDetailMeuble.appendChild(spanQte);
+        divAdd.appendChild(spanQte);
 
         //si ce meuble est déjà au panier on affiche combien d'article sont présents au panier
         let qteInCart = this.panier.quantiteOfAFurniture(detailMeuble._id);
@@ -257,7 +283,10 @@ class Display {
             ev.preventDefault();
             this.retirerMeuble(detailMeuble._id, detailMeuble);
         }.bind(this))
-        this.divDetailMeuble.appendChild(spanMoins);
+        divAdd.appendChild(spanMoins);
+
+
+        this.divDetailMeuble.appendChild(divAjout);
         
         this.afficheMiniPanier(id,detailMeuble);
         
@@ -268,22 +297,23 @@ class Display {
         let ceMeuble = meuble;
         const furnitureToDisplay = this.panier.furnitureList(id);
         console.log(furnitureToDisplay);
-        const divTmp = document.createElement("div");
+        /*const divTmp = document.createElement("div");
         divTmp.setAttribute("id", 'divTmp');
         divTmp.textContent = JSON.stringify(furnitureToDisplay); 
-        this.divMiniPanier.appendChild(divTmp);
+        this.divMiniPanier.appendChild(divTmp);*/
         
         if (furnitureToDisplay !== false) {
             let i=0;
             for (let item of furnitureToDisplay) {
                 i++;
-                let content = ceMeuble.name +
-                ' ' + item.varnish + ', ' + this.convertToEuros(ceMeuble.price);
+                let content = '<div>' + ceMeuble.name +
+                ' ' + item.varnish + ', ' + this.convertToEuros(ceMeuble.price) + '&#9;</div>';
                 console.log(content);
                 const divSuppr = document.createElement("div");
                 let currentDivId = 'divSuppr_'+i;
                 let spanSte = document.getElementById('spanQte');
                 divSuppr.setAttribute('id',currentDivId);
+                divSuppr.setAttribute('class', 'col-12 text-justify');
                 divSuppr.innerHTML= content;
                 const btnSuppr = document.createElement("button");
                 btnSuppr.textContent = 'supprimer';
