@@ -34,7 +34,7 @@ class Display {
         }
         console.log('zeroOuUn : '+moduloZeroOuUn)
         
-        // créer les div de rows : 1 row pour 2 cols (= 2 cards, = 2 meubles)
+        // créer les div de row (bootstrap) : 1 row pour 2 cols (= 2 cards, = 2 meubles)
         var nombreDeDivsRow = 0;
         for (let rowsCount = listeMeubles.length; rowsCount > 0; rowsCount--) {
             if (rowsCount % 2 === moduloZeroOuUn) {
@@ -52,7 +52,6 @@ class Display {
         console.log(rowsCount);
 
         var row = this.divMeubles.querySelector('#divRow'+rowsCount);
-        
 
         for (let meuble of listeMeubles) {
             
@@ -169,15 +168,15 @@ class Display {
 
         console.log(detailMeuble);
         var item = document.createElement("div");
-        item.setAttribute("class", "divMeuble row");
+        item.setAttribute("class", "divMeuble row card mx-auto");
 
         const divTxtMeuble = document.createElement('div');
         divTxtMeuble.setAttribute('class', "divTxtMeuble text-center col-12");
 
-        divTxtMeuble.innerHTML = '<h3 class="card-title text-center col-12">' +detailMeuble.name + '</h3><strong>' + this.convertToEuros(detailMeuble.price) + '</strong><br><br><p class="card-text mb-3">' + detailMeuble.description + '</p>';
+        divTxtMeuble.innerHTML = '<h3 class="card-title text-center col-12">' +detailMeuble.name + '</h3><strong>' + this.convertToEuros(detailMeuble.price) + '</strong><br><br><div class="card-text text-center mx-auto"><p class="mb-4 text-center">' + detailMeuble.description + '</p></div>';
         
         const divImgMeuble = document.createElement("div");
-        divImgMeuble.setAttribute("class","divImgMeuble2 text-center col-12");
+        divImgMeuble.setAttribute("class","divImgMeuble2 text-center col-12 mx-auto");
         
         const lienImg = document.createElement("a");
         lienImg.setAttribute("href", "./produit.html?id="+detailMeuble._id);
@@ -185,7 +184,7 @@ class Display {
     
         const fitImg = document.createElement("img");
         fitImg.setAttribute("src", detailMeuble.imageUrl);
-        fitImg.setAttribute("class","fitImg");
+        fitImg.setAttribute("class","fitImag");
         
         divImgMeuble.appendChild(lienImg);
         divImgMeuble.appendChild(fitImg);
@@ -202,7 +201,7 @@ class Display {
             const divMeubleOptions = document.createElement("select");
             divMeubleOptions.setAttribute("id","meubleOptions");
             divMeubleOptions.setAttribute("name","meubleOptions");
-            divMeubleOptions.setAttribute("class","divOptions text-center col-12");
+            divMeubleOptions.setAttribute("class","divOptions text-center col-12 mb-3");
             var option='';
             for (let i=0;i<detailMeuble.varnish.length;i++) {
                 if (i == 0) {
@@ -306,14 +305,14 @@ class Display {
             let i=0;
             for (let item of furnitureToDisplay) {
                 i++;
-                let content = '<div>' + ceMeuble.name +
+                let content = '<div> 1 ' + ceMeuble.name +
                 ' ' + item.varnish + ', ' + this.convertToEuros(ceMeuble.price) + '&#9;</div>';
                 console.log(content);
                 const divSuppr = document.createElement("div");
                 let currentDivId = 'divSuppr_'+i;
                 let spanSte = document.getElementById('spanQte');
                 divSuppr.setAttribute('id',currentDivId);
-                divSuppr.setAttribute('class', 'col-12 text-justify');
+                divSuppr.setAttribute('class', 'col-12 mx-auto mb-4');
                 divSuppr.innerHTML= content;
                 const btnSuppr = document.createElement("button");
                 btnSuppr.textContent = 'supprimer';

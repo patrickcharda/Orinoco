@@ -27,7 +27,7 @@ header{
 }
 .divImgMeuble, .divImgMeuble2 {
     position: relative;
-    border: 2px solid white;
+    //border: 2px solid white;
 }
 .divImgMeuble2 {
     margin-bottom: 1.5rem;
@@ -35,6 +35,7 @@ header{
 
 .divTxtMeuble {
     max-width : 270px;
+    text-align: center;
 }
 .lienImg {
     position: absolute;
@@ -48,6 +49,15 @@ header{
     object-fit: cover;  
     border: #cea9ba 1px solid;
 }
+
+.fitImag {
+    margin-top : .7rem;
+    width: 265px;
+    //height: 300px;
+    object-fit: cover;  
+    border: #cea9ba 1px solid;
+}
+
 
 #meubleOptions {
     background-color: rgb(54, 47, 47);
@@ -93,10 +103,6 @@ header{
     background: #fff;
 }
 
-
-.col-md-4 {
-    //background: rgb(191, 226, 155);
-}
 .col-md-8 {
     background: green;
 }
@@ -148,10 +154,10 @@ h3 + strong {
     text-align: justify;
 }
 
-#divMiniPanier.row {
-    justify-content: stretch;
-    flex-basis: 45%;
-    border: red 2px solid;
+#divMiniPanier {
+    //border: red 2px solid;
+    //margin: auto !important;
+    text-align: center;
 }
 
 

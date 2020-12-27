@@ -9924,7 +9924,6 @@ header {
 
 .divImgMeuble, .divImgMeuble2 {
   position: relative;
-  border: 2px solid white;
 }
 
 .divImgMeuble2 {
@@ -9933,6 +9932,7 @@ header {
 
 .divTxtMeuble {
   max-width: 270px;
+  text-align: center;
 }
 
 .lienImg {
@@ -9945,6 +9945,13 @@ header {
   margin-top: 0.4rem;
   width: 275px;
   height: 300px;
+  object-fit: cover;
+  border: #cea9ba 1px solid;
+}
+
+.fitImag {
+  margin-top: 0.7rem;
+  width: 265px;
   object-fit: cover;
   border: #cea9ba 1px solid;
 }
@@ -10049,10 +10056,8 @@ h3 + strong {
   text-align: justify;
 }
 
-#divMiniPanier.row {
-  justify-content: stretch;
-  flex-basis: 45%;
-  border: red 2px solid;
+#divMiniPanier {
+  text-align: center;
 }
 
 /*# sourceMappingURL=style.css.map */
