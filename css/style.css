@@ -9970,6 +9970,11 @@ header {
   background-color: #faf4f4;
 }
 
+.btnVider, .btnSuppr {
+  font-size: 0.8rem;
+  border: 1px lightgrey solid;
+}
+
 #containerSite {
   position: relative;
 }
@@ -10058,6 +10063,63 @@ h3 + strong {
 
 #divMiniPanier {
   text-align: center;
+}
+
+#divTotalPanier {
+  font-weight: 600;
+  font-size: x-large;
+  line-height: 1.7rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.product-line {
+  margin-bottom: 3rem;
+}
+
+.product-line-detail {
+  padding-left: 90px;
+  margin-bottom: 1rem;
+}
+@media (min-width: 576px) {
+  .product-line-detail {
+    padding-left: 165px;
+  }
+}
+
+.resultLine {
+  display: flex;
+  align-items: flex-start;
+  font-size: x-large;
+}
+
+.imgLine {
+  margin-right: 10px;
+  border: solid 2px #241f1f;
+  width: 80px;
+  height: 90px;
+}
+@media (min-width: 576px) {
+  .imgLine {
+    width: 150px;
+    height: 165px;
+  }
+}
+
+#firstName:invalid, #lastName:invalid, #address:invalid, #city:invalid, #email:invalid {
+  border-color: #e2d7d7;
+}
+#firstName:valid, #lastName:valid, #address:valid, #city:valid, #email:valid {
+  border-color: lightgrey;
+}
+
+.commander {
+  font-size: 1.4rem;
+}
+
+#formIsNotOk {
+  color: #6f48fc;
 }
 
 /*# sourceMappingURL=style.css.map */

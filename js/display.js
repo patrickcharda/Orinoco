@@ -315,6 +315,7 @@ class Display {
                 divSuppr.setAttribute('class', 'col-12 mx-auto mb-4');
                 divSuppr.innerHTML= content;
                 const btnSuppr = document.createElement("button");
+                btnSuppr.setAttribute('class', 'btnSuppr');
                 btnSuppr.textContent = 'supprimer';
                 btnSuppr.addEventListener('click', function(event) {
                     event.preventDefault();
@@ -364,6 +365,7 @@ class Display {
                 let divPartDeCeProduitAuPanier = document.createElement("div");
                 let currentDivPart='product_'+j;
                 divPartDeCeProduitAuPanier.setAttribute('id',currentDivPart);
+                divPartDeCeProduitAuPanier.setAttribute('class', 'product-line');
 
                 //this.displayTotalProduit(divPartDeCeProduitAuPanier, item.id, j);
 
@@ -372,8 +374,9 @@ class Display {
                 let divResult = document.createElement("div");
                 let currentResult='result_'+j;
                 divResult.setAttribute('id', currentResult);
-                content = `<img src='${item.imageUrl}' width='60px' height='70px'> ${item.name}
-                Qté : ${qte} prix unitaire : `+ this.convertToEuros(item.price) + ` total : ` + this.convertToEuros(qte*item.price) +'<br>';
+                divResult.setAttribute('class', 'resultLine');
+                content = `<img src='${item.imageUrl}' class='imgLine'> ${item.name}
+                Qté : ${qte} prix unitaire : `+ this.convertToEuros(item.price) + `total : ` + this.convertToEuros(qte*item.price) +'<br>';
                 montantTotal += qte*item.price;
                 divResult.innerHTML = content;
                 divPartDeCeProduitAuPanier.appendChild(divResult);
@@ -383,13 +386,14 @@ class Display {
                     const divSuppr = document.createElement("div");
                     let currentDivId = 'divSuppr_'+i;
                     divSuppr.setAttribute('id', currentDivId);
+                    divSuppr.setAttribute('class', 'product-line-detail');
                     if (unite.id === item.id) {
 
                         //content += `1 ${unite.name}, vernis ${unite.varnish} <br>`;
-                        content = `1 ${unite.name}, vernis ${unite.varnish}`;
+                        content = `1 ${unite.name}, vernis ${unite.varnish} &nbsp &nbsp`;
                         divSuppr.innerHTML = content;
-    
                         const btnSuppr = document.createElement("button");
+                        btnSuppr.setAttribute('class', 'btnSuppr');
                         btnSuppr.textContent = 'supprimer';
                         btnSuppr.addEventListener('click', function(event) {
                         event.preventDefault();
@@ -414,6 +418,7 @@ class Display {
                         }.bind(this));
                         
                         divSuppr.appendChild(btnSuppr);
+                        //divResult.appendChild(divSuppr);
                         divPartDeCeProduitAuPanier.appendChild(divSuppr);
                         this.divOrder.appendChild(divPartDeCeProduitAuPanier);
                     }
@@ -433,6 +438,10 @@ class Display {
         console.log(divForm);
         if (this.panier.arrayFurnitures.length === 0 && divForm !== null) {
             divForm.setAttribute('id','frmContactNone');
+            console.log('441');
+            this.contact.supprimerMessages();
+            //let divMsg = document.querySelector('#formIsNotOk');
+            //divMsg.innerHTML='';
         } else if (divForm !== null) {
             divForm.setAttribute('id','frmContact');
         }
@@ -456,8 +465,10 @@ class Display {
     createResult(item) {
         let result = this.panier.quantiteOfAFurniture(item.id);
         let qte = result.qte;
-        let content = `<img src='${item.imageUrl}' width='60px' height='70px'> ${item.name}
+        let content = `<img src='${item.imageUrl}' class='imgLine'> ${item.name}
                 Qté : ${qte} prix unitaire : ` + this.convertToEuros(item.price) + ` total : ` + this.convertToEuros(qte*item.price) +'<br>';
+        /*let content = `<img src='${item.imageUrl}' width='60px' height='70px'> ${item.name}
+                Qté : ${qte} prix unitaire : ` + this.convertToEuros(item.price) + ` total : ` + this.convertToEuros(qte*item.price) +'<br>';*/
         return content;
     }
 
@@ -466,8 +477,8 @@ class Display {
         
         if (montantTotal !== 0) {
         this.divTotalPanier.innerHTML = 
-            '<span>Montant à régler : ' + this.convertToEuros(montantTotal) + ' € </span><br>' +
-            '<button onclick="display.viderPanier()">Vider le panier</button>';
+            '<span>Montant à régler : ' + this.convertToEuros(montantTotal) + ' </span><br><br>' +
+            '<button onclick="display.viderPanier()" class="btnVider">Vider le panier</button>';
         }
         else {
             this.divTotalPanier.innerHTML = '';
@@ -476,8 +487,13 @@ class Display {
     }
 
     viderPanier() {
+        this.contact.supprimerMessages();
         this.panier.viderPanier();
         this.displayPanier();
+    }
+
+    viderStoragePanier() {
+        this.panier.viderPanier();
     }
 
     order() {
@@ -588,7 +604,7 @@ class Display {
         let content = `${lastOrder.resume}`;
 
         divResume.innerHTML = content;
-        this.viderPanier();
+        this.viderStoragePanier();
 
     }
 

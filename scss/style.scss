@@ -72,6 +72,11 @@ header{
     background-color: rgb(250, 244, 244);
 }
 
+.btnVider, .btnSuppr {
+    font-size: .8rem;
+    border: 1px lightgrey solid;
+}
+
 #containerSite {
     position: relative;
 }
@@ -159,6 +164,66 @@ h3 + strong {
     //margin: auto !important;
     text-align: center;
 }
+
+#divTotalPanier {
+    font-weight: 600;
+    font-size: x-large;
+    line-height: 1.7rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.product-line {
+    margin-bottom: 3rem;
+}
+
+.product-line-detail {
+    padding-left: 90px;
+    margin-bottom: 1rem;
+    @media (min-width: 576px) {
+        padding-left: 165px;
+    }
+}
+
+.resultLine {
+    display: flex;
+    align-items: flex-start;
+    font-size: x-large;
+    
+    //flex-wrap: wrap;
+
+}
+
+.imgLine {
+    margin-right : 10px;
+    border: solid 2px #241f1f;
+    width: 80px; 
+    height: 90px;
+    @media (min-width: 576px) {
+        width: 150px; 
+        height: 165px;
+    }
+}
+
+#firstName, #lastName, #address, #city, #email {
+    &:invalid {
+        border-color: rgb(226, 215, 215);
+    }
+    &:valid {
+        border-color: lightgrey;
+    }
+}
+
+.commander {
+    font-size: 1.4rem;
+}
+
+#formIsNotOk {
+    color: rgb(111, 72, 252);
+}
+
+
 
 
 

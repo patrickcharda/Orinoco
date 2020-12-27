@@ -62,19 +62,19 @@ class Contact {
             let divFormIsNotOk = document.getElementById('formIsNotOk');
             let inputsNotOk ='';
             if (!p) {
-                inputsNotOk +='<p>Le champ prénom est obligatoire. </p>';
+                inputsNotOk +='<p>Le champ prénom est obligatoire. Il ne peut comporter que des caractères alphabétiques, des tirets, et des espaces. </p>';
             }
             if (!n) {
-                inputsNotOk +='<p>Le champ nom est obligatoire. </p>';
+                inputsNotOk +='<p>Le champ nom est obligatoire. Il ne peut comporter que des caractères alphabétiques, des tirets, et des espaces.</p>';
             }
             if (!a) {
                 inputsNotOk +='<p>Le champ adresse est obligatoire. </p>';
             }
             if (!c) {
-                inputsNotOk +='<p>Le champ ville est obligatoire. </p>';
+                inputsNotOk +='<p>Le champ ville est obligatoire. Il ne peut comporter que des caractères alphabétiques, des tirets, et des espaces. </p>';
             }
             if (!m) {
-                inputsNotOk +='<p>Le champ email est obligatoire. </p>';
+                inputsNotOk +='<p>Le champ email est obligatoire. Il doit correspondre à une adresse de messagerie correctement écrite.</p>';
             }
             divFormIsNotOk.innerHTML = inputsNotOk;
         }
@@ -89,6 +89,11 @@ class Contact {
             "email": document.getElementById("email").value
         }
         return (objContact);
+    }
+
+    supprimerMessages() {
+        const divMessages = document.querySelector('#formIsNotOk');
+        divMessages.innerHTML='';
     }
 
 }
