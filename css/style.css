@@ -9906,11 +9906,18 @@ h3 {
 }
 
 body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
   font-family: "Playfair Display", sans-serif;
   font-size: 1.1rem;
   font-weight: 400;
   color: #241f1f;
   min-height: 100vh;
+}
+
+main {
+  flex: 1;
 }
 
 header {
@@ -10120,6 +10127,21 @@ h3 + strong {
 
 #formIsNotOk {
   color: #6f48fc;
+}
+
+pre {
+  font-family: "Playfair Display", sans-serif;
+}
+
+.wrapper {
+  display: flex;
+}
+
+.imgVignette {
+  width: 80px;
+  height: 90px;
+  margin-right: 25px;
+  border: #cea9ba 1px solid;
 }
 
 /*# sourceMappingURL=style.css.map */

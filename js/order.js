@@ -31,6 +31,7 @@ class Order {
     returnArrayOrders() {
         return this.arrayOrders;
     }
+    
     returnArrayOrdersLastRecord() {
         return this.arrayOrders[this.arrayOrders.length - 1];
     }

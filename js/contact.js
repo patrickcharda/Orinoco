@@ -6,7 +6,7 @@ class Contact {
     firstNameOk() {
         let prenom = document.getElementById("firstName");
         console.log(prenom.value);
-        let prenomRegex = /^[éèêôâïöa-z- ]{2,24}$/i;
+        let prenomRegex = /^[éèêôâïöA-Za-z- ]{2,24}$/i;
         if (prenomRegex.test(prenom.value)) {
             return true;
         } else {
@@ -15,7 +15,7 @@ class Contact {
     }
     lastNameOk() {
         let nom = document.getElementById("lastName");
-        let nomRegex = /^[éèêôâïöa-z- ]{2,24}$/i;
+        let nomRegex = /^[éèêôâïöA-Za-z- ]{2,24}$/i;
         if (nomRegex.test(nom.value)) {
             return true;
         } else {
@@ -24,7 +24,7 @@ class Contact {
     }
     addressOk() {
         let adresse = document.getElementById("address");
-        let addressRegex = /^[éèêôâïöa-z0-9-,./ ]{2,49}$/;
+        let addressRegex = /^[éèêôâïöA-Za-z0-9-,./ ]{2,49}$/;
         if (addressRegex.test(adresse.value)) {
             return true;
         } else {
@@ -33,7 +33,7 @@ class Contact {
     }
     cityOk() {
         let ville = document.getElementById("city");
-        let villeRegex = /^[éèêôâïöa-z-/ ]{2,49}$/i;
+        let villeRegex = /^[éèêôâïöA-Za-z-0-9/ ]{2,49}$/i;
         if (villeRegex.test(ville.value)) {
             return true;
         } else {

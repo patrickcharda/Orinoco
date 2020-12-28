@@ -551,7 +551,7 @@ class Display {
         const furnituresToDisplayOptions = this.panier.furnituresList();
         var distinctFurnitures = new Set();
         var montantTotal = 0;
-        var content = '';
+        var content = "";
 
         for (let item of furnituresToDisplay) {
             if (!distinctFurnitures.has(item.id)) {
@@ -566,8 +566,8 @@ class Display {
             if (distinctFurnitures.has(item.id)) {
                 let result= this.panier.quantiteOfAFurniture(item.id);
                 qte = result.qte;
-                content += `<img src='${item.imageUrl}' width='60px' height='70px'> ${item.name}
-                Qté : ${qte} prix unitaire : ` + this.convertToEuros(item.price) +` total : ` + this.convertToEuros(qte*item.price) +'<br>';
+                content += `<div class='wrapper'><div class='vignette'><img src='${item.imageUrl}' class='imgVignette'></div><div><strong> ${item.name}
+                Qté : ${qte} prix unitaire : ` + this.convertToEuros(item.price) +` total : ` + this.convertToEuros(qte*item.price) +'</strong><br>';
                 montantTotal += qte*item.price;
                 // affichage détaillé
                 for (let unite of furnituresToDisplayOptions) {
@@ -575,11 +575,12 @@ class Display {
                         content += `1 ${unite.name}, vernis ${unite.varnish} <br>`;
                     }
                 }
+                content +='</div></div><br><br>'
                 distinctFurnitures.delete(item.id);
             }
         }
         if (content !== '') {
-            content += 'Montant à régler : ' + this.convertToEuros(montantTotal) + '<br>';
+            content += '<strong>Montant à régler : ' + this.convertToEuros(montantTotal) + '<br><br>';
         }
 
         return content;
@@ -592,11 +593,11 @@ class Display {
         console.log(lastOrder);
         const divConfirmation = document.getElementById("divConfirmation");
 
-        let enTete = `<br>Confirmation de la commande n°: ${lastOrder.orderId} du ${lastOrder.date.substr(0,11)}<br><br>`;
-        enTete += `${lastOrder.contact.firstName}`;
-        enTete += ` ${lastOrder.contact.lastName} <br>`;
+        let enTete = `<h4>Confirmation de la commande n°: <span class='font-weight-bold'> ${lastOrder.orderId}</span> du ${lastOrder.date.substr(0,11)}</h4><br>`;
+        enTete += `<span class='font-weight-bold'>${lastOrder.contact.firstName}`;
+        enTete += ` ${lastOrder.contact.lastName} </span><br>`;
         enTete += ` ${lastOrder.contact.address} <br>`;
-        enTete += ` ${lastOrder.contact.city} <br>`;
+        enTete += ` ${lastOrder.contact.city} <br><br>`;
         divConfirmation.innerHTML = enTete;
 
         const divResume = document.getElementById("divResume");
