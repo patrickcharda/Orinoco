@@ -10082,15 +10082,23 @@ h3 + strong {
 }
 
 .product-line {
+  display: flex;
+  margin-bottom: 3rem;
+}
+
+.product-line-save {
   margin-bottom: 3rem;
 }
 
 .product-line-detail {
+  margin-bottom: 1rem;
+}
+.product-line-detail-save {
   padding-left: 90px;
   margin-bottom: 1rem;
 }
 @media (min-width: 576px) {
-  .product-line-detail {
+  .product-line-detail-save {
     padding-left: 165px;
   }
 }
@@ -10142,6 +10150,18 @@ pre {
   height: 90px;
   margin-right: 25px;
   border: #cea9ba 1px solid;
+}
+
+.lignesTxt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.lineTitle {
+  font-weight: 600;
+  margin-bottom: 1rem;
 }
 
 /*# sourceMappingURL=style.css.map */

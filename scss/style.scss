@@ -181,10 +181,23 @@ h3 + strong {
 }
 
 .product-line {
+    display: flex;
+    margin-bottom: 3rem;
+}
+
+.product-line-save {
     margin-bottom: 3rem;
 }
 
 .product-line-detail {
+    //padding-left: 90px;
+    margin-bottom: 1rem;
+    @media (min-width: 576px) {
+        //padding-left: 165px;
+    }
+}
+
+.product-line-detail-save {
     padding-left: 90px;
     margin-bottom: 1rem;
     @media (min-width: 576px) {
@@ -243,6 +256,18 @@ pre {
     margin-right: 25px;
     //object-fit: cover;  
     border: #cea9ba 1px solid;
+}
+
+.lignesTxt {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.lineTitle {
+    font-weight: 600;
+    margin-bottom: 1rem;
 }
 
 

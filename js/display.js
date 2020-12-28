@@ -355,6 +355,108 @@ class Display {
             }
         }
 
+        var j = 0 //compteur pour les lignes du panier calculées (divPartDeCeProduitAuPanier)
+        var i = 0; //compteur pour les lignes du panier supprimables (divSuppr)
+        for (let item of furnituresToDisplay) {
+            let qte = 0;
+            if (distinctFurnitures.has(item.id)) {
+                j++;
+                let divPartDeCeProduitAuPanier = document.createElement("div");
+                let currentDivPart='product_'+j;
+                divPartDeCeProduitAuPanier.setAttribute('id',currentDivPart);
+                divPartDeCeProduitAuPanier.setAttribute('class', 'product-line');
+
+                //this.displayTotalProduit(divPartDeCeProduitAuPanier, item.id, j);
+
+                let result= this.panier.quantiteOfAFurniture(item.id);
+                qte = result.qte;
+                let divResult = document.createElement("div");
+                let currentResult='result_'+j;
+                divResult.setAttribute('id', currentResult);
+                divResult.setAttribute('class', 'resultLine');
+
+                let divVignette = document.createElement('div');
+                divVignette.setAttribute('class', 'divVignette');
+                divVignette.innerHTML = `<img src='${item.imageUrl}' class='imgLine'>`;
+                divResult.appendChild(divVignette);
+
+                let divLignesTxt = document.createElement('div');
+                divLignesTxt.setAttribute('class', 'lignesTxt');
+
+                content = `<div class='lineTitle'>${item.name} Qté : ${qte} Prix unitaire : `+ this.convertToEuros(item.price) + ` Total : ` + this.convertToEuros(qte*item.price) +'</div>';
+                montantTotal += qte*item.price;
+                divLignesTxt.innerHTML = content;
+                divResult.appendChild(divLignesTxt);
+                divPartDeCeProduitAuPanier.appendChild(divResult);
+                // affichage détaillé
+                for (let unite of furnituresToDisplayOptions) {
+                    i++;
+                    const divSuppr = document.createElement("div");
+                    let currentDivId = 'divSuppr_'+i;
+                    divSuppr.setAttribute('id', currentDivId);
+                    divSuppr.setAttribute('class', 'product-line-detail');
+                    if (unite.id === item.id) {
+
+                        //content += `1 ${unite.name}, vernis ${unite.varnish} <br>`;
+                        content = `1 ${unite.name}, vernis ${unite.varnish} &nbsp &nbsp`;
+                        divSuppr.innerHTML = content;
+                        const btnSuppr = document.createElement("button");
+                        btnSuppr.setAttribute('class', 'btnSuppr');
+                        btnSuppr.textContent = 'supprimer';
+
+                        btnSuppr.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        montantTotal -= item.price;
+                        this.panier.rmFurniture(unite);
+                        let currentDivSuppr = document.getElementById(currentDivId);
+                        console.log(currentDivSuppr);
+                        divLignesTxt.removeChild(currentDivSuppr);
+                        if (divLignesTxt.childNodes.length > 1) {
+                            //mettre à jour 
+                            console.log(divResult.childNodes);
+                            let content = this.createResult(item);
+                            divLignesTxt.firstChild.innerHTML = content;
+
+                        } else {
+                            divResult.parentNode.removeChild(divResult);
+                        }
+                        
+                        this.displayMontantTotal();
+                        this.hideContactForm();
+                        }.bind(this));
+                        
+                        divSuppr.appendChild(btnSuppr);
+                        //divResult.appendChild(divSuppr);
+                        divLignesTxt.appendChild(divSuppr);
+                        this.divOrder.appendChild(divPartDeCeProduitAuPanier);
+                    }
+                }
+                distinctFurnitures.delete(item.id); // on supprime ce produit affiché de l'ensemble
+                
+            }
+        }
+        console.log(j);
+        this.displayMontantTotal();
+        console.log(furnituresToDisplay);
+        this.hideContactForm();
+    }
+    displayPanier_save() {
+        this.divOrder.innerHTML='';
+        const furnituresToDisplay = this.panier.furnituresList();
+        console.log(furnituresToDisplay);
+        const furnituresToDisplayOptions = this.panier.furnituresList();
+        var distinctFurnitures = new Set();
+        var montantTotal = 0;
+        var content = '';
+
+        // création de l'ensemble d'Ids des produits distincts présents au panier
+        for (let item of furnituresToDisplay) {
+            if (!distinctFurnitures.has(item.id)) {
+                distinctFurnitures.add(item.id);
+            }
+        }
+
 
         var j = 0 //compteur pour les lignes du panier calculées (divPartDeCeProduitAuPanier)
         var i = 0; //compteur pour les lignes du panier supprimables (divSuppr)
@@ -432,7 +534,6 @@ class Display {
         console.log(furnituresToDisplay);
         this.hideContactForm();
     }
-
     hideContactForm() {
         let divForm = document.querySelector("#contact > form");
         console.log(divForm);
@@ -465,10 +566,10 @@ class Display {
     createResult(item) {
         let result = this.panier.quantiteOfAFurniture(item.id);
         let qte = result.qte;
-        let content = `<img src='${item.imageUrl}' class='imgLine'> ${item.name}
-                Qté : ${qte} prix unitaire : ` + this.convertToEuros(item.price) + ` total : ` + this.convertToEuros(qte*item.price) +'<br>';
-        /*let content = `<img src='${item.imageUrl}' width='60px' height='70px'> ${item.name}
+        /*let content = `<img src='${item.imageUrl}' class='imgLine'> ${item.name}
                 Qté : ${qte} prix unitaire : ` + this.convertToEuros(item.price) + ` total : ` + this.convertToEuros(qte*item.price) +'<br>';*/
+        let content = `${item.name}
+                Qté : ${qte} prix unitaire : ` + this.convertToEuros(item.price) + ` total : ` + this.convertToEuros(qte*item.price) +'<br>';
         return content;
     }
 
