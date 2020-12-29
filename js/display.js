@@ -377,7 +377,7 @@ class Display {
 
                 let divVignette = document.createElement('div');
                 divVignette.setAttribute('class', 'divVignette');
-                divVignette.innerHTML = `<img src='${item.imageUrl}' class='imgLine'>`;
+                divVignette.innerHTML = `<a href='../products/produit.html?id=${item.id}'><img src='${item.imageUrl}' class='imgLine'></a>`;
                 divResult.appendChild(divVignette);
 
                 let divLignesTxt = document.createElement('div');
@@ -440,6 +440,12 @@ class Display {
         this.displayMontantTotal();
         console.log(furnituresToDisplay);
         this.hideContactForm();
+        // paramétrer les champs input du formulaire contact
+        this.contact.inputSet('firstName');
+        this.contact.inputSet('lastName');
+        this.contact.inputSet('address');
+        this.contact.inputSet('city');
+        this.contact.inputSet('email');
     }
     displayPanier_save() {
         this.divOrder.innerHTML='';

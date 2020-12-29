@@ -3,6 +3,87 @@ class Contact {
 
     }
 
+    /*firstNameSet() {
+        let firstName = document.querySelector('#firstName');
+        firstName.addEventListener('click', function(e) {
+            //console.log('test');
+            //console.log(firstName.nextSibling);
+            //console.log(firstName.nextElementSibling);
+            //console.log(firstName.nextSibling);
+            if (firstName.nextElementSibling) {
+                //console.log('ok');
+                //console.log(firstName.nextSibling);
+                //console.log(firstName.nextElementSibling);
+                let div= firstName.nextElementSibling;
+                console.log(div);
+                div.parentNode.removeChild(div);
+            }
+        });
+    }*/
+    inputNotOk(inputName, msg) {
+        const divName = document.getElementById(inputName);
+
+        //on supprime les éventuels précédents messages
+        while (divName.nextElementSibling) {
+            let div= divName.nextElementSibling;
+            div.parentNode.removeChild(div);
+        }
+
+        const tmpDiv = document.createElement('div');
+        tmpDiv.setAttribute('class', 'input-warning');
+        tmpDiv.textContent = msg;
+        divName.insertAdjacentElement('afterend', tmpDiv);
+        console.log('OUPS '+inputName);
+    }
+
+    inputSet(inputName) {
+        var divInputName = document.querySelector('#'+inputName);
+        console.log(divInputName);
+        divInputName.addEventListener('click', function (e) {
+            //console.log('test');
+            //console.log(firstName.nextSibling);
+            //console.log(firstName.nextElementSibling);
+            //console.log(firstName.nextSibling);
+            if (divInputName.nextElementSibling) {
+                //console.log('ok');
+                //console.log(divInputName.nextSibling);
+                //console.log(divInputName.nextElementSibling);
+                let div= divInputName.nextElementSibling;
+                //console.log(div);
+                div.parentNode.removeChild(div);
+            }
+        });
+        divInputName.addEventListener('focusout', function (e) {
+            //console.log(divInputName.value);
+            if (divInputName.value === '') {
+                this.inputNotOk(inputName, 'Veuillez remplir le champ');
+                divInputName.setAttribute('class', 'form-control danger');
+            } else {
+                divInputName.setAttribute('class', 'form-control');
+            }
+        
+        }.bind(this));
+    }
+
+    inputSet_save(inputName) {
+        let divInputName = document.querySelector('#'+inputName);
+        console.log(divInputName);
+        divInputName.addEventListener('click', function (e) {
+            //console.log('test');
+            //console.log(firstName.nextSibling);
+            //console.log(firstName.nextElementSibling);
+            //console.log(firstName.nextSibling);
+            if (divInputName.nextElementSibling) {
+                //console.log('ok');
+                //console.log(divInputName.nextSibling);
+                //console.log(divInputName.nextElementSibling);
+                let div= divInputName.nextElementSibling;
+                //console.log(div);
+                div.parentNode.removeChild(div);
+            }
+        });
+    }
+
     firstNameOk() {
         let prenom = document.getElementById("firstName");
         console.log(prenom.value);
@@ -10,16 +91,32 @@ class Contact {
         if (prenomRegex.test(prenom.value)) {
             return true;
         } else {
+            this.inputNotOk('firstName', 'Champ prénom requis. Ne doit comporter que des caractères alphabétiques, des tirets, et des espaces.');
+        }
+    }
+    firstNameOk_save() {
+        let prenom = document.getElementById("firstName");
+        console.log(prenom.value);
+        let prenomRegex = /^[éèêôâïöA-Za-z- ]{2,24}$/i;
+        if (prenomRegex.test(prenom.value)) {
+            return true;
+        } else {
+            const divFirstName = document.getElementById('firstName');
+            const tmpDiv = document.createElement('div');
+            tmpDiv.setAttribute('class', 'input-warning');
+            tmpDiv.textContent= 'Le champ prénom est obligatoire. Il ne peut comporter que des caractères alphabétiques, des tirets, et des espaces.';
+            divFirstName.insertAdjacentElement('afterend', tmpDiv);
             console.log('OUPS prenom');
         }
     }
+
     lastNameOk() {
         let nom = document.getElementById("lastName");
         let nomRegex = /^[éèêôâïöA-Za-z- ]{2,24}$/i;
         if (nomRegex.test(nom.value)) {
             return true;
         } else {
-            console.log('OUPS nom');
+            this.inputNotOk('lastName', 'Champ nom requis. Ne doit comporter que des caractères alphabétiques, des tirets, et des espaces.');
         }
     }
     addressOk() {
@@ -28,7 +125,7 @@ class Contact {
         if (addressRegex.test(adresse.value)) {
             return true;
         } else {
-            console.log('OUPS adresse');
+            this.inputNotOk('address', 'Champ adresse requis.');
         }
     }
     cityOk() {
@@ -37,7 +134,7 @@ class Contact {
         if (villeRegex.test(ville.value)) {
             return true;
         } else {
-            console.log('OUPS ville');
+            this.inputNotOk('city', 'Champ ville requis. Ne doit comporter que des caractères alphabétiques, des tirets, et des espaces.');
         }
     }
     mailOk() {
@@ -46,7 +143,7 @@ class Contact {
         if (mailRegex.test(mail.value)) {
             return true;
         } else {
-            console.log('OUPS mail');
+            this.inputNotOk('email', 'Champ email requis. Doit correspondre à une adresse de messagerie valide.');
         }
     }
 
@@ -59,7 +156,7 @@ class Contact {
         if (p && n && a && c && m) {
             return true;
         } else {
-            let divFormIsNotOk = document.getElementById('formIsNotOk');
+            /*let divFormIsNotOk = document.getElementById('formIsNotOk');
             let inputsNotOk ='';
             if (!p) {
                 inputsNotOk +='<p>Le champ prénom est obligatoire. Il ne peut comporter que des caractères alphabétiques, des tirets, et des espaces. </p>';
@@ -76,7 +173,8 @@ class Contact {
             if (!m) {
                 inputsNotOk +='<p>Le champ email est obligatoire. Il doit correspondre à une adresse de messagerie correctement écrite.</p>';
             }
-            divFormIsNotOk.innerHTML = inputsNotOk;
+            divFormIsNotOk.innerHTML = inputsNotOk;*/
+            return;
         }
     }
 
