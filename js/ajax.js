@@ -20,11 +20,12 @@ class Ajax {
     }
 
     static post(url, order) {
-        //console.log(url);
-        //console.log(params[0]);
-        //console.log(params[1]);
         return new Promise(function(resolve, reject) {
             var request = new XMLHttpRequest();
+            console.log(order);
+            request.open("POST", url);
+            request.setRequestHeader("Content-Type", "application/json");
+            request.send(JSON.stringify(order));
             request.onreadystatechange = function () {
                 if (this.readyState == XMLHttpRequest.DONE && (this.status == 200 || this.status == 201)) {
                     var response = JSON.parse(this.responseText);
@@ -37,11 +38,6 @@ class Ajax {
                     reject('KO');
                 }
             };
-            //console.log(params[0] + ' param0');
-            console.log(order);
-            request.open("POST", url);
-            request.setRequestHeader("Content-Type", "application/json");
-            request.send(JSON.stringify(order));
         });
     }
 }

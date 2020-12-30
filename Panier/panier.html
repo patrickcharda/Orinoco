@@ -2,80 +2,89 @@
 <html lang="fr">
   <head>
 	  <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!--<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Shrikhand&display=swap" rel="stylesheet">-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Orinoco Oak, spécialiste de la vente en ligne de meubles en chêne">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Raleway&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&display=swap" rel="stylesheet">
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
     <link rel="stylesheet" type="text/css" href="../css/style.css">
-    <!--<link rel='shortcut icon' href='logos/favicon.ico'>-->
-    <title>Orinoco Oak - Panier </title>
+    <title>Orinoco Oak - Panier</title>
   </head>
-  <body>
-    <header>
+  <body>  
+    <header class='py-5'>
       <div class="container" id="containerSite">
         <div class="row">
           <nav class="col-2 navbar navbar-expand">
-            <a class="navbar-brand" href="../index.html"><img src="../images/logoW250.png" alt='logo Orinoco' width="200px"></a>
+            <a class="navbar-brand" href="../index.html"><img src="../images/OrinocoAlone.png" alt='logo Orinoco' width="200px"></a>
           </nav>
-          
           <nav id="panierSite">
-            <a href="./panier.html"><img src="../Images/cartW50.png" alt="panier d'achat"/> </a>
+            <a href="../Panier/panier.html"><img src="../Images/cartAlone50.png" alt="panier d'achat"/> </a>
           </nav>
-        </div>
-        <div class="row">
-          <div class="col-12 text-center">
-            <h1 class="text-center font-italic h4"> Orinoco oak, spécialiste du meuble en chêne </h1>
-          </div>
         </div> 
       </div>
     </header>
-    <div id="divPanierContent"></div>
 
-    <main>
-  
+    <main class="container-fluid">
+
+      <div class="row py-3 mb-5 bg-bandeau">
+        <div class="col-12 text-center">
+          <h1 class="text-center h4"> Les meubles en chêne d'Orinoco oak</h1>
+        </div>
+      </div> 
+      
+      <div id="divOrder" class="container mx-auto">
+      
+      </div>
+      <div id="divTotalPanier">
+        
+      </div>
       <div id="contact" class="container mx-auto">
           <form>
             <div class="form-group">
               <label for="firstName">Prénom</label>
-              <input type="text" class="form-control" id="firstName" placehoder="Prénom" required>
+              <input type="text" class="form-control" id="firstName" placeholder="Prénom *"  minlength="2" maxlength="25" required>
             </div>
             <div class="form-group">
               <label for="lastName">Nom</label>
-              <input type="text" class="form-control" id="lastName" placehoder="Nom" required>
-          </div>
-          <div class="form-group">
+              <input type="text" class="form-control" id="lastName" placeholder="Nom *" minlength="2" maxlength="25" required>
+            </div>
+            <div class="form-group">
               <label for="address">Adresse</label>
-              <input type="text" class="form-control" id="address" placehoder="98, rue des chênes" required>
-          </div>
-          <div class="form-group">
+              <input type="text" class="form-control" id="address" placeholder="1, rue des chênes *" minlength="10" maxlength="50" required>
+            </div>
+            <div class="form-group">
               <label for="city">Ville</label>
-              <input type="text" class="form-control" id="city" placehoder="Vannes" required>
-          </div>
-          <div class="form-group">
+              <input type="text" class="form-control" id="city" placeholder="Ville *" minlength="2" maxlength="40" required>
+            </div>
+            <div class="form-group">
               <label for="email">Adresse de messagerie</label>
-              <input type="email" class="form-control" id="email" placehoder="clairedubois@orange.fr" required>
-          </div>
-              <input class="col-12 form-control bg-light" type="submit" id="commander" value="Commander">
+              <input type="email" class="form-control" id="email" placeholder="name@example.com *" minlength="5" maxlength="40" required>
+            </div>
+              <input class="col-12 form-control bg-light font-weight-bold commander" type="submit" id="commander" value="Commander">
           </form>
+          <br>
       </div>
-    
-  
-      <!--<button onclick="display.panier.viderPanier()">Vider le panier</button>-->
+      <div id="formIsNotOk" class='container mx-auto'>
 
-      <div id="divOrder"></div>
+      </div>
+      <!--<button onclick="display.panier.viderPanier()">Vider le panier</button>-->
     </main>
+    
     <footer>
-    <div class="bg-light">
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <ul class="list-inline text-center my-4">
-                <li class="list-inline-item"><a href="#">À propos</a></li>
-                <li class="list-inline-item">&middot;</li>
-                <li class="list-inline-item"><a href="#">Vie privée</a></li>
-                <li class="list-inline-item">&middot;</li>
-                <li class="list-inline-item"><a href="#">Conditions d'utilisations</a></li>
-              </ul>
+      <div class="bg-light">
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <ul class="list-inline text-center my-4">
+                  <li class="list-inline-item"><a href="#">À propos</a></li>
+                  <li class="list-inline-item">&middot;</li>
+                  <li class="list-inline-item"><a href="#">Vie privée</a></li>
+                  <li class="list-inline-item">&middot;</li>
+                  <li class="list-inline-item"><a href="#">Conditions d'utilisations</a></li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -86,13 +95,11 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>-->
-
     <script type="text/javascript" src="../js/contact.js"></script>
     <script type="text/javascript" src="../js/ajax.js"></script>
     <script type="text/javascript" src="../js/order.js"></script>
     <script type="text/javascript" src="../js/display.js"></script>
     <script type="text/javascript" src="../js/panier.js"></script>
-
     <script>
       let display = new Display();
       display.displayPanier();
@@ -100,39 +107,8 @@
       btnOrder.addEventListener('click', function(e) {
       e.preventDefault();
       e.stopPropagation();
-      //    afficheCommande(order);
       display.order();
       });
-      /* variable de test 
-      var order = {"contact": {"firstName":"Paul","lastName":"Bert","address":"16 rue Victor Hugo","city":"Rouen","email":"paulbert@free.fr"
-        },"products":["5be9cc611c9d440000c1421e","5beaae361c9d440000a57d99"]};
-      console.log(order);
-      */
-        
-      //console.log(JSON.stringify(order));
-      
-      /*function afficheCommande(order) {
-        var request = new XMLHttpRequest();
-        request.onreadystatechange = function () {
-            if (this.readyState == XMLHttpRequest.DONE && (this.status == 200 || this.status==201)) {
-                var response = JSON.parse(this.responseText);
-                 //alert('echo');
-                console.log(response);
-                //resolve(response);        
-            } else {
-                console.log(this.status);
-                console.log('psschittt');
-            }
-        };
-        //console.log(params[0] + ' param0');
-        request.open("POST", "http://localhost:3000/api/furniture/order");
-        request.setRequestHeader("Content-Type", "application/json");
-        //request.setRequestHeader("Accept-Language", "*");
-        console.log(order);
-        console.log(JSON.stringify(order));
-        request.send(JSON.stringify(order));
-
-      }*/
     </script>
   </body>
 </html>
