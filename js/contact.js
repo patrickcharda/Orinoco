@@ -33,7 +33,7 @@ class Contact {
         tmpDiv.setAttribute('class', 'input-warning');
         tmpDiv.textContent = msg;
         divName.insertAdjacentElement('afterend', tmpDiv);
-        console.log('OUPS '+inputName);
+        //console.log('OUPS '+inputName);
     }
 
     inputSet(inputName) {
@@ -65,9 +65,9 @@ class Contact {
         }.bind(this));
     }
 
-    inputSet_save(inputName) {
+    /*inputSet_save(inputName) {
         let divInputName = document.querySelector('#'+inputName);
-        console.log(divInputName);
+        //console.log(divInputName);
         divInputName.addEventListener('click', function (e) {
             //console.log('test');
             //console.log(firstName.nextSibling);
@@ -82,7 +82,7 @@ class Contact {
                 div.parentNode.removeChild(div);
             }
         });
-    }
+    }*/
 
     firstNameOk() {
         let prenom = document.getElementById("firstName");
@@ -94,7 +94,7 @@ class Contact {
             this.inputNotOk('firstName', 'Champ prénom requis. Ne doit comporter que des caractères alphabétiques, des tirets, et des espaces.');
         }
     }
-    firstNameOk_save() {
+    /*firstNameOk_save() {
         let prenom = document.getElementById("firstName");
         console.log(prenom.value);
         let prenomRegex = /^[éèêôâïöA-Za-z- ]{2,24}$/i;
@@ -108,7 +108,7 @@ class Contact {
             divFirstName.insertAdjacentElement('afterend', tmpDiv);
             console.log('OUPS prenom');
         }
-    }
+    }*/
 
     lastNameOk() {
         let nom = document.getElementById("lastName");

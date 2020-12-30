@@ -193,7 +193,7 @@ h3 + strong {
     //padding-left: 90px;
     margin-bottom: 1rem;
     @media (min-width: 576px) {
-        //padding-left: 165px;
+    //padding-left: 165px;
     }
 }
 
@@ -209,9 +209,6 @@ h3 + strong {
     display: flex;
     align-items: flex-start;
     font-size: x-large;
-    
-    //flex-wrap: wrap;
-
 }
 
 .imgLine {
@@ -279,11 +276,7 @@ pre {
     border: 4px solid black;
 }
 
-/*input {
-    &:focus + div {
-        display: none;
-    }
-}*/
+
 
 
 
