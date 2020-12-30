@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+	  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Orinoco Oak, spécialiste de la vente en ligne de meubles en chêne">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Raleway&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&display=swap" rel="stylesheet">
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <title>Orinoco Oak - Panier</title>
+  </head>
+  <body>  
+    <header class='py-5'>
+      <div class="container" id="containerSite">
+        <div class="row">
+          <nav class="col-2 navbar navbar-expand">
+            <a class="navbar-brand" href="../index.html"><img src="../images/OrinocoAlone.png" alt='logo Orinoco' width="200px"></a>
+          </nav>
+          <nav id="panierSite">
+            <a href="../Panier/panier.html"><img src="../Images/cartAlone50.png" alt="panier d'achat"/> </a>
+          </nav>
+        </div> 
+      </div>
+    </header>
+
+    <main class="container-fluid">
+
+      <div class="row py-3 mb-5 bg-bandeau">
+        <div class="col-12 text-center">
+          <h1 class="text-center h4"> Les meubles en chêne d'Orinoco oak</h1>
+        </div>
+      </div> 
+      
+      <div id="divOrder" class="container mx-auto">
+      
+      </div>
+      <div id="divTotalPanier">
+        
+      </div>
+      <div id="contact" class="container mx-auto">
+          <form>
+            <div class="form-group">
+              <label for="firstName">Prénom</label>
+              <input type="text" class="form-control" id="firstName" placeholder="Prénom *"  minlength="2" maxlength="25" required>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Nom</label>
+              <input type="text" class="form-control" id="lastName" placeholder="Nom *" minlength="2" maxlength="25" required>
+            </div>
+            <div class="form-group">
+              <label for="address">Adresse</label>
+              <input type="text" class="form-control" id="address" placeholder="1, rue des chênes *" minlength="10" maxlength="50" required>
+            </div>
+            <div class="form-group">
+              <label for="city">Ville</label>
+              <input type="text" class="form-control" id="city" placeholder="Ville *" minlength="2" maxlength="40" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Adresse de messagerie</label>
+              <input type="email" class="form-control" id="email" placeholder="name@example.com *" minlength="5" maxlength="40" required>
+            </div>
+              <input class="col-12 form-control bg-light font-weight-bold commander" type="submit" id="commander" value="Commander">
+          </form>
+          <br>
+      </div>
+      <div id="formIsNotOk" class='container mx-auto'>
+
+      </div>
+      <!--<button onclick="display.panier.viderPanier()">Vider le panier</button>-->
+    </main>
+    
+    <footer>
+      <div class="bg-light">
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <ul class="list-inline text-center my-4">
+                  <li class="list-inline-item"><a href="#">À propos</a></li>
+                  <li class="list-inline-item">&middot;</li>
+                  <li class="list-inline-item"><a href="#">Vie privée</a></li>
+                  <li class="list-inline-item">&middot;</li>
+                  <li class="list-inline-item"><a href="#">Conditions d'utilisations</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://kit.fontawesome.com/8c9711250f.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>-->
+    <script type="text/javascript" src="../js/contact.js"></script>
+    <script type="text/javascript" src="../js/ajax.js"></script>
+    <script type="text/javascript" src="../js/order.js"></script>
+    <script type="text/javascript" src="../js/display.js"></script>
+    <script type="text/javascript" src="../js/panier.js"></script>
+    <script>
+      let display = new Display();
+      display.displayPanier();
+      const btnOrder = document.getElementById("commander");
+      btnOrder.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      display.order();
+      });
+    </script>
+  </body>
+</html>
+  
