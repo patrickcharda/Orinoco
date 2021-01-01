@@ -33,4 +33,10 @@ class Order {
         return this.arrayOrders[this.arrayOrders.length - 1];
     }
 
+    static returnOrdersTable() {
+        let oldOrders = JSON.parse(localStorage.getItem('orders'));
+        console.log(oldOrders);
+        return oldOrders;
+    }
+
 }

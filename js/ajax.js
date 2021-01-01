@@ -22,7 +22,7 @@ class Ajax {
     static post(url, order) {
         return new Promise(function(resolve, reject) {
             var request = new XMLHttpRequest();
-            console.log(order);
+            //console.log(order);
             request.open("POST", url);
             request.setRequestHeader("Content-Type", "application/json");
             request.send(JSON.stringify(order));
@@ -30,7 +30,7 @@ class Ajax {
                 if (this.readyState == XMLHttpRequest.DONE && (this.status == 200 || this.status == 201)) {
                     var response = JSON.parse(this.responseText);
                     //alert('echo');
-                    console.log(response);
+                    //console.log(response);
                     resolve(response);
                 } else if (this.readyState == XMLHttpRequest.DONE && this.status == 0) {
                     //console.log(this.status);
