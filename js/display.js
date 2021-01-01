@@ -550,7 +550,7 @@ class Display {
         var objContact = {};
         if (client) {
             objContact = this.contact.formatContact();
-            console.log(objContact);
+            //console.log(objContact);
         }
         //console.log(client);
         //console.log(objContact);
@@ -660,6 +660,24 @@ class Display {
         return(new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(centimes/100));
     }
 
+    displayHistorique() {
+        let orderHistory = Order.returnOrdersTable();
+        console.log(orderHistory);
+        var content = '';
+        if (orderHistory) {
+            for (let order of orderHistory) {
+                content += `<h4 class='font-size-xlarge'><u>Commande n° <strong><a href='#'> ${order.orderId}</a></strong> du ${order.date}</u></h4><br>`;
+                content += order.resume;
+            }
+        } else { 
+            content = 'Aucune commande enregistrée';
+        }
+        let divOrders = document.getElementById('divOrders');
+        divOrders.innerHTML = content;
+    }
+
   }
+
+  
 
  
