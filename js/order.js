@@ -35,7 +35,7 @@ class Order {
 
     static returnOrdersTable() {
         let oldOrders = JSON.parse(localStorage.getItem('orders'));
-        console.log(oldOrders);
+        //console.log(oldOrders);
         return oldOrders;
     }
 
