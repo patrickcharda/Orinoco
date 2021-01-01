@@ -13,6 +13,12 @@ Projet de développement du front-end d'un mini-site de e-commerce dans le cadre
 
 - lancer node server - exemple depuis vs-code :
 
+![Démarrer node server](https://github.com/patrickcharda/Orinoco/blob/main/LancerNode.PNG)
+
+![Node ok](https://github.com/patrickcharda/Orinoco/blob/main/NodeOk.PNG)
+
+
+
 
 
 
