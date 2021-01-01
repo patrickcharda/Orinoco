@@ -11,6 +11,11 @@ Projet de développement du front-end d'un mini-site de e-commerce dans le cadre
 
 ![Arborescence Projet Orinoco](https://github.com/patrickcharda/Orinoco/blob/main/Arborescence.PNG)
 
+- lancer node server - exemple depuis vs-code :
+
+
+
+
 
 
 
