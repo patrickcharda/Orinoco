@@ -56,7 +56,7 @@ class Contact {
         divInputName.addEventListener('focusout', function (e) {
             //console.log(divInputName.value);
             if (divInputName.value === '') {
-                this.inputNotOk(inputName, 'Veuillez remplir le champ');
+                this.inputNotOk(inputName, 'Veuillez renseigner ce champ');
                 divInputName.setAttribute('class', 'form-control danger');
             } else {
                 divInputName.setAttribute('class', 'form-control');
@@ -86,8 +86,8 @@ class Contact {
 
     firstNameOk() {
         let prenom = document.getElementById("firstName");
-        console.log(prenom.value);
-        let prenomRegex = /^[éèêôâïöA-Za-z- ]{2,24}$/i;
+        //console.log(prenom.value);
+        let prenomRegex = /^[éèêôâïöA-Za-z-' ]{2,24}$/i;
         if (prenomRegex.test(prenom.value)) {
             return true;
         } else {
@@ -112,7 +112,7 @@ class Contact {
 
     lastNameOk() {
         let nom = document.getElementById("lastName");
-        let nomRegex = /^[éèêôâïöA-Za-z- ]{2,24}$/i;
+        let nomRegex = /^[éèêôâïöA-Za-z-' ]{2,24}$/i;
         if (nomRegex.test(nom.value)) {
             return true;
         } else {
@@ -121,11 +121,11 @@ class Contact {
     }
     addressOk() {
         let adresse = document.getElementById("address");
-        let addressRegex = /^[éèêôâïöA-Za-z0-9-,./ ]{2,49}$/;
+        let addressRegex = /^[éèêôâïöA-Za-z0-9-,.'/ ]{2,49}$/;
         if (addressRegex.test(adresse.value)) {
             return true;
         } else {
-            this.inputNotOk('address', 'Champ adresse requis.');
+            this.inputNotOk('address', 'Champ adresse requis. Caractères autorisés : lettres, chiffres, point, virgule, apostrophe et espaces.');
         }
     }
     cityOk() {
@@ -174,7 +174,7 @@ class Contact {
                 inputsNotOk +='<p>Le champ email est obligatoire. Il doit correspondre à une adresse de messagerie correctement écrite.</p>';
             }
             divFormIsNotOk.innerHTML = inputsNotOk;*/
-            return;
+            return false;
         }
     }
 
