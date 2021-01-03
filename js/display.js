@@ -583,8 +583,11 @@ class Display {
 
         //ajouter la date avant d'enregistrer la commande
         let today = new Date();
-        let nousSommesLe = `${today.getDate()}/${today.getMonth()+1}/${today.getFullYear()} ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
-        //console.log('nous sommes le : '+nousSommesLe);
+        let jjmmaa = new Intl.DateTimeFormat('fr-FR', { day : '2-digit', month: '2-digit', year: 'numeric' }).format(today);
+        let hhmmss = new Intl.DateTimeFormat('fr-FR', { hour : '2-digit', minute: '2-digit', second: '2-digit' }).format(today);
+        //let nousSommesLe = `${today.getDate()}/${today.getMonth()+1}/${today.getFullYear()} ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
+        let nousSommesLe = `${jjmmaa} ${hhmmss}`;
+        console.log('nous sommes le : '+nousSommesLe);
         ordered.date = nousSommesLe;
 
         let resumeDeCommande = this.resume();
