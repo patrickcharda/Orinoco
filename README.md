@@ -10,7 +10,9 @@ https://patrickcharda.github.io/Orinoco/
 ## Installation
 
 - cloner le dépôt
-- dézipper le fichier Server.zip pour obtenir l'arborescence suivante :
+- pour le backend dézipper le fichier Server.zip ou récupérer le dépôt https://github.com/OpenClassrooms-Student-Center/JWDP5.git
+
+### Arborescence du projet :
 
 ![Arborescence Projet Orinoco](https://github.com/patrickcharda/Orinoco/blob/main/Arborescence.PNG)
 
