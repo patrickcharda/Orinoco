@@ -75,7 +75,7 @@ class Display {
             divImgMeuble.setAttribute("class","divImgMeuble card-img-top");
         
             const lienImg = document.createElement("a");
-            lienImg.setAttribute("href", "./products/produit.html?id="+meuble._id);
+            lienImg.setAttribute("href", "./Products/produit.html?id="+meuble._id);
             lienImg.setAttribute("class","lienImg mx-auto");
             lienImg.setAttribute("draggable","true");
     
