@@ -16,7 +16,10 @@ class Display {
     async displayMeubles() {
 
         try {
-            var listeMeubles = await Ajax.get("http://localhost:3000/api/furniture/");
+            let apiUrl = (location.hostname === 'localhost' || location.hostname === '127.0.0.1' )? "http://localhost:3000/api/furniture/": "https://bckend.herokuapp.com/api/furniture";
+            //console.log(apiUrl);
+            var listeMeubles = await Ajax.get(apiUrl);
+            //var listeMeubles = await Ajax.get("http://localhost:3000/api/furniture/");
         }
         catch(e) {
             console.log('dans display : ' +e);
@@ -134,7 +137,10 @@ class Display {
 
         //console.log(this.panier.arrayFurnitures);
         try {
-            var detailMeuble = await Ajax.get("http://localhost:3000/api/furniture/"+id);
+            let apiUrl = (location.hostname === 'localhost' || location.hostname === '127.0.0.1' )? "http://localhost:3000/api/furniture/"+id: "https://bckend.herokuapp.com/api/furniture/"+id;
+            //console.log(apiUrl);
+            var detailMeuble = await Ajax.get(apiUrl);
+            //var detailMeuble = await Ajax.get("http://localhost:3000/api/furniture/"+id);
         }
         catch(e) {
             //console.log('dans display : ' +e);
@@ -569,7 +575,9 @@ class Display {
 
     async displayOrder(order) {
         try {
-        var ordered = await Ajax.post("http://localhost:3000/api/furniture/order", order);
+            let apiUrl = (location.hostname === 'localhost' || location.hostname === '127.0.0.1' )? "http://localhost:3000/api/furniture/order": "https://bckend.herokuapp.com/api/furniture/order";
+            //console.log(apiUrl);
+            var ordered = await Ajax.post(apiUrl, order);
         }  
         catch(e) {
             //console.log('dans display : ' +e);
