@@ -2,6 +2,9 @@
 
 Projet de développement du front-end d'un mini-site de e-commerce dans le cadre de la formation de développeur web dispensée par OpenClassrooms.
 
+Résultat de l'intégration :
+https://patrickcharda.github.io/Orinoco/
+
 ![Aperçu Orinoco](https://github.com/patrickcharda/Orinoco/blob/main/Screenshot.PNG)
 
 ## Installation
