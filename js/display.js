@@ -552,31 +552,25 @@ class Display {
 
     order() {
         let client = this.contact.verifyContact();
+        //console.log(client);
         var products = [];
         var objContact = {};
         if (client) {
             objContact = this.contact.formatContact();
-            //console.log(objContact);
+            products = this.panier.prepareFurnituresOrder();
+            let order = {
+                "contact": objContact,
+                "products": products
+            };
+            this.displayOrder(order);
+        } else { 
+            return;
         }
-        //console.log(client);
-        //console.log(objContact);
-        if (client) {
-        products = this.panier.prepareFurnituresOrder();
-        //console.log(products);
-        }
-        
-        let order = {
-            "contact": objContact,
-            "products": products
-        }
-        //console.log(order);
-        this.displayOrder(order);
     }
 
     async displayOrder(order) {
         try {
-            let apiUrl = (location.hostname === 'localhost' || location.hostname === '127.0.0.1' )? "http://localhost:3000/api/furniture/order": "https://bckend.herokuapp.com/api/furniture/order";
-            //console.log(apiUrl);
+            let apiUrl = (location.hostname === 'localhost' || location.hostname === '127.0.0.1' )? "http://localhost:3000/api/furniture/order" : "https://bckend.herokuapp.com/api/furniture/order";
             var ordered = await Ajax.post(apiUrl, order);
         }  
         catch(e) {
