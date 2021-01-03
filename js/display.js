@@ -17,22 +17,17 @@ class Display {
 
         try {
             let apiUrl = (location.hostname === 'localhost' || location.hostname === '127.0.0.1' )? "http://localhost:3000/api/furniture/": "https://bckend.herokuapp.com/api/furniture";
-            //console.log(apiUrl);
             var listeMeubles = await Ajax.get(apiUrl);
-            //var listeMeubles = await Ajax.get("http://localhost:3000/api/furniture/");
         }
         catch(e) {
             console.log('dans display : ' +e);
-            //this.divDetailMeuble.innerHTML = alert('Le site rencontre un problème. Veuillez nous excuser de la gène occasionnée');
             window.location.href = '../warning.html';
             return;
         }
-        //console.log(this.panier.arrayFurnitures);
         var moduloZeroOuUn = 0;
         if (listeMeubles.length % 2 === 1) {
             moduloZeroOuUn = 1;
         }
-        //console.log('zeroOuUn : '+moduloZeroOuUn)
         
         /* créer les div de lignes (row bootstrap) : 1 row pour 2 cols (= 2 cards, = 2 meubles) */
         var nombreDeDivsRow = 0;
@@ -47,9 +42,7 @@ class Display {
             }
         }
 
-        //console.log(nombreDeDivsRow);
         var rowsCount = listeMeubles.length;
-        //console.log(rowsCount);
 
         var row = this.divMeubles.querySelector('#divRow'+rowsCount);
 
@@ -59,7 +52,7 @@ class Display {
             if (rowsCount % 2 === moduloZeroOuUn) {
                 row = this.divMeubles.querySelector('#divRow'+rowsCount);
             }
-            //console.log(row);
+
             const item = document.createElement("div");
             item.setAttribute("class", "divMeuble col-12 col-md-6");
 
@@ -104,10 +97,8 @@ class Display {
             description: `${meuble.description}`,
             imageUrl: `${meuble.imageUrl}`
         };
-        //console.log(furniture);
         this.arrayPanierMeubles.push(furniture);
         this.panier.appendFurniture(furniture);
-        //console.log(this.panier.arrayFurnitures);
         this.afficherQteInCart(id);
         this.divMiniPanier.innerHTML= '';
         this.afficheMiniPanier(id, meuble);
@@ -116,7 +107,6 @@ class Display {
     retirerMeuble(id, meuble) {
         //console.log(this.panier.arrayFurnitures.length);
         this.panier.rmFurniture(meuble);
-        //console.log(this.panier.arrayFurnitures.length);
         this.afficherQteInCart(id);
         this.divMiniPanier.innerHTML ='';
         this.afficheMiniPanier(id, meuble);
@@ -135,27 +125,15 @@ class Display {
 
     async displayMeuble(id) {
 
-        //console.log(this.panier.arrayFurnitures);
         try {
             let apiUrl = (location.hostname === 'localhost' || location.hostname === '127.0.0.1' )? "http://localhost:3000/api/furniture/"+id: "https://bckend.herokuapp.com/api/furniture/"+id;
-            //console.log(apiUrl);
             var detailMeuble = await Ajax.get(apiUrl);
-            //var detailMeuble = await Ajax.get("http://localhost:3000/api/furniture/"+id);
         }
         catch(e) {
-            //console.log('dans display : ' +e);
-            //this.divDetailMeuble.innerHTML = alert('Le site rencontre un problème. Veuillez nous excuser de la gène occasionnée');
             window.location.href = '../warning.html';
             return;
         }
         
-        /* variante de code ok :
-        let detailMeuble = await Ajax.get("http://localhost:3000/api/furniture/"+id).catch(
-            (e) => console.log('dans display : ' +e)
-        );
-        */
-
-        //console.log(detailMeuble);
         var item = document.createElement("div");
         item.setAttribute("class", "divMeuble row card mx-auto");
 
@@ -266,7 +244,6 @@ class Display {
         /* mini panier de la page produit.html*/ 
         let ceMeuble = meuble;
         const furnitureToDisplay = this.panier.furnitureList(id);
-        //console.log(furnitureToDisplay);
     
         if (furnitureToDisplay !== false) {
             let i=0;
@@ -302,7 +279,6 @@ class Display {
     displayPanier() {
         this.divOrder.innerHTML='';
         const furnituresToDisplay = this.panier.furnituresList(); // sert pour la ligne de synthese (qté et prix) d'un modele de meuble au panier
-        //console.log(furnituresToDisplay);
         const furnituresToDisplayOptions = this.panier.furnituresList(); // sert pour afficher chaque unité du modèle choisi, avec son option définie
         var distinctFurnitures = new Set();
         var montantTotal = 0;
@@ -325,8 +301,6 @@ class Display {
                 let currentDivPart='product_'+j;
                 divPartDeCeProduitAuPanier.setAttribute('id',currentDivPart);
                 divPartDeCeProduitAuPanier.setAttribute('class', 'product-line');
-
-                //this.displayTotalProduit(divPartDeCeProduitAuPanier, item.id, j);
 
                 let result= this.panier.quantiteOfAFurniture(item.id);
                 qte = result.qte;
@@ -374,7 +348,6 @@ class Display {
                         if (divLignesTxt.childNodes.length > 1) {
                             //mettre à jour la ligne de synthèse
 
-                            //console.log(divResult.childNodes);
                             let content = this.createResult(item);
                             divLignesTxt.firstChild.innerHTML = content;
 
@@ -387,7 +360,6 @@ class Display {
                         }.bind(this));
                         
                         divSuppr.appendChild(btnSuppr);
-                        //divResult.appendChild(divSuppr);
                         divLignesTxt.appendChild(divSuppr);
                         this.divOrder.appendChild(divPartDeCeProduitAuPanier);
                     }
@@ -397,7 +369,6 @@ class Display {
         }
         //console.log(j);
         this.displayMontantTotal();
-        //console.log(furnituresToDisplay);
         this.hideContactForm();
 
         // paramétrer les champs input du formulaire contact
@@ -407,104 +378,10 @@ class Display {
         this.contact.inputSet('city');
         this.contact.inputSet('email');
     }
-
-    /*displayPanier_save() {
-        this.divOrder.innerHTML='';
-        const furnituresToDisplay = this.panier.furnituresList();
-        console.log(furnituresToDisplay);
-        const furnituresToDisplayOptions = this.panier.furnituresList();
-        var distinctFurnitures = new Set();
-        var montantTotal = 0;
-        var content = '';
-
-        // création de l'ensemble d'Ids des produits distincts présents au panier
-        for (let item of furnituresToDisplay) {
-            if (!distinctFurnitures.has(item.id)) {
-                distinctFurnitures.add(item.id);
-            }
-        }
-
-
-        var j = 0 //compteur pour les lignes du panier calculées (divPartDeCeProduitAuPanier)
-        var i = 0; //compteur pour les lignes du panier supprimables (divSuppr)
-        for (let item of furnituresToDisplay) {
-            let qte = 0;
-            if (distinctFurnitures.has(item.id)) {
-                j++;
-                let divPartDeCeProduitAuPanier = document.createElement("div");
-                let currentDivPart='product_'+j;
-                divPartDeCeProduitAuPanier.setAttribute('id',currentDivPart);
-                divPartDeCeProduitAuPanier.setAttribute('class', 'product-line');
-
-                //this.displayTotalProduit(divPartDeCeProduitAuPanier, item.id, j);
-
-                let result= this.panier.quantiteOfAFurniture(item.id);
-                qte = result.qte;
-                let divResult = document.createElement("div");
-                let currentResult='result_'+j;
-                divResult.setAttribute('id', currentResult);
-                divResult.setAttribute('class', 'resultLine');
-                content = `<img src='${item.imageUrl}' class='imgLine'> ${item.name}
-                Qté : ${qte} prix unitaire : `+ this.convertToEuros(item.price) + `total : ` + this.convertToEuros(qte*item.price) +'<br>';
-                montantTotal += qte*item.price;
-                divResult.innerHTML = content;
-                divPartDeCeProduitAuPanier.appendChild(divResult);
-                // affichage détaillé
-                for (let unite of furnituresToDisplayOptions) {
-                    i++;
-                    const divSuppr = document.createElement("div");
-                    let currentDivId = 'divSuppr_'+i;
-                    divSuppr.setAttribute('id', currentDivId);
-                    divSuppr.setAttribute('class', 'product-line-detail');
-                    if (unite.id === item.id) {
-
-                        //content += `1 ${unite.name}, vernis ${unite.varnish} <br>`;
-                        content = `1 ${unite.name}, vernis ${unite.varnish} &nbsp &nbsp`;
-                        divSuppr.innerHTML = content;
-                        const btnSuppr = document.createElement("button");
-                        btnSuppr.setAttribute('class', 'btnSuppr');
-                        btnSuppr.textContent = 'supprimer';
-                        btnSuppr.addEventListener('click', function(event) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        montantTotal -= item.price;
-                        this.panier.rmFurniture(unite);
-                        let currentDivSuppr = document.getElementById(currentDivId);
-                        console.log(currentDivSuppr);
-                        divPartDeCeProduitAuPanier.removeChild(currentDivSuppr);
-                        if (divPartDeCeProduitAuPanier.childNodes.length > 1) {
-                            //mettre à jour 
-                            console.log(divPartDeCeProduitAuPanier.childNodes);
-                            let content = this.createResult(item);
-                            divPartDeCeProduitAuPanier.firstChild.innerHTML = content;
-
-                        } else {
-                            divPartDeCeProduitAuPanier.parentNode.removeChild(divPartDeCeProduitAuPanier);
-                        }
-                        
-                        this.displayMontantTotal();
-                        this.hideContactForm();
-                        }.bind(this));
-                        
-                        divSuppr.appendChild(btnSuppr);
-                        //divResult.appendChild(divSuppr);
-                        divPartDeCeProduitAuPanier.appendChild(divSuppr);
-                        this.divOrder.appendChild(divPartDeCeProduitAuPanier);
-                    }
-                }
-                distinctFurnitures.delete(item.id); // on supprime ce produit affiché de l'ensemble
-                
-            }
-        }
-        console.log(j);
-        this.displayMontantTotal();
-        console.log(furnituresToDisplay);
-        this.hideContactForm();
-    }*/
     
     hideContactForm() {
         let divForm = document.querySelector("#contact > form");
-        //console.log(divForm);
+
         if (this.panier.arrayFurnitures.length === 0 && divForm !== null) {
             divForm.setAttribute('id','frmContactNone');
             this.contact.supprimerMessages();
@@ -552,7 +429,6 @@ class Display {
 
     order() {
         let client = this.contact.verifyContact();
-        //console.log(client);
         var products = [];
         var objContact = {};
         if (client) {
@@ -574,12 +450,9 @@ class Display {
             var ordered = await Ajax.post(apiUrl, order);
         }  
         catch(e) {
-            //console.log('dans display : ' +e);
-            //this.divDetailMeuble.innerHTML = alert('Le site rencontre un problème. Veuillez nous excuser de la gène occasionnée');
             window.location.href = '../warning.html';
             return;
         }
-        //console.log(ordered);
 
         //ajouter la date avant d'enregistrer la commande
         let today = new Date();
@@ -642,7 +515,6 @@ class Display {
         let confirmation = new Order();
         confirmation.createOrdersArray();
         let lastOrder = confirmation.returnArrayOrdersLastRecord();
-        //console.log(lastOrder);
         const divConfirmation = document.getElementById("divConfirmation");
 
         let enTete = `<h4>Confirmation de la commande n°: <span class='font-weight-bold'> ${lastOrder.orderId}</span> du ${lastOrder.date.substr(0,11)}</h4><br>`;
