@@ -3,23 +3,6 @@ class Contact {
 
     }
 
-    /*firstNameSet() {
-        let firstName = document.querySelector('#firstName');
-        firstName.addEventListener('click', function(e) {
-            //console.log('test');
-            //console.log(firstName.nextSibling);
-            //console.log(firstName.nextElementSibling);
-            //console.log(firstName.nextSibling);
-            if (firstName.nextElementSibling) {
-                //console.log('ok');
-                //console.log(firstName.nextSibling);
-                //console.log(firstName.nextElementSibling);
-                let div= firstName.nextElementSibling;
-                console.log(div);
-                div.parentNode.removeChild(div);
-            }
-        });
-    }*/
     inputNotOk(inputName, msg) {
         const divName = document.getElementById(inputName);
 
@@ -65,25 +48,6 @@ class Contact {
         }.bind(this));
     }
 
-    /*inputSet_save(inputName) {
-        let divInputName = document.querySelector('#'+inputName);
-        //console.log(divInputName);
-        divInputName.addEventListener('click', function (e) {
-            //console.log('test');
-            //console.log(firstName.nextSibling);
-            //console.log(firstName.nextElementSibling);
-            //console.log(firstName.nextSibling);
-            if (divInputName.nextElementSibling) {
-                //console.log('ok');
-                //console.log(divInputName.nextSibling);
-                //console.log(divInputName.nextElementSibling);
-                let div= divInputName.nextElementSibling;
-                //console.log(div);
-                div.parentNode.removeChild(div);
-            }
-        });
-    }*/
-
     firstNameOk() {
         let prenom = document.getElementById("firstName");
         //console.log(prenom.value);
@@ -94,21 +58,6 @@ class Contact {
             this.inputNotOk('firstName', 'Champ prénom requis. Ne doit comporter que des caractères alphabétiques, des tirets, et des espaces.');
         }
     }
-    /*firstNameOk_save() {
-        let prenom = document.getElementById("firstName");
-        console.log(prenom.value);
-        let prenomRegex = /^[éèêôâïöA-Za-z- ]{2,24}$/i;
-        if (prenomRegex.test(prenom.value)) {
-            return true;
-        } else {
-            const divFirstName = document.getElementById('firstName');
-            const tmpDiv = document.createElement('div');
-            tmpDiv.setAttribute('class', 'input-warning');
-            tmpDiv.textContent= 'Le champ prénom est obligatoire. Il ne peut comporter que des caractères alphabétiques, des tirets, et des espaces.';
-            divFirstName.insertAdjacentElement('afterend', tmpDiv);
-            console.log('OUPS prenom');
-        }
-    }*/
 
     lastNameOk() {
         let nom = document.getElementById("lastName");
@@ -119,6 +68,7 @@ class Contact {
             this.inputNotOk('lastName', 'Champ nom requis. Ne doit comporter que des caractères alphabétiques, des tirets, et des espaces.');
         }
     }
+
     addressOk() {
         let adresse = document.getElementById("address");
         let addressRegex = /^[éèêôâïöA-Za-z0-9-,.'/ ]{2,49}$/;
@@ -128,6 +78,7 @@ class Contact {
             this.inputNotOk('address', 'Champ adresse requis. Caractères autorisés : lettres, chiffres, point, virgule, apostrophe et espaces.');
         }
     }
+
     cityOk() {
         let ville = document.getElementById("city");
         let villeRegex = /^[éèêôâïöA-Za-z-0-9/ ]{2,49}$/i;
@@ -137,6 +88,7 @@ class Contact {
             this.inputNotOk('city', 'Champ ville requis. Ne doit comporter que des caractères alphabétiques, des tirets, et des espaces.');
         }
     }
+    
     mailOk() {
         let mail = document.getElementById("email");
         let mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,7}$/i;

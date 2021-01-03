@@ -5,14 +5,10 @@ class Order {
     }
     createOrdersArray() {
         var orders = localStorage.getItem("orders");
-        //console.log(orders);
         if (orders === null) {
-            //localStorage.setItem('furnitures',JSON.stringify(this.arrayFurnitures));
-            //console.log(JSON.parse(localStorage.getItem('furnitures')));
             console.log('aucun historique de commandes');
         } else {
             this.arrayOrders = JSON.parse(orders);
-            //console.log(this.arrayOrders);
         } 
     } 
 
@@ -35,7 +31,6 @@ class Order {
 
     static returnOrdersTable() {
         let oldOrders = JSON.parse(localStorage.getItem('orders'));
-        //console.log(oldOrders);
         return oldOrders;
     }
 
