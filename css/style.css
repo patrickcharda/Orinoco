@@ -10173,10 +10173,8 @@ pre {
   border: 4px solid black;
 }
 
-/*input {
-    &:focus + div {
-        display: none;
-    }
-}*/
+.w200 {
+  width: 200px;
+}
 
 /*# sourceMappingURL=style.css.map */
