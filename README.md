@@ -22,6 +22,10 @@ https://patrickcharda.github.io/Orinoco/
 
 ![Node ok](https://github.com/patrickcharda/Orinoco/blob/main/NodeOk.PNG)
 
+## Plan de tests
+
+https://github.com/patrickcharda/Orinoco/blob/main/P5_02_planTests.xlsx
+
 
 
 
