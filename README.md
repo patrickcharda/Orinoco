@@ -2,8 +2,11 @@
 
 Projet de développement du front-end d'un mini-site de e-commerce dans le cadre de la formation de développeur web dispensée par OpenClassrooms.
 
-Résultat de l'intégration avec le backend hébergé sur Heroku :
+Résultat de l'intégration, avec le frontend sur la Github page et le backend hébergé sur la plateforme Heroku :
 https://patrickcharda.github.io/Orinoco/
+
+ou avec frontend et backend sur mon hébergement :
+https://orinoco.by-webcycle.fr
 
 ![Aperçu Orinoco](https://github.com/patrickcharda/Orinoco/blob/main/Screenshot.PNG)
 
