@@ -8,6 +8,8 @@ https://patrickcharda.github.io/Orinoco/
 ou ici :
 https://orinoco.by-webcycle.fr
 
+NB : Attention, la base de données Mongodb hébergée dans le cloud met souvent un peu de temps à répondre, mais les photos des produits finissent par s'afficher !
+
 ![Aperçu Orinoco](https://github.com/patrickcharda/Orinoco/blob/main/Screenshot.PNG)
 
 ## Installation
